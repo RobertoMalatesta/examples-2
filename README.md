@@ -2,6 +2,10 @@
 
 ### [FRA example](https://quantlibjs.github.io/examples)
 
+>
+> check browser console to see output
+>
+
 
 output from official source code build (32-bit, debug mode)
 
