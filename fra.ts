@@ -1,10 +1,3 @@
-/**
- * @module Example
- *
- * Copyright (c) Jin Yang
- * Distributed under the terms of the Modified BSD License.
- *
- */
 import {Integer, Rate, Real, Size} from '../src/types';
 import {Settings} from '../src/settings';
 import {Compounding} from '../src/compounding';
