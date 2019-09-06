@@ -1,6 +1,6 @@
 import { Actual365Fixed, Array1D, Array2D, BaseCorrelationLossModel, BaseCorrelationTermStructure, Basket, BinomialLossModel, BusinessDayConvention, ConstantLossLatentmodel, EURCurrency, FlatHazardRate, GaussianLHPLossModel, Handle, InhomogeneousPoolLossModel, Issuer, LatentModelIntegrationType, NorthAmericaCorpDefaultKey, Period, Pool, RandomDefaultLM, RandomLossLM, Seniority, Settings, SimpleQuote, SpotRecoveryLatentModel, TARGET, TCopulaPolicy, TimeUnit } from '/ql.mjs';
 
-describe('basket losses example', () => { 
+example('basket losses example', () => { 
 
     const calendar = new TARGET();
     let todaysDate = new Date('19-March-2014');
@@ -37,40 +37,40 @@ describe('basket losses example', () => {
     const fctrsWeights = Array2D.newMatrix(hazardRates.length, 1, Math.sqrt(factorValue));
     const lmGLHP = new GaussianLHPLossModel();
     theBskt.setLossModel(lmGLHP);
-    it(`GLHP Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`,()=>{expect(true).toEqual(true);});
+    print(`GLHP Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`);
     const ktLossLM = new ConstantLossLatentmodel().init1(fctrsWeights, recoveries, LatentModelIntegrationType.LatentModelIntegrationType
         .GaussianQuadrature, null);
     const lmBinomial = new BinomialLossModel(ktLossLM);
     theBskt.setLossModel(lmBinomial);
-    it(`Gaussian Binomial Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`,()=>{expect(true).toEqual(true);});
+    print(`Gaussian Binomial Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`);
     const initT = new TCopulaPolicy.initTraits();
     const ktTLossLM = new ConstantLossLatentmodel().init1(fctrsWeights, recoveries, LatentModelIntegrationType.LatentModelIntegrationType.Trapezoid, initT);
     const lmTBinomial = new BinomialLossModel(ktTLossLM);
     theBskt.setLossModel(lmTBinomial);
-    it(`T Binomial Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`,()=>{expect(true).toEqual(true);});
+    print(`T Binomial Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`);
     const numSimulations = 100000;
     const gLM = new ConstantLossLatentmodel().init1(fctrsWeights, recoveries, LatentModelIntegrationType.LatentModelIntegrationType
         .GaussianQuadrature, null);
     const numBuckets = 100;
     const inhomogeneousLM = new InhomogeneousPoolLossModel(gLM, numBuckets);
     theBskt.setLossModel(inhomogeneousLM);
-    it(`G Inhomogeneous Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`,()=>{expect(true).toEqual(true);});
+    print(`G Inhomogeneous Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`);
     const rdlmG = new RandomDefaultLM().init1(gLM, recoveries, numSimulations, 1.e-6, 2863311530);
     theBskt.setLossModel(rdlmG);
-    it(`Random G Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`,()=>{expect(true).toEqual(true);});
+    print(`Random G Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`);
     const rdlmT = new RandomDefaultLM().init1(ktTLossLM, recoveries, numSimulations, 1.e-6, 2863311530);
     theBskt.setLossModel(rdlmT);
-    it(`Random T Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`,()=>{expect(true).toEqual(true);});
+    print(`Random T Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`);
     const fctrsWeightsRR = Array2D.newMatrix(2 * hazardRates.length, 1, Math.sqrt(factorValue));
     const modelA = 2.2;
     const sptLG = new SpotRecoveryLatentModel(fctrsWeightsRR, recoveries, modelA, LatentModelIntegrationType.LatentModelIntegrationType.GaussianQuadrature, null);
     const sptLT = new SpotRecoveryLatentModel(fctrsWeightsRR, recoveries, modelA, LatentModelIntegrationType.LatentModelIntegrationType.GaussianQuadrature, initT);
     const rdLlmG = new RandomLossLM(sptLG, numSimulations, 1.e-6, 2863311530);
     theBskt.setLossModel(rdLlmG);
-    it(`Random Loss G Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`,()=>{expect(true).toEqual(true);});
+    print(`Random Loss G Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`);
     const rdLlmT = new RandomLossLM(sptLT, numSimulations, 1.e-6, 2863311530);
     theBskt.setLossModel(rdLlmT);
-    it(`Random Loss T Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`,()=>{expect(true).toEqual(true);});
+    print(`Random Loss T Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`);
     const bcTenors = [
         new Period().init1(1, TimeUnit.Years), new Period().init1(5, TimeUnit.Years)
     ];
@@ -88,6 +88,6 @@ describe('basket losses example', () => {
     const correlHandle = new Handle(correlSurface);
     const bcLMG_LHP_Bilin = new BaseCorrelationLossModel(correlHandle, recoveries, null);
     theBskt.setLossModel(bcLMG_LHP_Bilin);
-    it(`Base Correlation GLHP Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`,()=>{expect(true).toEqual(true);});
+    print(`Base Correlation GLHP Expected 10-Yr Losses: ${theBskt.expectedTrancheLoss(calcDate)}`);
 
 });

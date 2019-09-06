@@ -1,4 +1,5 @@
 import { Array1D, BondFunctions, BusinessDayConvention, Compounding, CubicBSplinesFitting, DateGeneration, Discount, Duration, ExponentialSplinesFitting, FittedBondDiscountCurve, FixedRateBondHelper, FlatForward, Frequency, Handle, LogLinear, NelsonSiegelFitting, Period, PiecewiseYieldCurve, Schedule, Settings, SimpleDayCounter, SimplePolynomialFitting, SimpleQuote, SpreadFittingMethod, SvenssonFitting, TARGET, TimeUnit } from '/ql.mjs';
+
 function parRate(yts, dates, resultDayCounter) {
     if (dates.length < 2) {
         throw new Error('at least two dates are required');
@@ -15,14 +16,16 @@ function parRate(yts, dates, resultDayCounter) {
     const result = yts.discount1(dates[0]) - yts.discount1(Array1D.back(dates));
     return result / sum;
 }
+
 function printOutput(tag, curve) {
-    console.log('reference date : \n' +
+    print('reference date : \n' +
         `${curve.referenceDate()} \n` +
         'number of iterations : ' +
         `${curve.fitResults().numberOfIterations()}`);
 }
-try {
-    const startTime = Date.now();
+
+example('fitted bound curve example', () => { 
+
     const numberOfBonds = 15;
     const cleanPrice = new Array(numberOfBonds);
     for (let i = 0; i < numberOfBonds; i++) {
@@ -54,7 +57,7 @@ try {
     const bondSettlementDays = 0;
     const curveSettlementDays = 0;
     let bondSettlementDate = calendar.advance1(today, bondSettlementDays, TimeUnit.Days);
-    console.log(`Today's date: ${today} \n` +
+    print(`Today's date: ${today} \n` +
         `Bonds' settlement date: ${bondSettlementDate} \n` +
         'Calculating fit for 15 bonds.....');
     const instrumentsA = [];
@@ -96,7 +99,7 @@ try {
     const nelsonSiegelSpread = new SpreadFittingMethod(new NelsonSiegelFitting(), discountCurve);
     const ts6 = new FittedBondDiscountCurve().fbdcInit1(curveSettlementDays, calendar, instrumentsA, dc, nelsonSiegelSpread, tolerance, max);
     printOutput('(f) Nelson-Siegel spreaded', ts6);
-    console.log('Output par rates for each curve. In this case, ' +
+    print('Output par rates for each curve. In this case, ' +
         'par rates should equal coupons for these par bonds.');
     for (let i = 0; i < instrumentsA.length; i++) {
         const cfs = instrumentsA[i].bond().cashflows();
@@ -110,7 +113,7 @@ try {
             }
         }
         const tenor = dc.yearFraction(today, cfs[cfSize - 1].date());
-        console.log(`${tenor} | ${100. * coupons[i]} | ` +
+        print(`${tenor} | ${100. * coupons[i]} | ` +
             `${100. * parRate(ts0, keyDates, dc)} | ` +
             `${100. * parRate(ts1, keyDates, dc)} | ` +
             `${100. * parRate(ts2, keyDates, dc)} | ` +
@@ -119,7 +122,7 @@ try {
             `${100. * parRate(ts5, keyDates, dc)} | ` +
             `${100. * parRate(ts6, keyDates, dc)}`);
     }
-    console.log('Now add 23 months to today. Par rates should be ' +
+    print('Now add 23 months to today. Par rates should be ' +
         'automatically recalculated because today\'s date ' +
         'changes.  Par rates will NOT equal coupons (YTM ' +
         'will, with the correct compounding), but the ' +
@@ -147,7 +150,7 @@ try {
             }
         }
         const tenor = dc.yearFraction(today, cfs[cfSize - 1].date());
-        console.log(`${tenor} | ${100. * coupons[i]} | ` +
+        print(`${tenor} | ${100. * coupons[i]} | ` +
             `${100. * parRate(ts0, keyDates, dc)} | ` +
             `${100. * parRate(ts1, keyDates, dc)} | ` +
             `${100. * parRate(ts2, keyDates, dc)} | ` +
@@ -156,7 +159,7 @@ try {
             `${100. * parRate(ts5, keyDates, dc)} | ` +
             `${100. * parRate(ts6, keyDates, dc)}`);
     }
-    console.log('Now add one more month, for a total of two years ' +
+    print('Now add one more month, for a total of two years ' +
         'from the original date. The first instrument is ' +
         'now expired and par rates should again equal ' +
         'coupon values, since clean prices did not change.');
@@ -192,7 +195,7 @@ try {
             }
         }
         const tenor = dc.yearFraction(today, cfs[cfSize - 1].date());
-        console.log(`${tenor} | ${100. * coupons[i]} | ` +
+        print(`${tenor} | ${100. * coupons[i]} | ` +
             `${100. * parRate(ts00, keyDates, dc)} | ` +
             `${100. * parRate(ts11, keyDates, dc)} | ` +
             `${100. * parRate(ts22, keyDates, dc)} | ` +
@@ -201,7 +204,7 @@ try {
             `${100. * parRate(ts55, keyDates, dc)} | ` +
             `${100. * parRate(ts66, keyDates, dc)}`);
     }
-    console.log('Now decrease prices by a small amount, corresponding' +
+    print('Now decrease prices by a small amount, corresponding' +
         'to a theoretical five basis point parallel + shift of' +
         'the yield curve. Because bond quotes change, the new ' +
         'par rates should be recalculated automatically.');
@@ -226,7 +229,7 @@ try {
             }
         }
         const tenor = dc.yearFraction(today, cfs[cfSize - 1].date());
-        console.log(`${tenor} | ${100. * coupons[i]} | ` +
+        print(`${tenor} | ${100. * coupons[i]} | ` +
             `${100. * parRate(ts00, keyDates, dc)} | ` +
             `${100. * parRate(ts11, keyDates, dc)} | ` +
             `${100. * parRate(ts22, keyDates, dc)} | ` +
@@ -235,10 +238,5 @@ try {
             `${100. * parRate(ts55, keyDates, dc)} | ` +
             `${100. * parRate(ts66, keyDates, dc)}`);
     }
-    const endTime = Date.now();
-    console.log(`\nRun completed in ${(endTime - startTime) / 1000} seconds\n`);
-}
-catch (e) {
-    console.log(e);
-}
-//# sourceMappingURL=fittedbondcurve.js.map
+
+});

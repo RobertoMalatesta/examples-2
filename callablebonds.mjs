@@ -8,16 +8,16 @@ function flatRate2(today, forward, dc, compounding, frequency) {
     return flatRate1(today, new SimpleQuote(forward), dc, compounding, frequency);
 }
 
-describe('callable bonds example', () => { 
+example('callable bonds example', () => { 
 
     const today = new Date('16-October-2007');
     Settings.evaluationDate.set(today);
-    it('Pricing a callable fixed rate bond using\n' +
+    print('Pricing a callable fixed rate bond using\n' +
         'Hull White model w/ reversion parameter = 0.03\n' +
         'BAC4.65 09/15/12  ISIN: US06060WBJ36\n' +
         'roughly five year tenor, ' +
         'quarterly coupon and call dates\n' +
-        `reference date is : ${today}`,()=>{expect(true).toEqual(true);});
+        `reference date is : ${today}`);
     const bbCurveRate = 0.055;
     const bbDayCounter = new ActualActual(ActualActual.Convention.Bond);
     const bbIR = new InterestRate(bbCurveRate, bbDayCounter, Compounding.Compounded, Frequency.Semiannual);
@@ -54,56 +54,56 @@ describe('callable bonds example', () => {
     const engine0 = new TreeCallableFixedRateBondEngine().tcfrbeInit1(hw0, gridIntervals);
     const callableBond = new CallableFixedRateBond(settlementDays, faceAmount, sch, [coupon], bondDayCounter, paymentConvention, redemption, issue, callSchedule);
     callableBond.setPricingEngine(engine0);
-    it(`sigma/vol (%) = ${100. * sigma}`,()=>{expect(true).toEqual(true);});
-    it('QuantLib price/yld (%)  ',()=>{expect(true).toEqual(true);});
-    it(`${callableBond.cleanPrice1()} / ` +
+    print(`sigma/vol (%) = ${100. * sigma}`);
+    print('QuantLib price/yld (%)  ');
+    print(`${callableBond.cleanPrice1()} / ` +
         `${100. *
-            callableBond.yield1(bondDayCounter, Compounding.Compounded, frequency, accuracy, maxIterations)}`,()=>{expect(true).toEqual(true);});
-    it('Bloomberg price/yld (%) ',()=>{expect(true).toEqual(true);});
-    it('96.50 / 5.47',()=>{expect(true).toEqual(true);});
+            callableBond.yield1(bondDayCounter, Compounding.Compounded, frequency, accuracy, maxIterations)}`);
+    print('Bloomberg price/yld (%) ');
+    print('96.50 / 5.47');
     sigma = .01;
-    it(`sigma/vol (%) = ${100. * sigma}`,()=>{expect(true).toEqual(true);});
+    print(`sigma/vol (%) = ${100. * sigma}`);
     const hw1 = new HullWhite(termStructure, reversionParameter, sigma);
     const engine1 = new TreeCallableFixedRateBondEngine().tcfrbeInit1(hw1, gridIntervals);
     callableBond.setPricingEngine(engine1);
-    it('QuantLib price/yld (%)  ',()=>{expect(true).toEqual(true);});
-    it(`${callableBond.cleanPrice1()} / ` +
+    print('QuantLib price/yld (%)  ');
+    print(`${callableBond.cleanPrice1()} / ` +
         `${100. *
-            callableBond.yield1(bondDayCounter, Compounding.Compounded, frequency, accuracy, maxIterations)}`,()=>{expect(true).toEqual(true);});
-    it('Bloomberg price/yld (%) ',()=>{expect(true).toEqual(true);});
-    it('95.68 / 5.66',()=>{expect(true).toEqual(true);});
+            callableBond.yield1(bondDayCounter, Compounding.Compounded, frequency, accuracy, maxIterations)}`);
+    print('Bloomberg price/yld (%) ');
+    print('95.68 / 5.66');
     sigma = .03;
     const hw2 = new HullWhite(termStructure, reversionParameter, sigma);
     const engine2 = new TreeCallableFixedRateBondEngine().tcfrbeInit1(hw2, gridIntervals);
     callableBond.setPricingEngine(engine2);
-    it(`sigma/vol (%) = ${100. * sigma}`,()=>{expect(true).toEqual(true);});
-    it('QuantLib price/yld (%)  ',()=>{expect(true).toEqual(true);});
-    it(`${callableBond.cleanPrice1()} / ` +
+    print(`sigma/vol (%) = ${100. * sigma}`);
+    print('QuantLib price/yld (%)  ');
+    print(`${callableBond.cleanPrice1()} / ` +
         `${100. *
-            callableBond.yield1(bondDayCounter, Compounding.Compounded, frequency, accuracy, maxIterations)}`,()=>{expect(true).toEqual(true);});
-    it('Bloomberg price/yld (%) ',()=>{expect(true).toEqual(true);});
-    it('92.34 / 6.49',()=>{expect(true).toEqual(true);});
+            callableBond.yield1(bondDayCounter, Compounding.Compounded, frequency, accuracy, maxIterations)}`);
+    print('Bloomberg price/yld (%) ');
+    print('92.34 / 6.49');
     sigma = .06;
     const hw3 = new HullWhite(termStructure, reversionParameter, sigma);
     const engine3 = new TreeCallableFixedRateBondEngine().tcfrbeInit1(hw3, gridIntervals);
     callableBond.setPricingEngine(engine3);
-    it(`sigma/vol (%) = ${100. * sigma}`,()=>{expect(true).toEqual(true);});
-    it('QuantLib price/yld (%)  ',()=>{expect(true).toEqual(true);});
-    it(`${callableBond.cleanPrice1()} / ` +
+    print(`sigma/vol (%) = ${100. * sigma}`);
+    print('QuantLib price/yld (%)  ');
+    print(`${callableBond.cleanPrice1()} / ` +
         `${100. *
-            callableBond.yield1(bondDayCounter, Compounding.Compounded, frequency, accuracy, maxIterations)}`,()=>{expect(true).toEqual(true);});
-    it('Bloomberg price/yld (%) ',()=>{expect(true).toEqual(true);});
-    it('87.16 / 7.83',()=>{expect(true).toEqual(true);});
+            callableBond.yield1(bondDayCounter, Compounding.Compounded, frequency, accuracy, maxIterations)}`);
+    print('Bloomberg price/yld (%) ');
+    print('87.16 / 7.83');
     sigma = .12;
     const hw4 = new HullWhite(termStructure, reversionParameter, sigma);
     const engine4 = new TreeCallableFixedRateBondEngine().tcfrbeInit1(hw4, gridIntervals);
     callableBond.setPricingEngine(engine4);
-    it(`sigma/vol (%) = ${100. * sigma}`,()=>{expect(true).toEqual(true);});
-    it('QuantLib price/yld (%)  ',()=>{expect(true).toEqual(true);});
-    it(`${callableBond.cleanPrice1()} / ` +
+    print(`sigma/vol (%) = ${100. * sigma}`);
+    print('QuantLib price/yld (%)  ');
+    print(`${callableBond.cleanPrice1()} / ` +
         `${100. *
-            callableBond.yield1(bondDayCounter, Compounding.Compounded, frequency, accuracy, maxIterations)}`,()=>{expect(true).toEqual(true);});
-    it('Bloomberg price/yld (%) ',()=>{expect(true).toEqual(true);});
-    it('77.31 / 10.65',()=>{expect(true).toEqual(true);});
+            callableBond.yield1(bondDayCounter, Compounding.Compounded, frequency, accuracy, maxIterations)}`);
+    print('Bloomberg price/yld (%) ');
+    print('77.31 / 10.65');
 
 });

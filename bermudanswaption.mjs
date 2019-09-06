@@ -18,12 +18,12 @@ function calibrateModel(model, helpers) {
         const npv = helpers[i].modelValue();
         const implied = helpers[i].impliedVolatility(npv, 1e-4, 1000, 0.05, 0.50);
         const diff = implied - swaptionVols[k];
-        it(`${i + 1} "x" ${swapLenghts[j]} : model " ${implied}` +
-            `, market ${swaptionVols[k]} ${diff}`,()=>{expect(true).toEqual(true);});
+        print(`${i + 1} "x" ${swapLenghts[j]} : model " ${implied}` +
+            `, market ${swaptionVols[k]} ${diff}`);
     }
 }
 
-describe('bermudan swaption example', () => { 
+example('bermudan swaption example', () => { 
 
     const todaysDate = new Date('15-February-2002');
     const calendar = new TARGET();
@@ -72,42 +72,42 @@ describe('bermudan swaption example', () => {
     const modelHW = new HullWhite(rhTermStructure);
     const modelHW2 = new HullWhite(rhTermStructure);
     const modelBK = new BlackKarasinski(rhTermStructure);
-    it('G2 (analytic formulae) calibration',()=>{expect(true).toEqual(true);});
+    print('G2 (analytic formulae) calibration');
     for (i = 0; i < swaptions.length; i++) {
         swaptions[i].setPricingEngine(new G2SwaptionEngine(modelG2, 6.0, 16));
     }
     calibrateModel(modelG2, swaptions);
-    it('calibrated to:\n' +
+    print('calibrated to:\n' +
         `a     = ${modelG2.params()[0]}, ` +
         `sigma = ${modelG2.params()[1]} \n` +
         `b     = ${modelG2.params()[2]} , ` +
         `eta   = ${modelG2.params()[3]} \n` +
-        `rho   = ${modelG2.params()[4]}`,()=>{expect(true).toEqual(true);});
-    it('Hull-White (analytic formulae) calibration',()=>{expect(true).toEqual(true);});
+        `rho   = ${modelG2.params()[4]}`);
+    print('Hull-White (analytic formulae) calibration');
     for (i = 0; i < swaptions.length; i++) {
         swaptions[i].setPricingEngine(new JamshidianSwaptionEngine(modelHW));
     }
     calibrateModel(modelHW, swaptions);
-    it('calibrated to:\n' +
+    print('calibrated to:\n' +
         `a = ${modelHW.params()[0]} , ` +
         `sigma = ${modelHW.params()[1]}`);
-    it('Hull-White (numerical) calibration',()=>{expect(true).toEqual(true);});
+    print('Hull-White (numerical) calibration');
     for (i = 0; i < swaptions.length; i++) {
         swaptions[i].setPricingEngine(new TreeSwaptionEngine().tseInit2(modelHW2, grid));
     }
     calibrateModel(modelHW2, swaptions);
-    it('calibrated to:\n' +
+    print('calibrated to:\n' +
         `a = ${modelHW2.params()[0]} , ` +
         `sigma = ${modelHW2.params()[1]}`);
-    it('Black-Karasinski (numerical) calibration',()=>{expect(true).toEqual(true);});
+    print('Black-Karasinski (numerical) calibration');
     for (i = 0; i < swaptions.length; i++) {
         swaptions[i].setPricingEngine(new TreeSwaptionEngine().tseInit2(modelBK, grid));
     }
     calibrateModel(modelBK, swaptions);
-    it('calibrated to:\n' +
+    print('calibrated to:\n' +
         `a = ${modelBK.params()[0]} , ` +
-        `sigma = ${modelBK.params()[1]}`,()=>{expect(true).toEqual(true);});
-    it(`Payer bermudan swaption struck at ${fixedATMRate} (ATM)`,()=>{expect(true).toEqual(true);});
+        `sigma = ${modelBK.params()[1]}`);
+    print(`Payer bermudan swaption struck at ${fixedATMRate} (ATM)`);
     const bermudanDates = [];
     const leg = swap.fixedLeg();
     for (i = 0; i < leg.length; i++) {
@@ -117,50 +117,50 @@ describe('bermudan swaption example', () => {
     const bermudanExercise = new BermudanExercise(bermudanDates);
     const bermudanSwaption = new Swaption(atmSwap, bermudanExercise);
     bermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelG2, 50));
-    it(`G2 (tree):      ${bermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`G2 (tree):      ${bermudanSwaption.NPV()}`);
     bermudanSwaption.setPricingEngine(new FdG2SwaptionEngine(modelG2));
-    it(`G2 (fdm) :      ${bermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`G2 (fdm) :      ${bermudanSwaption.NPV()}`);
     bermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW, 50));
-    it(`HW (tree):      ${bermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (tree):      ${bermudanSwaption.NPV()}`);
     bermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW));
-    it(`HW (fdm) :      ${bermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (fdm) :      ${bermudanSwaption.NPV()}`);
     bermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW2, 50));
-    it(`HW (num, tree): ${bermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (num, tree): ${bermudanSwaption.NPV()}`);
     bermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW2));
-    it(`HW (num, fdm) : ${bermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (num, fdm) : ${bermudanSwaption.NPV()}`);
     bermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelBK, 50));
-    it(`BK:             ${bermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
-    it(`Payer bermudan swaption struck at ${fixedOTMRate} (OTM)`,()=>{expect(true).toEqual(true);});
+    print(`BK:             ${bermudanSwaption.NPV()}`);
+    print(`Payer bermudan swaption struck at ${fixedOTMRate} (OTM)`);
     const otmBermudanSwaption = new Swaption(otmSwap, bermudanExercise);
     otmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelG2, 300));
-    it(`G2 (tree):       ${otmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`G2 (tree):       ${otmBermudanSwaption.NPV()}`);
     otmBermudanSwaption.setPricingEngine(new FdG2SwaptionEngine(modelG2));
-    it(`G2 (fdm) :       ${otmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`G2 (fdm) :       ${otmBermudanSwaption.NPV()}`);
     otmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW, 50));
-    it(`HW (tree):       ${otmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (tree):       ${otmBermudanSwaption.NPV()}`);
     otmBermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW));
-    it(`HW (fdm) :       ${otmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (fdm) :       ${otmBermudanSwaption.NPV()}`);
     otmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW2, 50));
-    it(`HW (num, tree):  ${otmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (num, tree):  ${otmBermudanSwaption.NPV()}`);
     otmBermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW2));
-    it(`HW (num, fdm):   ${otmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (num, fdm):   ${otmBermudanSwaption.NPV()}`);
     otmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelBK, 50));
-    it(`BK:              ${otmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
-    it(`Payer bermudan swaption struck at ${fixedITMRate} (ITM)`,()=>{expect(true).toEqual(true);});
+    print(`BK:              ${otmBermudanSwaption.NPV()}`);
+    print(`Payer bermudan swaption struck at ${fixedITMRate} (ITM)`);
     const itmBermudanSwaption = new Swaption(itmSwap, bermudanExercise);
     itmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelG2, 50));
-    it(`G2 (tree):       ${itmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`G2 (tree):       ${itmBermudanSwaption.NPV()}`);
     itmBermudanSwaption.setPricingEngine(new FdG2SwaptionEngine(modelG2));
-    it(`G2 (fdm) :       ${itmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`G2 (fdm) :       ${itmBermudanSwaption.NPV()}`);
     itmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW, 50));
-    it(`HW (tree):       ${itmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (tree):       ${itmBermudanSwaption.NPV()}`);
     itmBermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW));
-    it(`HW (fdm) :       ${itmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (fdm) :       ${itmBermudanSwaption.NPV()}`);
     itmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW2, 50));
-    it(`HW (num, tree):  ${itmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (num, tree):  ${itmBermudanSwaption.NPV()}`);
     itmBermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW2));
-    it(`HW (num, fdm) :  ${itmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`HW (num, fdm) :  ${itmBermudanSwaption.NPV()}`);
     itmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelBK, 50));
-    it(`BK:              ${itmBermudanSwaption.NPV()}`,()=>{expect(true).toEqual(true);});
+    print(`BK:              ${itmBermudanSwaption.NPV()}`);
 
 });

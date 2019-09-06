@@ -1,6 +1,6 @@
 import { Actual360, ActualActual, BackwardFlat, BusinessDayConvention, CounterpartyAdjSwapEngine, Discount, DiscountingSwapEngine, Euribor3M, Frequency, Handle, InterpolatedHazardRateCurve, LogLinear, MakeVanillaSwap, Period, PiecewiseYieldCurve, Settings, SimpleQuote, SwapRateHelper, TARGET, TimeUnit, VanillaSwap } from '/ql.mjs';
 
-describe('cvairs example', () => { 
+example('cvairs example', () => { 
 
     const calendar = new TARGET();
     let todaysDate = new Date('10-March-2004');
@@ -73,17 +73,17 @@ describe('cvairs example', () => {
             .withType(swapType)
             .f());
     }
-    it('-- Correction in the contract fix rate in bp --',()=>{expect(true).toEqual(true);});
+    print('-- Correction in the contract fix rate in bp --');
     for (let i = 0; i < riskySwaps.length; i++) {
         riskySwaps[i].setPricingEngine(riskFreeEngine);
         const nonRiskyFair = riskySwaps[i].fairRate();
-        it(`${tenorsSwapMkt[i]} | ${nonRiskyFair} | `,()=>{expect(true).toEqual(true);});
+        print(`${tenorsSwapMkt[i]} | ${nonRiskyFair} | `);
         riskySwaps[i].setPricingEngine(ctptySwapCvaLow);
-        it(`${10000. * (riskySwaps[i].fairRate() - nonRiskyFair)} | `,()=>{expect(true).toEqual(true);});
+        print(`${10000. * (riskySwaps[i].fairRate() - nonRiskyFair)} | `);
         riskySwaps[i].setPricingEngine(ctptySwapCvaMedium);
-        it(`${10000. * (riskySwaps[i].fairRate() - nonRiskyFair)} | `,()=>{expect(true).toEqual(true);});
+        print(`${10000. * (riskySwaps[i].fairRate() - nonRiskyFair)} | `);
         riskySwaps[i].setPricingEngine(ctptySwapCvaHigh);
-        it(`${10000. * (riskySwaps[i].fairRate() - nonRiskyFair)}\n`,()=>{expect(true).toEqual(true);});
+        print(`${10000. * (riskySwaps[i].fairRate() - nonRiskyFair)}\n`);
     }
 
 });

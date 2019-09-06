@@ -27,17 +27,17 @@ function example01() {
     const hazardRateStructure = new PiecewiseDefaultCurve(new HazardRate(), new BackwardFlat())
         .pwdcInit1(todaysDate, instruments, new Actual365Fixed());
     const hr_curve_data = hazardRateStructure.nodes();
-    it('Calibrated hazard rate values: ',()=>{expect(true).toEqual(true);});
+    print('Calibrated hazard rate values: ');
     for (let i = 0; i < hr_curve_data.length; i++) {
-        it(`hazard rate on ${hr_curve_data[i][first]} is ${hr_curve_data[i][second]}`,()=>{expect(true).toEqual(true);});
+        print(`hazard rate on ${hr_curve_data[i][first]} is ${hr_curve_data[i][second]}`);
     }
-    it('Some survival probability values: ',()=>{expect(true).toEqual(true);});
-    it('1Y survival probability: \n' +
+    print('Some survival probability values: ');
+    print('1Y survival probability: \n' +
         `${hazardRateStructure.survivalProbability1(DateExt.advance(todaysDate, 1, TimeUnit.Years))}\n` +
         'expected: 0.9704\n' +
         '2Y survival probability: \n' +
         `${hazardRateStructure.survivalProbability1(DateExt.advance(todaysDate, 2, TimeUnit.Years))}` +
-        'expected: 0.9418\n',()=>{expect(true).toEqual(true);});
+        'expected: 0.9418\n');
     const nominal = 1000000.0;
     const probability = new Handle(hazardRateStructure);
     const engine = new MidPointCdsEngine(probability, recovery_rate, tsCurve);
@@ -84,29 +84,29 @@ function example01() {
     cds_6m.setPricingEngine(engine);
     cds_1y.setPricingEngine(engine);
     cds_2y.setPricingEngine(engine);
-    it('Repricing of quoted CDSs employed for calibration: ',()=>{expect(true).toEqual(true);});
-    it(`3M fair spread: ${cds_3m.fairSpread()}\n` +
+    print('Repricing of quoted CDSs employed for calibration: ');
+    print(`3M fair spread: ${cds_3m.fairSpread()}\n` +
         `   NPV:         ${cds_3m.NPV()}\n` +
         `   default leg: ${cds_3m.defaultLegNPV()}\n` +
-        `   coupon leg:  ${cds_3m.couponLegNPV()}`,()=>{expect(true).toEqual(true);});
-    it(`6M fair spread: ${cds_6m.fairSpread()}\n` +
+        `   coupon leg:  ${cds_3m.couponLegNPV()}`);
+    print(`6M fair spread: ${cds_6m.fairSpread()}\n` +
         `   NPV:         ${cds_6m.NPV()}\n` +
         `   default leg: ${cds_6m.defaultLegNPV()}\n` +
-        `   coupon leg:  ${cds_6m.couponLegNPV()}`,()=>{expect(true).toEqual(true);});
-    it(`1Y fair spread: ${cds_1y.fairSpread()}\n` +
+        `   coupon leg:  ${cds_6m.couponLegNPV()}`);
+    print(`1Y fair spread: ${cds_1y.fairSpread()}\n` +
         `   NPV:         ${cds_1y.NPV()}\n` +
         `   default leg: ${cds_1y.defaultLegNPV()}\n` +
-        `   coupon leg:  ${cds_1y.couponLegNPV()}`,()=>{expect(true).toEqual(true);});
-    it(`2Y fair spread: ${cds_2y.fairSpread()}\n` +
+        `   coupon leg:  ${cds_1y.couponLegNPV()}`);
+    print(`2Y fair spread: ${cds_2y.fairSpread()}\n` +
         `   NPV:         ${cds_2y.NPV()}\n` +
         `   default leg: ${cds_2y.defaultLegNPV()}\n` +
-        `   coupon leg:  ${cds_2y.couponLegNPV()}`,()=>{expect(true).toEqual(true);});
+        `   coupon leg:  ${cds_2y.couponLegNPV()}`);
 }
 
 function example02() { }
 function example03() { }
 
-describe('cds example', () => { 
+example('cds example', () => { 
 
     example01();
     example02();

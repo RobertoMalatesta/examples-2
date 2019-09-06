@@ -1,10 +1,5 @@
-"use strict";
-try {
-    const startTime = Date.now();
-    const endTime = Date.now();
-    console.log(`\nRun completed in ${(endTime - startTime) / 1000} seconds\n`);
-}
-catch (e) {
-    console.log(e);
-}
-//# sourceMappingURL=globaloptimizer.js.map
+example('global optimizer example', () => { 
+
+    print('working in progress');
+    
+});

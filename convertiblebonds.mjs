@@ -1,6 +1,6 @@
 import { Actual365Fixed, AdditiveEQPBinomialTree, AmericanExercise, BinomialConvertibleEngine, BlackConstantVol, BlackScholesMertonProcess, BusinessDayConvention, Callability, ConvertibleFixedCouponBond, CoxRossRubinstein, DateExt, DateGeneration, EuropeanExercise, FixedDividend, FlatForward, Frequency, Handle, JarrowRudd, Joshi4, LeisenReimer, Option, Period, Schedule, Settings, SimpleQuote, SoftCallability, TARGET, Thirty360, Tian, TimeUnit, Trigeorgis } from '/ql.mjs';
 
-describe('convertible bonds example', () => { 
+example('convertible bonds example', () => { 
 
     const type = Option.Type.Put;
     const underlying = 36.0;
@@ -40,12 +40,12 @@ describe('convertible bonds example', () => {
     }
     const dayCounter = new Actual365Fixed();
     const maturity = dayCounter.yearFraction(settlementDate, exerciseDate);
-    it(`option type ${type} \n` +
+    print(`option type ${type} \n` +
         `Time to maturity ${maturity} \n` +
         `Underlying price = ${underlying} \n` +
         `Risk-free interest rate = ${riskFreeRate} \n` +
         `Dividend yield = ${dividendYield} \n` +
-        `Volatility = ${volatility} \n`,()=>{expect(true).toEqual(true);});
+        `Volatility = ${volatility} \n`);
     const exercise = new EuropeanExercise(exerciseDate);
     const amExercise = new AmericanExercise().init1(settlementDate, exerciseDate);
     const underlyingH = new Handle(new SimpleQuote(underlying));
@@ -56,52 +56,52 @@ describe('convertible bonds example', () => {
     const timeSteps = 801;
     const creditSpread = new Handle(new SimpleQuote(spreadRate));
     const engine = new BinomialConvertibleEngine(new JarrowRudd())
-        .bceInit(stochasticProcess, timeSteps);
+        .bceInprint(stochasticProcess, timeSteps);
     const europeanBond = new ConvertibleFixedCouponBond(exercise, conversionRatio, dividends, callability, creditSpread, issueDate, settlementDays, coupons, bondDayCount, schedule, redemption);
     europeanBond.setPricingEngine(engine);
     const americanBond = new ConvertibleFixedCouponBond(amExercise, conversionRatio, dividends, callability, creditSpread, issueDate, settlementDays, coupons, bondDayCount, schedule, redemption);
     americanBond.setPricingEngine(engine);
     europeanBond.setPricingEngine(new BinomialConvertibleEngine(new JarrowRudd())
-        .bceInit(stochasticProcess, timeSteps));
+        .bceInprint(stochasticProcess, timeSteps));
     americanBond.setPricingEngine(new BinomialConvertibleEngine(new JarrowRudd())
-        .bceInit(stochasticProcess, timeSteps));
-    it(`Jarrow-Rudd ${europeanBond.NPV()} \n` +
-        `${americanBond.NPV()}`,()=>{expect(true).toEqual(true);});
+        .bceInprint(stochasticProcess, timeSteps));
+    print(`Jarrow-Rudd ${europeanBond.NPV()} \n` +
+        `${americanBond.NPV()}`);
     europeanBond.setPricingEngine(new BinomialConvertibleEngine(new CoxRossRubinstein())
-        .bceInit(stochasticProcess, timeSteps));
+        .bceInprint(stochasticProcess, timeSteps));
     americanBond.setPricingEngine(new BinomialConvertibleEngine(new CoxRossRubinstein())
-        .bceInit(stochasticProcess, timeSteps));
-    it(`Cox-Ross-Rubinstein ${europeanBond.NPV()} \n` +
-        `${americanBond.NPV()}`,()=>{expect(true).toEqual(true);});
+        .bceInprint(stochasticProcess, timeSteps));
+    print(`Cox-Ross-Rubinstein ${europeanBond.NPV()} \n` +
+        `${americanBond.NPV()}`);
     europeanBond.setPricingEngine(new BinomialConvertibleEngine(new AdditiveEQPBinomialTree())
-        .bceInit(stochasticProcess, timeSteps));
+        .bceInprint(stochasticProcess, timeSteps));
     americanBond.setPricingEngine(new BinomialConvertibleEngine(new AdditiveEQPBinomialTree())
-        .bceInit(stochasticProcess, timeSteps));
-    it(`Additive equiprobabilities ${europeanBond.NPV()} \n` +
-        `${americanBond.NPV()}`,()=>{expect(true).toEqual(true);});
+        .bceInprint(stochasticProcess, timeSteps));
+    print(`Additive equiprobabilities ${europeanBond.NPV()} \n` +
+        `${americanBond.NPV()}`);
     europeanBond.setPricingEngine(new BinomialConvertibleEngine(new Trigeorgis())
-        .bceInit(stochasticProcess, timeSteps));
+        .bceInprint(stochasticProcess, timeSteps));
     americanBond.setPricingEngine(new BinomialConvertibleEngine(new Trigeorgis())
-        .bceInit(stochasticProcess, timeSteps));
-    it(`Trigeorgis ${europeanBond.NPV()} \n` +
-        `${americanBond.NPV()}`,()=>{expect(true).toEqual(true);});
+        .bceInprint(stochasticProcess, timeSteps));
+    print(`Trigeorgis ${europeanBond.NPV()} \n` +
+        `${americanBond.NPV()}`);
     europeanBond.setPricingEngine(new BinomialConvertibleEngine(new Tian())
-        .bceInit(stochasticProcess, timeSteps));
+        .bceInprint(stochasticProcess, timeSteps));
     americanBond.setPricingEngine(new BinomialConvertibleEngine(new Tian())
-        .bceInit(stochasticProcess, timeSteps));
-    it(`Tian ${europeanBond.NPV()} \n` +
-        `${americanBond.NPV()}`,()=>{expect(true).toEqual(true);});
+        .bceInprint(stochasticProcess, timeSteps));
+    print(`Tian ${europeanBond.NPV()} \n` +
+        `${americanBond.NPV()}`);
     europeanBond.setPricingEngine(new BinomialConvertibleEngine(new LeisenReimer())
-        .bceInit(stochasticProcess, timeSteps));
+        .bceInprint(stochasticProcess, timeSteps));
     americanBond.setPricingEngine(new BinomialConvertibleEngine(new LeisenReimer())
-        .bceInit(stochasticProcess, timeSteps));
-    it(`Leisen-Reimer ${europeanBond.NPV()} \n` +
-        `${americanBond.NPV()}`,()=>{expect(true).toEqual(true);});
+        .bceInprint(stochasticProcess, timeSteps));
+    print(`Leisen-Reimer ${europeanBond.NPV()} \n` +
+        `${americanBond.NPV()}`);
     europeanBond.setPricingEngine(new BinomialConvertibleEngine(new Joshi4())
-        .bceInit(stochasticProcess, timeSteps));
+        .bceInprint(stochasticProcess, timeSteps));
     americanBond.setPricingEngine(new BinomialConvertibleEngine(new Joshi4())
-        .bceInit(stochasticProcess, timeSteps));
-    it(`Joshi ${europeanBond.NPV()} \n` +
-        `${americanBond.NPV()}`,()=>{expect(true).toEqual(true);});
+        .bceInprint(stochasticProcess, timeSteps));
+    print(`Joshi ${europeanBond.NPV()} \n` +
+        `${americanBond.NPV()}`);
 
 });

@@ -1,6 +1,6 @@
 import { Actual360, ActualActual, BusinessDayConvention, DateExt, DateGeneration, DepositRateHelper, Discount, DiscountingSwapEngine, Euribor6M, FraRateHelper, Frequency, FuturesRateHelper, Handle, IMM, LogLinear, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, Settings, SimpleQuote, SwapRateHelper, TARGET, Thirty360, TimeUnit, VanillaSwap } from '/ql.mjs';
 
-describe('swap valuation example', () => { 
+example('swap valuation example', () => { 
 
     const calendar = new TARGET();
     let settlementDate = new Date('22-September-2004');
@@ -8,8 +8,8 @@ describe('swap valuation example', () => {
     const fixingDays = 2;
     const todaysDate = calendar.advance1(settlementDate, -fixingDays, TimeUnit.Days);
     Settings.evaluationDate.set(todaysDate);
-    it(`Today: ${todaysDate}`,()=>{expect(true).toEqual(true);});
-    it(`Settlement date: ${settlementDate}`,()=>{expect(true).toEqual(true);});
+    print(`Today: ${todaysDate}`);
+    print(`Settlement date: ${settlementDate}`);
     const d1wQuote = 0.0382;
     const d1mQuote = 0.0372;
     const d3mQuote = 0.0363;
@@ -127,8 +127,8 @@ describe('swap valuation example', () => {
     const fwdFixedSchedule = new Schedule().init2(fwdStart, fwdMaturity, new Period().init2(fixedLegFrequency), calendar, fixedLegConvention, fixedLegConvention, DateGeneration.Rule.Forward, false);
     const fwdFloatSchedule = new Schedule().init2(fwdStart, fwdMaturity, new Period().init2(floatingLegFrequency), calendar, floatingLegConvention, floatingLegConvention, DateGeneration.Rule.Forward, false);
     const oneYearForward5YearSwap = new VanillaSwap(swapType, nominal, fwdFixedSchedule, fixedRate, fixedLegDayCounter, fwdFloatSchedule, euriborIndex, spread, floatingLegDayCounter);
-    it(`5-year market swap-rate = ${s5yRate.value()}`,()=>{expect(true).toEqual(true);});
-    it(`5-years swap paying ${fixedRate}`,()=>{expect(true).toEqual(true);});
+    print(`5-year market swap-rate = ${s5yRate.value()}`);
+    print(`5-years swap paying ${fixedRate}`);
     let NPV;
     let fairRate;
     let fairSpread;
@@ -140,10 +140,10 @@ describe('swap valuation example', () => {
     NPV = spot5YearSwap.NPV();
     fairSpread = spot5YearSwap.fairSpread();
     fairRate = spot5YearSwap.fairRate();
-    it('term structure: depo-swap\n' +
+    print('term structure: depo-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     if (Math.abs(fairRate - s5yQuote) > 1e-8) {
         throw new Error('5-years swap mispriced');
     }
@@ -152,10 +152,10 @@ describe('swap valuation example', () => {
     NPV = spot5YearSwap.NPV();
     fairSpread = spot5YearSwap.fairSpread();
     fairRate = spot5YearSwap.fairRate();
-    it('term structure: depo-fut-swap\n' +
+    print('term structure: depo-fut-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     if (Math.abs(fairRate - s5yQuote) > 1e-8) {
         throw new Error('5-years swap mispriced');
     }
@@ -164,54 +164,54 @@ describe('swap valuation example', () => {
     NPV = spot5YearSwap.NPV();
     fairSpread = spot5YearSwap.fairSpread();
     fairRate = spot5YearSwap.fairRate();
-    it('term structure: depo-FRA-swap\n' +
+    print('term structure: depo-FRA-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     if (Math.abs(fairRate - s5yQuote) > 1e-8) {
         throw new Error('5-years swap mispriced');
     }
-    it(`5-years, 1-year forward swap paying ${fixedRate}`,()=>{expect(true).toEqual(true);});
+    print(`5-years, 1-year forward swap paying ${fixedRate}`);
     forecastingTermStructure.linkTo(depoSwapTermStructure);
     discountingTermStructure.linkTo(depoSwapTermStructure);
     NPV = oneYearForward5YearSwap.NPV();
     fairSpread = oneYearForward5YearSwap.fairSpread();
     fairRate = oneYearForward5YearSwap.fairRate();
-    it('term structure: depo-swap\n' +
+    print('term structure: depo-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     forecastingTermStructure.linkTo(depoFutSwapTermStructure);
     discountingTermStructure.linkTo(depoFutSwapTermStructure);
     NPV = oneYearForward5YearSwap.NPV();
     fairSpread = oneYearForward5YearSwap.fairSpread();
     fairRate = oneYearForward5YearSwap.fairRate();
-    it('term structure: depo-fut-swap\n' +
+    print('term structure: depo-fut-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     forecastingTermStructure.linkTo(depoFRASwapTermStructure);
     discountingTermStructure.linkTo(depoFRASwapTermStructure);
     NPV = oneYearForward5YearSwap.NPV();
     fairSpread = oneYearForward5YearSwap.fairSpread();
     fairRate = oneYearForward5YearSwap.fairRate();
-    it('term structure: depo-FRA-swap\n' +
+    print('term structure: depo-FRA-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     const fiveYearsRate = s5yRate;
     fiveYearsRate.setValue(0.0460);
-    it(`5-year market swap-rate = ${s5yRate.value()}`,()=>{expect(true).toEqual(true);});
-    it(`5-years swap paying ${fixedRate}`,()=>{expect(true).toEqual(true);});
+    print(`5-year market swap-rate = ${s5yRate.value()}`);
+    print(`5-years swap paying ${fixedRate}`);
     forecastingTermStructure.linkTo(depoSwapTermStructure);
     discountingTermStructure.linkTo(depoSwapTermStructure);
     NPV = spot5YearSwap.NPV();
     fairSpread = spot5YearSwap.fairSpread();
     fairRate = spot5YearSwap.fairRate();
-    it('term structure: depo-swap\n' +
+    print('term structure: depo-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     if (Math.abs(fairRate - s5yRate.value()) > 1e-8) {
         throw new Error('5-years swap mispriced');
     }
@@ -220,10 +220,10 @@ describe('swap valuation example', () => {
     NPV = spot5YearSwap.NPV();
     fairSpread = spot5YearSwap.fairSpread();
     fairRate = spot5YearSwap.fairRate();
-    it('term structure: depo-fut-swap\n' +
+    print('term structure: depo-fut-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     if (Math.abs(fairRate - s5yRate.value()) > 1e-8) {
         throw new Error('5-years swap mispriced');
     }
@@ -232,40 +232,40 @@ describe('swap valuation example', () => {
     NPV = spot5YearSwap.NPV();
     fairSpread = spot5YearSwap.fairSpread();
     fairRate = spot5YearSwap.fairRate();
-    it('term structure: depo-FRA-swap\n' +
+    print('term structure: depo-FRA-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     if (Math.abs(fairRate - s5yRate.value()) > 1e-8) {
         throw new Error('5-years swap mispriced');
     }
-    it(`5-years, 1-year forward swap paying ${fixedRate}`,()=>{expect(true).toEqual(true);});
+    print(`5-years, 1-year forward swap paying ${fixedRate}`);
     forecastingTermStructure.linkTo(depoSwapTermStructure);
     discountingTermStructure.linkTo(depoSwapTermStructure);
     NPV = oneYearForward5YearSwap.NPV();
     fairSpread = oneYearForward5YearSwap.fairSpread();
     fairRate = oneYearForward5YearSwap.fairRate();
-    it('term structure: depo-swap\n' +
+    print('term structure: depo-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     forecastingTermStructure.linkTo(depoFutSwapTermStructure);
     discountingTermStructure.linkTo(depoFutSwapTermStructure);
     NPV = oneYearForward5YearSwap.NPV();
     fairSpread = oneYearForward5YearSwap.fairSpread();
     fairRate = oneYearForward5YearSwap.fairRate();
-    it('term structure: depo-fut-swap\n' +
+    print('term structure: depo-fut-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
     forecastingTermStructure.linkTo(depoFRASwapTermStructure);
     discountingTermStructure.linkTo(depoFRASwapTermStructure);
     NPV = oneYearForward5YearSwap.NPV();
     fairSpread = oneYearForward5YearSwap.fairSpread();
     fairRate = oneYearForward5YearSwap.fairRate();
-    it('term structure: depo-FRA-swap\n' +
+    print('term structure: depo-FRA-swap\n' +
         `net present value: ${NPV}\n` +
         `fair spread: ${fairSpread}\n` +
-        `fair fixed rate: ${fairRate}`,()=>{expect(true).toEqual(true);});
+        `fair fixed rate: ${fairRate}`);
 
 });

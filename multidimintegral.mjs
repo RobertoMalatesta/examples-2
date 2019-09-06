@@ -1,4 +1,5 @@
 import { Array1D, Default, GaussianQuadMultidimIntegrator, M_PI, MultidimIntegral, TrapezoidIntegral } from '/ql.mjs';
+
 class integrand {
     f(arg) {
         let sum = 1.;
@@ -8,8 +9,9 @@ class integrand {
         return sum;
     }
 }
-try {
-    const startTime = Date.now();
+
+example('multi-dim integral example', () => { 
+
     const dimension = 3;
     const exactSol = Math.pow(Math.exp(-.25) * Math.sqrt(M_PI), dimension);
     const f = new integrand();
@@ -23,13 +25,8 @@ try {
     const b_limits = Array1D.fromSizeValue(integrals.length, 4.);
     const testIntg = new MultidimIntegral(integrals);
     const valueGrid = testIntg.f(f, a_limits, b_limits);
-    console.log(`Exact: ${exactSol}\n` +
+    print(`Exact: ${exactSol}\n` +
         `Quad: ${valueQuad}\n` +
         `Grid: ${valueGrid}`);
-    const endTime = Date.now();
-    console.log(`Run completed in ${(endTime - startTime) / 1000} seconds`);
-}
-catch (e) {
-    console.log(e);
-}
-//# sourceMappingURL=multidimintegral.js.map
+
+});

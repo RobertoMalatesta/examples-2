@@ -1,6 +1,6 @@
 import{ ActualActual, Compounding, Discount, Euribor3M, ForwardRateAgreement, FraRateHelper, LogLinear, PiecewiseYieldCurve, Position, RelinkableHandle, Settings, SimpleQuote, TimeUnit } from '/ql.mjs';
 
-describe('FRA example', () => { 
+example('FRA example', () => { 
 
   const euriborTermStructure = new RelinkableHandle();
   const euribor3m = new Euribor3M(euriborTermStructure);
@@ -10,8 +10,8 @@ describe('FRA example', () => {
   const fixingDays = euribor3m.fixingDays();
   const settlementDate =
       calendar.advance1(todaysDate, fixingDays, TimeUnit.Days);
-  it(`Today : ${ todaysDate }`,()=>{expect(true).toEqual(true);});
-  it(`Settlement date : ${ settlementDate }`,()=>{expect(true).toEqual(true);});
+  print(`Today : ${ todaysDate }`);
+  print(`Settlement date : ${ settlementDate }`);
   const threeMonthFraQuote = new Array(10);
   threeMonthFraQuote[1] = 0.030;
   threeMonthFraQuote[2] = 0.031;
@@ -64,7 +64,7 @@ describe('FRA example', () => {
   const fraTermMonths = 3;
   const monthsToStart = [ 1, 2, 3, 6, 9 ];
   euriborTermStructure.linkTo(fraTermStructure);
-  it('Test FRA construction, NPV calculation, and FRA purchase',()=>{expect(true).toEqual(true);});
+  print('Test FRA construction, NPV calculation, and FRA purchase');
   let i;
   for (i = 0; i < monthsToStart.length; i++) {
     const fraValueDate =
@@ -76,23 +76,23 @@ describe('FRA example', () => {
     const myFRA = new ForwardRateAgreement(
         fraValueDate, fraMaturityDate, fraFwdType, fraStrikeRate, fraNotional,
         euribor3m, discountingTermStructure);
-    it(`3m Term FRA, Months to Start: ${monthsToStart[i]}`,()=>{expect(true).toEqual(true);});
-    it(`strike FRA rate: ${fraStrikeRate}`,()=>{expect(true).toEqual(true);});
-    it(`FRA 3m forward rate: ${myFRA.forwardRate()}`,()=>{expect(true).toEqual(true);});
-    it(`FRA market quote: ${threeMonthFraQuote[monthsToStart[i]]}`,()=>{expect(true).toEqual(true);});
-    it(`FRA spot value: ${myFRA.spotValue()}`,()=>{expect(true).toEqual(true);});
-    it(`FRA forward value: ${myFRA.forwardValue()}`,()=>{expect(true).toEqual(true);});
-    it(`FRA implied Yield: ${
+    print(`3m Term FRA, Months to Start: ${monthsToStart[i]}`);
+    print(`strike FRA rate: ${fraStrikeRate}`);
+    print(`FRA 3m forward rate: ${myFRA.forwardRate()}`);
+    print(`FRA market quote: ${threeMonthFraQuote[monthsToStart[i]]}`);
+    print(`FRA spot value: ${myFRA.spotValue()}`);
+    print(`FRA forward value: ${myFRA.forwardValue()}`);
+    print(`FRA implied Yield: ${
       myFRA.impliedYield(
         myFRA.spotValue(), myFRA.forwardValue(), settlementDate,
-        Compounding.Simple, fraDayCounter)}`,()=>{expect(true).toEqual(true);});
-    it(`market Zero Rate: ${
+        Compounding.Simple, fraDayCounter)}`);
+    print(`market Zero Rate: ${
       discountingTermStructure.currentLink().zeroRate1(
-        fraMaturityDate, fraDayCounter, Compounding.Simple)}`,()=>{expect(true).toEqual(true);});
-    it(`FRA NPV [should be zero]: ${myFRA.NPV()}`,()=>{expect(true).toEqual(true);});
+        fraMaturityDate, fraDayCounter, Compounding.Simple)}`);
+    print(`FRA NPV [should be zero]: ${myFRA.NPV()}`);
   }
-  it('Now take a 100 basis-point upward shift' +
-              ' in FRA quotes and examine NPV',()=>{expect(true).toEqual(true);});
+  print('Now take a 100 basis-point upward shift' +
+              ' in FRA quotes and examine NPV');
   const bpsShift = 0.01;
   threeMonthFraQuote[1] = 0.030 + bpsShift;
   threeMonthFraQuote[2] = 0.031 + bpsShift;
@@ -114,20 +114,20 @@ describe('FRA example', () => {
     const myFRA = new ForwardRateAgreement(
         fraValueDate, fraMaturityDate, fraFwdType, fraStrikeRate, fraNotional,
         euribor3m, discountingTermStructure);
-    it(`3m Term FRA, 100 notional, Months to Start = ${monthsToStart[i]}`,()=>{expect(true).toEqual(true);});
-    it(`strike FRA rate: ${fraStrikeRate}`,()=>{expect(true).toEqual(true);});
-    it(`FRA 3m forward rate: ${myFRA.forwardRate()}`,()=>{expect(true).toEqual(true);});
-    it(`FRA market quote: ${threeMonthFraQuote[monthsToStart[i]]}`,()=>{expect(true).toEqual(true);});
-    it(`FRA spot value: ${myFRA.spotValue()}`,()=>{expect(true).toEqual(true);});
-    it(`FRA forward value: ${myFRA.forwardValue()}`,()=>{expect(true).toEqual(true);});
-    it(`FRA implied Yield: ${
+    print(`3m Term FRA, 100 notional, Months to Start = ${monthsToStart[i]}`);
+    print(`strike FRA rate: ${fraStrikeRate}`);
+    print(`FRA 3m forward rate: ${myFRA.forwardRate()}`);
+    print(`FRA market quote: ${threeMonthFraQuote[monthsToStart[i]]}`);
+    print(`FRA spot value: ${myFRA.spotValue()}`);
+    print(`FRA forward value: ${myFRA.forwardValue()}`);
+    print(`FRA implied Yield: ${
       myFRA.impliedYield(
         myFRA.spotValue(), myFRA.forwardValue(), settlementDate,
-        Compounding.Simple, fraDayCounter)}`,()=>{expect(true).toEqual(true);});
-    it(`market Zero Rate: ${
+        Compounding.Simple, fraDayCounter)}`);
+    print(`market Zero Rate: ${
       discountingTermStructure.currentLink().zeroRate1(
-        fraMaturityDate, fraDayCounter, Compounding.Simple)}`,()=>{expect(true).toEqual(true);});
-    it(`FRA NPV [should be positive]: ${myFRA.NPV()}`,()=>{expect(true).toEqual(true);});
+        fraMaturityDate, fraDayCounter, Compounding.Simple)}`);
+    print(`FRA NPV [should be positive]: ${myFRA.NPV()}`);
   }
 
 });

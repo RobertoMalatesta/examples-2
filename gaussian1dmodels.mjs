@@ -1,4 +1,5 @@
 import { Actual360, Actual365Fixed, Array1D, BasketGeneratingEngine, BermudanExercise, BlackIborCouponPricer, BusinessDayConvention, ConstantSwaptionVolatility, DateGeneration, DiscountingSwapEngine, EndCriteria, Euribor, EuriborSwapIsdaFixA, FlatForward, FloatFloatSwap, FloatFloatSwaption, Gaussian1dFloatFloatSwaptionEngine, Gaussian1dNonstandardSwaptionEngine, Gaussian1dSwaptionEngine, Gsr, Handle, LevenbergMarquardt, LinearTsrPricer, MarkovFunctional, NonstandardSwap, NonstandardSwaption, Period, QL_NULL_REAL, RebatedExercise, RelinkableHandle, Schedule, setCouponPricer, Settings, SimpleQuote, TARGET, Thirty360, TimeUnit, VanillaSwap } from '/ql.mjs';
+
 function printBasket(basket) {
     for (let j = 0; j < basket.length; ++j) {
         const helper = basket[j];
@@ -8,32 +9,34 @@ function printBasket(basket) {
         const rate = helper.underlyingSwap().fixedRate();
         const expiry = helper.swaption().exercise().date(0);
         const type = helper.swaption().type();
-        console.log(`${expiry} \n` +
+        print(`${expiry} \n` +
             `${endDate} ${nominal} \n` +
             `${rate} \n` +
             `${(type === VanillaSwap.Type.Payer ? 'Payer' : 'Receiver')} \n` +
             `${vol}`);
     }
 }
+
 function printModelCalibration(basket, volatility) {
     for (let j = 0; j < basket.length; ++j) {
         const helper = basket[j];
         const expiry = helper.swaption().exercise().date(0);
-        console.log(`${expiry} \n` +
+        print(`${expiry} \n` +
             `${volatility[j]} ${basket[j].modelValue()} \n` +
             `${basket[j].marketValue()} \n` +
             `${basket[j].impliedVolatility(basket[j].modelValue(), 1E-6, 1000, 0.0, 2.0)} \n` +
             `${basket[j].volatility().currentLink().value()}`);
     }
     if (volatility.length > basket.length) {
-        console.log(`${Array1D.back(volatility)}`);
+        print(`${Array1D.back(volatility)}`);
     }
 }
-try {
-    const startTime = Date.now();
+
+example('gaussian 1d models example', () => { 
+
     const refDate = new Date('30-April-2014');
     Settings.evaluationDate.set(refDate);
-    console.log('The evaluation date for this example is set to ' +
+    print('The evaluation date for this example is set to ' +
         `${Settings.evaluationDate.f()}`);
     const forward6mLevel = 0.025;
     const oisLevel = 0.02;
@@ -42,7 +45,7 @@ try {
     const yts6m = new Handle(new FlatForward().ffInit3(0, new TARGET(), forward6mQuote, new Actual365Fixed()));
     const ytsOis = new Handle(new FlatForward().ffInit3(0, new TARGET(), oisQuote, new Actual365Fixed()));
     const euribor6m = new Euribor(new Period().init1(6, TimeUnit.Months), yts6m);
-    console.log('We assume a multicurve setup, for simplicity with flat yield ' +
+    print('We assume a multicurve setup, for simplicity with flat yield ' +
         '\nterm structures. The discounting curve is an Eonia curve at' +
         `\na level of ' ${oisLevel}` +
         ' and the forwarding curve is an Euribior 6m curve' +
@@ -50,9 +53,9 @@ try {
     const volLevel = 0.20;
     const volQuote = new Handle(new SimpleQuote(volLevel));
     const swaptionVol = new Handle(new ConstantSwaptionVolatility().csvInit1(0, new TARGET(), BusinessDayConvention.ModifiedFollowing, volQuote, new Actual365Fixed()));
-    console.log(`For the volatility we assume a flat swaption volatility at ${volLevel}`);
+    print(`For the volatility we assume a flat swaption volatility at ${volLevel}`);
     const strike = 0.04;
-    console.log('We consider a standard 10y bermudan payer swaption ' +
+    print('We consider a standard 10y bermudan payer swaption ' +
         `\nwith yearly exercises at a strike of ${strike}`);
     const effectiveDate = new TARGET().advance1(refDate, 2, TimeUnit.Days);
     const maturityDate = new TARGET().advance1(effectiveDate, 10, TimeUnit.Years);
@@ -65,13 +68,13 @@ try {
     }
     const exercise = new BermudanExercise(exerciseDates, false);
     const swaption = new NonstandardSwaption().nssInit2(underlying, exercise);
-    console.log('The model is a one factor Hull White model with piecewise ' +
+    print('The model is a one factor Hull White model with piecewise ' +
         '\nvolatility adapted to our exercise dates.');
     const stepDates = exerciseDates.slice(0, exerciseDates.length - 1);
     const sigmas = Array1D.fromSizeValue(stepDates.length + 1, 0.01);
     const reversion = 0.01;
-    console.log(`The reversion is just kept constant at a level of ${reversion}`);
-    console.log('The model\'s curve is set to the 6m forward curve. Note that ' +
+    print(`The reversion is just kept constant at a level of ${reversion}`);
+    print('The model\'s curve is set to the 6m forward curve. Note that ' +
         '\nthe model adapts automatically to other curves where appropriate ' +
         '\n(e.g. if an index requires a different forwarding curve) or ' +
         '\nwhere explicitly specified (e.g. in a swaption pricing engine).');
@@ -79,17 +82,17 @@ try {
     const swaptionEngine = new Gaussian1dSwaptionEngine().g1dseInit1(gsr, 64, 7.0, true, false, ytsOis);
     const nonstandardSwaptionEngine = new Gaussian1dNonstandardSwaptionEngine().g1dnsseInit1(gsr, 64, 7.0, true, false, new Handle(), ytsOis);
     swaption.setPricingEngine(nonstandardSwaptionEngine);
-    console.log('The engine can generate a calibration basket in two modes.' +
+    print('The engine can generate a calibration basket in two modes.' +
         '\nThe first one is called Naive and generates ATM swaptions adapted to' +
         '\nthe exercise dates of the swaption and its maturity date');
-    console.log('The resulting basket looks as follows:');
+    print('The resulting basket looks as follows:');
     const swapBase = new EuriborSwapIsdaFixA().esInit2(new Period().init1(10, TimeUnit.Years), yts6m, ytsOis);
     let t1 = Date.now();
     let basket = swaption.calibrationBasket(swapBase, swaptionVol.currentLink(), BasketGeneratingEngine.CalibrationBasketType.Naive);
     let t2 = Date.now();
     printBasket(basket);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('Let\'s calibrate our model to this basket. We use a specialized' +
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('Let\'s calibrate our model to this basket. We use a specialized' +
         '\ncalibration method calibrating the sigma function one by one to' +
         '\nthe calibrating vanilla swaptions. The result of this is as follows:');
     for (let i = 0; i < basket.length; ++i) {
@@ -101,14 +104,14 @@ try {
     gsr.calibrateVolatilitiesIterative(basket, method, ec);
     t2 = Date.now();
     printModelCalibration(basket, gsr.volatility());
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('Finally we price our bermudan swaption in the calibrated model:');
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('Finally we price our bermudan swaption in the calibrated model:');
     t1 = Date.now();
     let npv = swaption.NPV();
     t2 = Date.now();
-    console.log(`Bermudan swaption NPV (ATM calibrated GSR) = ${npv}`);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('There is another mode to generate a calibration basket called' +
+    print(`Bermudan swaption NPV (ATM calibrated GSR) = ${npv}`);
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('There is another mode to generate a calibration basket called' +
         '\nMaturityStrikeByDeltaGamma. This means that the maturity, ' +
         '\nthe strike and the nominal of the calibrating swaption are ' +
         '\ncomputed such that the npv and its first and second ' +
@@ -119,12 +122,12 @@ try {
     basket = swaption.calibrationBasket(swapBase, swaptionVol.currentLink(), BasketGeneratingEngine.CalibrationBasketType.MaturityStrikeByDeltaGamma);
     t2 = Date.now();
     printBasket(basket);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('The calibrated nominal is close to the exotics nominal.' +
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('The calibrated nominal is close to the exotics nominal.' +
         '\nThe expiries and maturity dates of the vanillas are the same' +
         '\nas in the case above. The difference is the strike which' +
         '\nis now equal to the exotics strike.');
-    console.log('Let\'s see how this affects the exotics npv. The ' +
+    print('Let\'s see how this affects the exotics npv. The ' +
         '\nrecalibrated model is:');
     for (let i = 0; i < basket.length; ++i) {
         basket[i].setPricingEngine(swaptionEngine);
@@ -133,14 +136,14 @@ try {
     gsr.calibrateVolatilitiesIterative(basket, method, ec);
     t2 = Date.now();
     printModelCalibration(basket, gsr.volatility());
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('And the bermudan\'s price becomes:');
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('And the bermudan\'s price becomes:');
     t1 = Date.now();
     npv = swaption.NPV();
     t2 = Date.now();
-    console.log(`Bermudan swaption NPV (deal strike calibrated GSR) = ${npv}`);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('We can do more complicated things, let\'s e.g. modify the' +
+    print(`Bermudan swaption NPV (deal strike calibrated GSR) = ${npv}`);
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('We can do more complicated things, let\'s e.g. modify the' +
         '\nnominal schedule to be linear amortizing and see what' +
         '\nthe effect on the generated calibration basket is:');
     const nominalFixed = [], nominalFloating = [];
@@ -158,17 +161,17 @@ try {
     basket = swaption2.calibrationBasket(swapBase, swaptionVol.currentLink(), BasketGeneratingEngine.CalibrationBasketType.MaturityStrikeByDeltaGamma);
     t2 = Date.now();
     printBasket(basket);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('The notional is weighted over the underlying exercised ' +
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('The notional is weighted over the underlying exercised ' +
         '\ninto and the maturity is adjusted downwards. The rate' +
         '\non the other hand is not affected.');
-    console.log('You can also price exotic bond\'s features. If you have e.g. a' +
+    print('You can also price exotic bond\'s features. If you have e.g. a' +
         '\nbermudan callable fixed bond you can set up the call right ' +
         '\nas a swaption to enter into a one leg swap with notional' +
         '\nreimbursement at maturity.' +
         '\nThe exercise should then be written as a rebated exercise' +
         '\npaying the notional in case of exercise.');
-    console.log('The calibration basket looks like this:');
+    print('The calibration basket looks like this:');
     const nominalFixed2 = Array1D.fromSizeValue(nominalFixed.length, 1.0);
     const nominalFloating2 = Array1D.fromSizeValue(nominalFloating.length, 0.0);
     const underlying3 = new NonstandardSwap().nssInit2(VanillaSwap.Type.Receiver, nominalFixed2, nominalFloating2, fixedSchedule, strikes, new Thirty360(), floatingSchedule, euribor6m, 1.0, 0.0, new Actual360(), false, true);
@@ -183,8 +186,8 @@ try {
     basket = swaption3.calibrationBasket(swapBase, swaptionVol.currentLink(), BasketGeneratingEngine.CalibrationBasketType.MaturityStrikeByDeltaGamma);
     t2 = Date.now();
     printBasket(basket);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('Note that nominals are not exactly 1.0 here. This is' +
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('Note that nominals are not exactly 1.0 here. This is' +
         '\nbecause we do our bond discounting on 6m level while' +
         '\nthe swaptions are still discounted on OIS level.' +
         '\n(You can try this by changing the OIS level to the ' +
@@ -197,9 +200,9 @@ try {
     gsr.calibrateVolatilitiesIterative(basket, method, ec);
     const npv3 = swaption3.NPV();
     t2 = Date.now();
-    console.log(`Bond\'s bermudan call right npv = ${npv3}`);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('Up to now, no credit spread is included in the pricing.' +
+    print(`Bond\'s bermudan call right npv = ${npv3}`);
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('Up to now, no credit spread is included in the pricing.' +
         '\nWe can do so by specifying an oas in the pricing engine.' +
         '\nLet\'s set the spread level to 100bp and regenerate' +
         '\nthe calibration basket.');
@@ -208,11 +211,11 @@ try {
     basket = swaption3.calibrationBasket(swapBase, swaptionVol.currentLink(), BasketGeneratingEngine.CalibrationBasketType.MaturityStrikeByDeltaGamma);
     t2 = Date.now();
     printBasket(basket);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('The adjusted basket takes the credit spread into account.' +
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('The adjusted basket takes the credit spread into account.' +
         '\nThis is consistent to a hedge where you would have a' +
         '\nmargin on the float leg around 100bp,too.');
-    console.log('The npv becomes:');
+    print('The npv becomes:');
     for (let i = 0; i < basket.length; i++) {
         basket[i].setPricingEngine(swaptionEngine);
     }
@@ -220,16 +223,16 @@ try {
     gsr.calibrateVolatilitiesIterative(basket, method, ec);
     const npv4 = swaption3.NPV();
     t2 = Date.now();
-    console.log(`Bond\'s bermudan call right npv (oas = 100bp) = ${npv4}`);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('The next instrument we look at is a CMS 10Y vs Euribor ' +
+    print(`Bond\'s bermudan call right npv (oas = 100bp) = ${npv4}`);
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('The next instrument we look at is a CMS 10Y vs Euribor ' +
         '\n6M swaption. The maturity is again 10 years and the option' +
         '\nis exercisable on a yearly basis');
     const underlying4 = new FloatFloatSwap().ffsInit1(VanillaSwap.Type.Payer, 1.0, 1.0, fixedSchedule, swapBase, new Thirty360(), floatingSchedule, euribor6m, new Actual360(), false, false, 1.0, 0.0, QL_NULL_REAL, QL_NULL_REAL, 1.0, 0.0010);
     const swaption4 = new FloatFloatSwaption(underlying4, exercise);
     const floatSwaptionEngine = new Gaussian1dFloatFloatSwaptionEngine().g1dffseInit1(gsr, 64, 7.0, true, false, new Handle(), ytsOis, true);
     swaption4.setPricingEngine(floatSwaptionEngine);
-    console.log('Since the underlying is quite exotic already, we start with' +
+    print('Since the underlying is quite exotic already, we start with' +
         '\npricing this using the LinearTsrPricer for CMS coupon estimation');
     const reversionQuote = new Handle(new SimpleQuote(reversion));
     const leg0 = underlying4.leg(0);
@@ -243,11 +246,11 @@ try {
     t1 = Date.now();
     const npv5 = underlying4.NPV();
     t2 = Date.now();
-    console.log(`Underlying CMS Swap NPV = ${npv5}\n` +
+    print(`Underlying CMS Swap NPV = ${npv5}\n` +
         `       CMS     Leg  NPV = ${underlying4.legNPV(0)}\n` +
         `       Euribor Leg  NPV = ${underlying4.legNPV(1)}`);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('We generate a naive calibration basket and calibrate ' +
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('We generate a naive calibration basket and calibrate ' +
         '\nthe GSR model to it:');
     t1 = Date.now();
     basket = swaption4.calibrationBasket(swapBase, swaptionVol.currentLink(), BasketGeneratingEngine.CalibrationBasketType.Naive);
@@ -258,21 +261,21 @@ try {
     t2 = Date.now();
     printBasket(basket);
     printModelCalibration(basket, gsr.volatility());
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('The npv of the bermudan swaption is');
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('The npv of the bermudan swaption is');
     t1 = Date.now();
     const npv6 = swaption4.NPV();
     t2 = Date.now();
-    console.log(`Float swaption NPV (GSR) = ${npv6}`);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('In this case it is also interesting to look at the ' +
+    print(`Float swaption NPV (GSR) = ${npv6}`);
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('In this case it is also interesting to look at the ' +
         '\nunderlying swap npv in the GSR model.');
-    console.log('Float swap NPV (GSR) = ' +
+    print('Float swap NPV (GSR) = ' +
         `${swaption4.result('underlyingValue')}`);
-    console.log('Not surprisingly, the underlying is priced differently' +
+    print('Not surprisingly, the underlying is priced differently' +
         '\ncompared to the LinearTsrPricer, since a different' +
         '\nsmile is implied by the GSR model.');
-    console.log('This is exactly where the Markov functional model' +
+    print('This is exactly where the Markov functional model' +
         '\ncomes into play, because it can calibrate to any' +
         '\ngiven underlying smile (as long as it is arbitrage' +
         '\nfree). We try this now. Of course the usual use case' +
@@ -292,25 +295,25 @@ try {
     t1 = Date.now();
     const npv7 = swaption4.NPV();
     t2 = Date.now();
-    console.log('The option npv is the markov model is:');
-    console.log(`Float swaption NPV (Markov) = ${npv7}`);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('This is not too far from the GSR price.');
-    console.log('More interesting is the question how well the Markov' +
+    print('The option npv is the markov model is:');
+    print(`Float swaption NPV (Markov) = ${npv7}`);
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('This is not too far from the GSR price.');
+    print('More interesting is the question how well the Markov' +
         '\nmodel did its job to match our input smile. For this' +
         '\nwe look at the underlying npv under the Markov model');
-    console.log(`Float swap NPV (Markov) = ${swaption4.result('underlyingValue')}`);
-    console.log('This is closer to our terminal swap rate model price.' +
+    print(`Float swap NPV (Markov) = ${swaption4.result('underlyingValue')}`);
+    print('This is closer to our terminal swap rate model price.' +
         '\nA perfect match is not expected anyway, because the' +
         '\ndynamics of the underlying rate in the linear' +
         '\nmodel is different from the Markov model, of course.');
-    console.log('The Markov model can not only calibrate to the' +
+    print('The Markov model can not only calibrate to the' +
         '\nunderlying smile, but has at the same time a' +
         '\nsigma function (similar to the GSR model) which' +
         '\ncan be used to calibrate to a second instrument' +
         '\nset. We do this here to calibrate to our coterminal' +
         '\nATM swaptions from above.');
-    console.log('This is a computationally demanding task, so' +
+    print('This is a computationally demanding task, so' +
         '\ndepending on your machine, this may take a while now...');
     for (let i = 0; i < basket.length; ++i) {
         basket[i].setPricingEngine(swaptionEngineMarkov);
@@ -319,17 +322,17 @@ try {
     markov.calibrate(basket, method, ec);
     t2 = Date.now();
     printModelCalibration(basket, markov.volatility());
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('Now let\'s have a look again at the underlying pricing.' +
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('Now let\'s have a look again at the underlying pricing.' +
         '\nIt shouldn\'t have changed much, because the underlying' +
         '\nsmile is still matched.');
     t1 = Date.now();
     const npv8 = swaption4.result('underlyingValue');
     t2 = Date.now();
-    console.log(`Float swap NPV (Markov) = ${npv8}`);
-    console.log(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    console.log('This is close to the previous value as expected.');
-    console.log('As a final remark we note that the calibration to' +
+    print(`Float swap NPV (Markov) = ${npv8}`);
+    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    print('This is close to the previous value as expected.');
+    print('As a final remark we note that the calibration to' +
         '\ncoterminal swaptions is not particularly reasonable' +
         '\nhere, because the european call rights are not' +
         '\nwell represented by these swaptions.' +
@@ -338,11 +341,6 @@ try {
         '\nEuribor 6M rate. Since the Markov model is one factor' +
         '\nit will most probably underestimate the market value' +
         '\nby construction.');
-    console.log('That was it. Thank you for running this demo. Bye.');
-    const endTime = Date.now();
-    console.log(`\nRun completed in ${(endTime - startTime) / 1000} seconds\n`);
-}
-catch (e) {
-    console.log(e);
-}
-//# sourceMappingURL=gaussian1dmodels.js.map
+    print('That was it. Thank you for running this demo. Bye.');
+
+});

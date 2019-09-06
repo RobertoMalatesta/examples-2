@@ -13,7 +13,7 @@ class ReplicationError {
         const stdDev = Math.sqrt(this._sigma * this._sigma * this._maturity);
         const payoff = new PlainVanillaPayoff(type, strike);
         const black = new BlackCalculator().init1(payoff, forward, stdDev, rDiscount);
-        it(`Option value: ${black.value()}`,()=>{expect(true).toEqual(true);});
+        print(`Option value: ${black.value()}`);
         this._vega = black.vega(this._maturity);
     }
     compute(nTimeSteps, nSamples) {
@@ -34,17 +34,17 @@ class ReplicationError {
         const myPathPricer = new ReplicationPathPricer(this._payoff.optionType(), this._payoff.strike(), this._r, this._maturity, this._sigma);
         const statisticsAccumulator = new RiskStatistics();
         const MCSimulation = new MonteCarloModel(MC.SingleVariate, new PseudoRandom())
-            .mcmInit(myPathGenerator, myPathPricer, statisticsAccumulator, false);
+            .mcmInprint(myPathGenerator, myPathPricer, statisticsAccumulator, false);
         MCSimulation.addSamples(nSamples);
         const PLMean = MCSimulation.sampleAccumulator().mean();
         const PLStDev = MCSimulation.sampleAccumulator().standardDeviation();
         const PLSkew = MCSimulation.sampleAccumulator().skewness();
         const PLKurt = MCSimulation.sampleAccumulator().kurtosis();
         const theorStD = Math.sqrt(M_PI / 4 / nTimeSteps) * this._vega * this._sigma;
-        it(`samples: ${nSamples}, trades: ${nTimeSteps},\n` +
+        print(`samples: ${nSamples}, trades: ${nTimeSteps},\n` +
             `P&L mean: ${PLMean}, P&L std. dev.: ${PLStDev}\n` +
             `Derman&Kamal formula: ${theorStD}\n` +
-            `P&L shewness: ${PLSkew}, P&L kurtosis: ${PLKurt}`,()=>{expect(true).toEqual(true);});
+            `P&L shewness: ${PLSkew}, P&L kurtosis: ${PLKurt}`);
     }
 }
 
@@ -111,7 +111,7 @@ class ReplicationPathPricer extends PathPricer {
     }
 }
 
-describe('discrete hedging example', () => { 
+example('discrete hedging example', () => { 
 
     const maturity = 1.0 / 12.0;
     const strike = 100;

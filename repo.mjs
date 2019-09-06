@@ -1,6 +1,7 @@
 import { Actual360, BusinessDayConvention, Compounding, DateGeneration, DiscountingBondEngine, FixedRateBond, FixedRateBondForward, FlatForward, Frequency, NullCalendar, Period, Position, RelinkableHandle, Schedule, Settings, Thirty360 } from '/ql.mjs';
-try {
-    const startTime = Date.now();
+
+example('repo example', () => { 
+
     const repoSettlementDate = new Date('14-February-2000');
     const repoDeliveryDate = new Date('15-August-2000');
     const repoRate = 0.05;
@@ -32,7 +33,7 @@ try {
     const repoCurve = new RelinkableHandle();
     repoCurve.linkTo(new FlatForward().ffInit2(repoSettlementDate, repoRate, repoDayCountConvention, repoCompounding, repoCompoundFreq));
     const bondFwd = new FixedRateBondForward(repoSettlementDate, repoDeliveryDate, fwdType, dummyStrike, repoSettlementDays, repoDayCountConvention, bondCalendar, bondBusinessDayConvention, bond, repoCurve, repoCurve);
-    console.log(`Underlying bond clean price: ${bond.cleanPrice1()}\n` +
+    print(`Underlying bond clean price: ${bond.cleanPrice1()}\n` +
         `Underlying bond dirty price: ${bond.dirtyPrice1()}\n` +
         'Underlying bond accrued at settlement: ' +
         `${bond.accruedAmount(repoSettlementDate)}\n` +
@@ -56,10 +57,5 @@ try {
     using, as well as settlement Days. For that reason, I have
     made the simplest possible assumptions here: NullCalendar
     and 0 settlement days.`);
-    const endTime = Date.now();
-    console.log(`Run completed in ${(endTime - startTime) / 1000} seconds`);
-}
-catch (e) {
-    console.log(e.message);
-}
-//# sourceMappingURL=repo.js.map
+
+});

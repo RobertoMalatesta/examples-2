@@ -1,6 +1,6 @@
 import { Actual360, Actual365Fixed, ActualActual, BlackIborCouponPricer, BusinessDayConvention, Compounding, ConstantOptionletVolatility, DateGeneration, DepositRateHelper, Discount, DiscountingBondEngine, Euribor6M, FixedRateBond, FixedRateBondHelper, FloatingRateBond, Frequency, Handle, LogLinear, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, setCouponPricer, Settings, SimpleQuote, SwapRateHelper, TARGET, Thirty360, TimeUnit, UnitedStates, USDLibor, ZeroCouponBond } from '/ql.mjs';
 
-describe('bonds example', () => { 
+example('bonds example', () => { 
 
     const calendar = new TARGET();
     let settlementDate = new Date('18-September-2008');
@@ -9,8 +9,8 @@ describe('bonds example', () => {
     const settlementDays = 3;
     const todaysDate = calendar.advance1(settlementDate, -fixingDays, TimeUnit.Days);
     Settings.evaluationDate.set(todaysDate);
-    it(`Today: ${todaysDate}`,()=>{expect(true).toEqual(true);});
-    it(`Settlement date: ${settlementDate}`,()=>{expect(true).toEqual(true);});
+    print(`Today: ${todaysDate}`);
+    print(`Settlement date: ${settlementDate}`);
     const zc3mQuote = 0.0096;
     const zc6mQuote = 0.0145;
     const zc1yQuote = 0.0194;
@@ -139,38 +139,38 @@ describe('bonds example', () => {
     forecastingTermStructure.linkTo(depoSwapTermStructure);
     discountingTermStructure.linkTo(bondDiscountingTermStructure);
     liborTermStructure.linkTo(depoSwapTermStructure);
-    it('Net present value:\n' +
+    print('Net present value:\n' +
         `${zeroCouponBond.NPV()}\n` +
         `${fixedRateBond.NPV()}\n` +
-        `${floatingRateBond.NPV()}`,()=>{expect(true).toEqual(true);});
-    it('Clean price:\n' +
+        `${floatingRateBond.NPV()}`);
+    print('Clean price:\n' +
         `${zeroCouponBond.cleanPrice1()}\n` +
         `${fixedRateBond.cleanPrice1()}\n` +
-        `${floatingRateBond.cleanPrice1()}`,()=>{expect(true).toEqual(true);});
-    it('Dirty price:\n' +
+        `${floatingRateBond.cleanPrice1()}`);
+    print('Dirty price:\n' +
         `${zeroCouponBond.dirtyPrice1()}\n` +
         `${fixedRateBond.dirtyPrice1()}\n` +
-        `${floatingRateBond.dirtyPrice1()}`,()=>{expect(true).toEqual(true);});
-    it('Accrued coupon:\n' +
+        `${floatingRateBond.dirtyPrice1()}`);
+    print('Accrued coupon:\n' +
         `${zeroCouponBond.accruedAmount()}\n` +
         `${fixedRateBond.accruedAmount()}\n` +
-        `${floatingRateBond.accruedAmount()}`,()=>{expect(true).toEqual(true);});
-    it('Previous coupon:\n' +
+        `${floatingRateBond.accruedAmount()}`);
+    print('Previous coupon:\n' +
         'N/A\n' +
         `${fixedRateBond.previousCouponRate()}\n` +
-        `${floatingRateBond.previousCouponRate()}`,()=>{expect(true).toEqual(true);});
-    it('Next coupon:\n' +
+        `${floatingRateBond.previousCouponRate()}`);
+    print('Next coupon:\n' +
         'N/A\n' +
         `${fixedRateBond.nextCouponRate()}\n` +
-        `${floatingRateBond.nextCouponRate()}`,()=>{expect(true).toEqual(true);});
-    it('Yield:\n' +
+        `${floatingRateBond.nextCouponRate()}`);
+    print('Yield:\n' +
         `${zeroCouponBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual)}\n` +
         `${fixedRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual)}\n` +
-        `${floatingRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual)}`,()=>{expect(true).toEqual(true);});
-    it('Sample indirect computations (for the floating rate bond): ',()=>{expect(true).toEqual(true);});
-    it('Yield to Clean Price: \n' +
-        `${floatingRateBond.cleanPrice2(floatingRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual), new Actual360(), Compounding.Compounded, Frequency.Annual, settlementDate)}`,()=>{expect(true).toEqual(true);});
-    it('Clean Price to Yield: \n' +
-        `${floatingRateBond.yield2(floatingRateBond.cleanPrice1(), new Actual360(), Compounding.Compounded, Frequency.Annual, settlementDate)}`,()=>{expect(true).toEqual(true);});
+        `${floatingRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual)}`);
+    print('Sample indirect computations (for the floating rate bond): ');
+    print('Yield to Clean Price: \n' +
+        `${floatingRateBond.cleanPrice2(floatingRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual), new Actual360(), Compounding.Compounded, Frequency.Annual, settlementDate)}`);
+    print('Clean Price to Yield: \n' +
+        `${floatingRateBond.yield2(floatingRateBond.cleanPrice1(), new Actual360(), Compounding.Compounded, Frequency.Annual, settlementDate)}`);
 
 });
