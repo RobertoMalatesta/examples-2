@@ -106,7 +106,7 @@ function example01() {
 function example02() { }
 function example03() { }
 
-example('cds example', () => { 
+describe('cds example', () => { 
 
     example01();
     example02();

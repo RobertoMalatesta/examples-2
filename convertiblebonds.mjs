@@ -1,6 +1,6 @@
 import { Actual365Fixed, AdditiveEQPBinomialTree, AmericanExercise, BinomialConvertibleEngine, BlackConstantVol, BlackScholesMertonProcess, BusinessDayConvention, Callability, ConvertibleFixedCouponBond, CoxRossRubinstein, DateExt, DateGeneration, EuropeanExercise, FixedDividend, FlatForward, Frequency, Handle, JarrowRudd, Joshi4, LeisenReimer, Option, Period, Schedule, Settings, SimpleQuote, SoftCallability, TARGET, Thirty360, Tian, TimeUnit, Trigeorgis } from '/ql.mjs';
 
-example('convertible bonds example', () => { 
+describe('convertible bonds example', () => { 
 
     const type = Option.Type.Put;
     const underlying = 36.0;

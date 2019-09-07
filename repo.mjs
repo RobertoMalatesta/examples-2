@@ -1,6 +1,6 @@
 import { Actual360, BusinessDayConvention, Compounding, DateGeneration, DiscountingBondEngine, FixedRateBond, FixedRateBondForward, FlatForward, Frequency, NullCalendar, Period, Position, RelinkableHandle, Schedule, Settings, Thirty360 } from '/ql.mjs';
 
-example('repo example', () => { 
+describe('repo example', () => { 
 
     const repoSettlementDate = new Date('14-February-2000');
     const repoDeliveryDate = new Date('15-August-2000');
@@ -33,22 +33,22 @@ example('repo example', () => {
     const repoCurve = new RelinkableHandle();
     repoCurve.linkTo(new FlatForward().ffInit2(repoSettlementDate, repoRate, repoDayCountConvention, repoCompounding, repoCompoundFreq));
     const bondFwd = new FixedRateBondForward(repoSettlementDate, repoDeliveryDate, fwdType, dummyStrike, repoSettlementDays, repoDayCountConvention, bondCalendar, bondBusinessDayConvention, bond, repoCurve, repoCurve);
-    print(`Underlying bond clean price: ${bond.cleanPrice1()}\n` +
-        `Underlying bond dirty price: ${bond.dirtyPrice1()}\n` +
-        'Underlying bond accrued at settlement: ' +
-        `${bond.accruedAmount(repoSettlementDate)}\n` +
-        'Underlying bond accrued at delivery: ' +
-        `${bond.accruedAmount(repoDeliveryDate)}\n` +
-        `Underlying bond spot income: ${bondFwd.spotIncome(repoCurve)}\n` +
-        `Underlying bond fwd income: ${bondFwd.spotIncome(repoCurve) /
-            repoCurve.currentLink().discount1(repoDeliveryDate)}\n` +
-        `Repo strike: ${dummyStrike}\n` +
-        `Repo NPV: ${bondFwd.NPV()}\n` +
-        `Repo clean forward price: ${bondFwd.cleanForwardPrice()}\n` +
-        `Repo dirty forward price: ${bondFwd.forwardPrice()}\n` +
-        `Repo implied yield: ${bondFwd.impliedYield(bond.dirtyPrice1(), dummyStrike, repoSettlementDate, repoCompounding, repoDayCountConvention)}\n` +
-        `Market repo rate: ${repoCurve.currentLink().zeroRate1(repoDeliveryDate, repoDayCountConvention, repoCompounding, repoCompoundFreq)}\n` +
-        `Compare with example given at
+    print(`Underlying bond clean price: ${bond.cleanPrice1()}`);
+    print(`Underlying bond dirty price: ${bond.dirtyPrice1()}`);
+    print('Underlying bond accrued at settlement: ' +
+          `${bond.accruedAmount(repoSettlementDate)}`);
+    print('Underlying bond accrued at delivery: ' +
+          `${bond.accruedAmount(repoDeliveryDate)}`);
+    print(`Underlying bond spot income: ${bondFwd.spotIncome(repoCurve)}`);
+    print(`Underlying bond fwd income: ${bondFwd.spotIncome(repoCurve) /
+            repoCurve.currentLink().discount1(repoDeliveryDate)}`);
+    print(`Repo strike: ${dummyStrike}`);
+    print(`Repo NPV: ${bondFwd.NPV()}`);
+    print(`Repo clean forward price: ${bondFwd.cleanForwardPrice()}`);
+    print(`Repo dirty forward price: ${bondFwd.forwardPrice()}`);
+    print(`Repo implied yield: ${bondFwd.impliedYield(bond.dirtyPrice1(), dummyStrike, repoSettlementDate, repoCompounding, repoDayCountConvention)}`);
+    print(`Market repo rate: ${repoCurve.currentLink().zeroRate1(repoDeliveryDate, repoDayCountConvention, repoCompounding, repoCompoundFreq)}`);
+    print(`Compare with example given at
     http://www.fincad.com/support/developerFunc/mathref/BFWD.htm
 
     Clean forward price = 88.2408

@@ -1,6 +1,6 @@
 import { Actual365Fixed, AnalyticBarrierEngine, AnalyticEuropeanEngine, Barrier, BarrierOption, BlackConstantVol, BlackScholesProcess, CashOrNothingPayoff, CompositeInstrument, DateExt, EuropeanExercise, EuropeanOption, FlatForward, Handle, NullCalendar, Option, PlainVanillaPayoff, Settings, SimpleQuote, TimeUnit } from '/ql.mjs';
 
-example('replication example', () => { 
+describe('replication example', () => { 
 
     const today = new Date('29-May-2006');
     Settings.evaluationDate.set(today);

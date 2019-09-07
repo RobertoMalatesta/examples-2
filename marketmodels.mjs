@@ -1,4 +1,4 @@
-example('market model example', () => { 
+describe('market model example', () => { 
 
     print('working in progress');
     

@@ -1,4 +1,4 @@
-example('latent model example', () => { 
+describe('latent model example', () => { 
 
     print('working in progress');
     

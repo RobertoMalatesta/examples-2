@@ -1,6 +1,6 @@
 import { Actual360, ActualActual, BackwardFlat, BusinessDayConvention, CounterpartyAdjSwapEngine, Discount, DiscountingSwapEngine, Euribor3M, Frequency, Handle, InterpolatedHazardRateCurve, LogLinear, MakeVanillaSwap, Period, PiecewiseYieldCurve, Settings, SimpleQuote, SwapRateHelper, TARGET, TimeUnit, VanillaSwap } from '/ql.mjs';
 
-example('cvairs example', () => { 
+describe('cvairs example', () => { 
 
     const calendar = new TARGET();
     let todaysDate = new Date('10-March-2004');

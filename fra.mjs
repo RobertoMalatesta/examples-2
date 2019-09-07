@@ -1,6 +1,6 @@
 import{ ActualActual, Compounding, Discount, Euribor3M, ForwardRateAgreement, FraRateHelper, LogLinear, PiecewiseYieldCurve, Position, RelinkableHandle, Settings, SimpleQuote, TimeUnit } from '/ql.mjs';
 
-example('FRA example', () => { 
+describe('FRA example', () => { 
 
   const euriborTermStructure = new RelinkableHandle();
   const euribor3m = new Euribor3M(euriborTermStructure);

@@ -1,6 +1,6 @@
 import { Actual365Fixed, Array1D, Array2D, BaseCorrelationLossModel, BaseCorrelationTermStructure, Basket, BinomialLossModel, BusinessDayConvention, ConstantLossLatentmodel, EURCurrency, FlatHazardRate, GaussianLHPLossModel, Handle, InhomogeneousPoolLossModel, Issuer, LatentModelIntegrationType, NorthAmericaCorpDefaultKey, Period, Pool, RandomDefaultLM, RandomLossLM, Seniority, Settings, SimpleQuote, SpotRecoveryLatentModel, TARGET, TCopulaPolicy, TimeUnit } from '/ql.mjs';
 
-example('basket losses example', () => { 
+describe('basket losses example', () => { 
 
     const calendar = new TARGET();
     let todaysDate = new Date('19-March-2014');

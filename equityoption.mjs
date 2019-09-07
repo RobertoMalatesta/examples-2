@@ -1,6 +1,6 @@
 import { Actual365Fixed, AdditiveEQPBinomialTree, AmericanExercise, AnalyticEuropeanEngine, AnalyticHestonEngine, BaroneAdesiWhaleyApproximationEngine, BatesEngine, BatesModel, BatesProcess, BermudanExercise, BinomialVanillaEngine, BjerksundStenslandApproximationEngine, BlackConstantVol, BlackScholesMertonProcess, CoxRossRubinstein, CrankNicolson, DateExt, EuropeanExercise, FDAmericanEngine, FDBermudanEngine, FDEuropeanEngine, FlatForward, Handle, HestonModel, HestonProcess, IntegralEngine, JarrowRudd, Joshi4, LeisenReimer, LowDiscrepancy, MakeMCAmericanEngine, MakeMCEuropeanEngine, Option, PlainVanillaPayoff, PseudoRandom, Settings, SimpleQuote, TARGET, Tian, TimeUnit, Trigeorgis, VanillaOption } from '/ql.mjs';
 
-example('equity option example', () => { 
+describe('equity option example', () => { 
 
     const calendar = new TARGET();
     const todaysDate = new Date('15-May-1998');

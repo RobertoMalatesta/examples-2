@@ -23,7 +23,7 @@ function calibrateModel(model, helpers) {
     }
 }
 
-example('bermudan swaption example', () => { 
+describe('bermudan swaption example', () => { 
 
     const todaysDate = new Date('15-February-2002');
     const calendar = new TARGET();
@@ -77,36 +77,36 @@ example('bermudan swaption example', () => {
         swaptions[i].setPricingEngine(new G2SwaptionEngine(modelG2, 6.0, 16));
     }
     calibrateModel(modelG2, swaptions);
-    print('calibrated to:\n' +
-        `a     = ${modelG2.params()[0]}, ` +
-        `sigma = ${modelG2.params()[1]} \n` +
-        `b     = ${modelG2.params()[2]} , ` +
-        `eta   = ${modelG2.params()[3]} \n` +
-        `rho   = ${modelG2.params()[4]}`);
+    print('calibrated to:');
+    print(`a     = ${modelG2.params()[0]}`);
+    print(`sigma = ${modelG2.params()[1]}`);
+    print(`b     = ${modelG2.params()[2]}`);
+    print(`eta   = ${modelG2.params()[3]}`);
+    print(`rho   = ${modelG2.params()[4]}`);
     print('Hull-White (analytic formulae) calibration');
     for (i = 0; i < swaptions.length; i++) {
         swaptions[i].setPricingEngine(new JamshidianSwaptionEngine(modelHW));
     }
     calibrateModel(modelHW, swaptions);
-    print('calibrated to:\n' +
-        `a = ${modelHW.params()[0]} , ` +
-        `sigma = ${modelHW.params()[1]}`);
+    print('calibrated to:');
+    print(`a = ${modelHW.params()[0]}`);
+    print(`sigma = ${modelHW.params()[1]}`);
     print('Hull-White (numerical) calibration');
     for (i = 0; i < swaptions.length; i++) {
         swaptions[i].setPricingEngine(new TreeSwaptionEngine().tseInit2(modelHW2, grid));
     }
     calibrateModel(modelHW2, swaptions);
-    print('calibrated to:\n' +
-        `a = ${modelHW2.params()[0]} , ` +
-        `sigma = ${modelHW2.params()[1]}`);
+    print('calibrated to:');
+    print(`a = ${modelHW2.params()[0]}`);
+    print(`sigma = ${modelHW2.params()[1]}`);
     print('Black-Karasinski (numerical) calibration');
     for (i = 0; i < swaptions.length; i++) {
         swaptions[i].setPricingEngine(new TreeSwaptionEngine().tseInit2(modelBK, grid));
     }
     calibrateModel(modelBK, swaptions);
-    print('calibrated to:\n' +
-        `a = ${modelBK.params()[0]} , ` +
-        `sigma = ${modelBK.params()[1]}`);
+    print('calibrated to:')
+    print(`a = ${modelBK.params()[0]}`);
+    print(`sigma = ${modelBK.params()[1]}`);
     print(`Payer bermudan swaption struck at ${fixedATMRate} (ATM)`);
     const bermudanDates = [];
     const leg = swap.fixedLeg();
