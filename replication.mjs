@@ -1,4 +1,4 @@
-import { Actual365Fixed, AnalyticBarrierEngine, AnalyticEuropeanEngine, Barrier, BarrierOption, BlackConstantVol, BlackScholesProcess, CashOrNothingPayoff, CompositeInstrument, DateExt, EuropeanExercise, EuropeanOption, FlatForward, Handle, NullCalendar, Option, PlainVanillaPayoff, Settings, SimpleQuote, TimeUnit } from '/ql.mjs';
+import { Actual365Fixed, AnalyticBarrierEngine, AnalyticEuropeanEngine, Barrier, BarrierOption, BlackConstantVol, BlackScholesProcess, CashOrNothingPayoff, CompositeInstrument, DateExt, EuropeanExercise, EuropeanOption, FlatForward, Handle, NullCalendar, Option, PlainVanillaPayoff, Settings, SimpleQuote, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql/ql.mjs';
 
 describe('replication example', () => { 
 

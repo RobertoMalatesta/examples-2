@@ -1,4 +1,4 @@
-import { Actual365Fixed, BackwardFlat, BusinessDayConvention, CreditDefaultSwap, DateExt, DateGeneration, FlatForward, Frequency, Handle, HazardRate, MakeSchedule, MidPointCdsEngine, Period, PiecewiseDefaultCurve, Protection, Settings, SimpleQuote, SpreadCdsHelper, TARGET, TimeUnit } from '/ql.mjs';
+import { Actual365Fixed, BackwardFlat, BusinessDayConvention, CreditDefaultSwap, DateExt, DateGeneration, FlatForward, Frequency, Handle, HazardRate, MakeSchedule, MidPointCdsEngine, Period, PiecewiseDefaultCurve, Protection, Settings, SimpleQuote, SpreadCdsHelper, TARGET, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql/ql.mjs';
 
 const first = 0, second = 1;
     

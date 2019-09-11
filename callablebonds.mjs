@@ -1,4 +1,4 @@
-import { ActualActual, BusinessDayConvention, Callability, CallableFixedRateBond, Compounding, DateGeneration, FlatForward, Frequency, Handle, HullWhite, InterestRate, NullCalendar, Period, QL_EPSILON, Schedule, Settings, SimpleQuote, TimeUnit, TreeCallableFixedRateBondEngine, UnitedStates } from '/ql.mjs';
+import { ActualActual, BusinessDayConvention, Callability, CallableFixedRateBond, Compounding, DateGeneration, FlatForward, Frequency, Handle, HullWhite, InterestRate, NullCalendar, Period, QL_EPSILON, Schedule, Settings, SimpleQuote, TimeUnit, TreeCallableFixedRateBondEngine, UnitedStates } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql/ql.mjs';
 
 function flatRate1(today, forward, dc, compounding, frequency) {
     return new FlatForward().ffInit1(today, new Handle(forward), dc, compounding, frequency);

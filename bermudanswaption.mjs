@@ -1,4 +1,4 @@
-import { Actual365Fixed, Array1D, BermudanExercise, BlackKarasinski, BusinessDayConvention, DateGeneration, DiscountingSwapEngine, EndCriteria, Euribor6M, FdG2SwaptionEngine, FdHullWhiteSwaptionEngine, FlatForward, Frequency, G2, G2SwaptionEngine, Handle, HullWhite, JamshidianSwaptionEngine, LevenbergMarquardt, Period, Schedule, Settings, SimpleQuote, Swaption, SwaptionHelper, TARGET, Thirty360, TimeGrid, TimeUnit, TreeSwaptionEngine, VanillaSwap } from '/ql.mjs';
+import { Actual365Fixed, Array1D, BermudanExercise, BlackKarasinski, BusinessDayConvention, DateGeneration, DiscountingSwapEngine, EndCriteria, Euribor6M, FdG2SwaptionEngine, FdHullWhiteSwaptionEngine, FlatForward, Frequency, G2, G2SwaptionEngine, Handle, HullWhite, JamshidianSwaptionEngine, LevenbergMarquardt, Period, Schedule, Settings, SimpleQuote, Swaption, SwaptionHelper, TARGET, Thirty360, TimeGrid, TimeUnit, TreeSwaptionEngine, VanillaSwap } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql/ql.mjs';
 
 const numRows = 5;
 const numCols = 5;

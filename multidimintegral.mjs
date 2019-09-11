@@ -1,4 +1,4 @@
-import { Array1D, Default, GaussianQuadMultidimIntegrator, M_PI, MultidimIntegral, TrapezoidIntegral } from '/ql.mjs';
+import { Array1D, Default, GaussianQuadMultidimIntegrator, M_PI, MultidimIntegral, TrapezoidIntegral } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql/ql.mjs';
 
 class integrand {
     f(arg) {
