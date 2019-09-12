@@ -1,4 +1,4 @@
-import { Actual365Fixed, Array1D, Basket, ConstantRecoveryModel, EURCurrency, FlatHazardRate, GaussianCopulaPolicy, GaussianDefProbLM, Handle, Issuer, LatentModelIntegrationType, NorthAmericaCorpDefaultKey, Period, Pool, RandomDefaultLM, Seniority, Settings, TARGET, TCopulaPolicy, TDefProbLM, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql/ql.mjs';
+import { Actual365Fixed, Array1D, Basket, ConstantRecoveryModel, EURCurrency, FlatHazardRate, GaussianCopulaPolicy, GaussianDefProbLM, Handle, Issuer, LatentModelIntegrationType, NorthAmericaCorpDefaultKey, Period, Pool, RandomDefaultLM, Seniority, Settings, TARGET, TCopulaPolicy, TDefProbLM, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe('latent model example', () => {
 

@@ -1,4 +1,4 @@
-import{ ActualActual, Compounding, Discount, Euribor3M, ForwardRateAgreement, FraRateHelper, LogLinear, PiecewiseYieldCurve, Position, RelinkableHandle, Settings, SimpleQuote, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql/ql.mjs';
+import{ ActualActual, Compounding, Discount, Euribor3M, ForwardRateAgreement, FraRateHelper, LogLinear, PiecewiseYieldCurve, Position, RelinkableHandle, Settings, SimpleQuote, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe('FRA example', () => { 
 

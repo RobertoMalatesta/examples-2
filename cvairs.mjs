@@ -1,4 +1,4 @@
-import { Actual360, ActualActual, BackwardFlat, BusinessDayConvention, CounterpartyAdjSwapEngine, Discount, DiscountingSwapEngine, Euribor3M, Frequency, Handle, InterpolatedHazardRateCurve, LogLinear, MakeVanillaSwap, Period, PiecewiseYieldCurve, Settings, SimpleQuote, SwapRateHelper, TARGET, TimeUnit, VanillaSwap } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql/ql.mjs';
+import { Actual360, ActualActual, BackwardFlat, BusinessDayConvention, CounterpartyAdjSwapEngine, Discount, DiscountingSwapEngine, Euribor3M, Frequency, Handle, InterpolatedHazardRateCurve, LogLinear, MakeVanillaSwap, Period, PiecewiseYieldCurve, Settings, SimpleQuote, SwapRateHelper, TARGET, TimeUnit, VanillaSwap } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe('cvairs example', () => { 
 

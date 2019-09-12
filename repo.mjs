@@ -1,4 +1,4 @@
-import { Actual360, BusinessDayConvention, Compounding, DateGeneration, DiscountingBondEngine, FixedRateBond, FixedRateBondForward, FlatForward, Frequency, NullCalendar, Period, Position, RelinkableHandle, Schedule, Settings, Thirty360 } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql/ql.mjs';
+import { Actual360, BusinessDayConvention, Compounding, DateGeneration, DiscountingBondEngine, FixedRateBond, FixedRateBondForward, FlatForward, Frequency, NullCalendar, Period, Position, RelinkableHandle, Schedule, Settings, Thirty360 } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe('repo example', () => { 
 

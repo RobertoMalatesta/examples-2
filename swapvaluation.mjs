@@ -1,4 +1,4 @@
-import { Actual360, ActualActual, BusinessDayConvention, DateExt, DateGeneration, DepositRateHelper, Discount, DiscountingSwapEngine, Euribor6M, FraRateHelper, Frequency, FuturesRateHelper, Handle, IMM, LogLinear, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, Settings, SimpleQuote, SwapRateHelper, TARGET, Thirty360, TimeUnit, VanillaSwap } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql/ql.mjs';
+import { Actual360, ActualActual, BusinessDayConvention, DateExt, DateGeneration, DepositRateHelper, Discount, DiscountingSwapEngine, Euribor6M, FraRateHelper, Frequency, FuturesRateHelper, Handle, IMM, LogLinear, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, Settings, SimpleQuote, SwapRateHelper, TARGET, Thirty360, TimeUnit, VanillaSwap } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe('swap valuation example', () => { 
 
