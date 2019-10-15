@@ -1,10 +1,10 @@
-import{ ActualActual, Compounding, Discount, Euribor3M, ForwardRateAgreement, FraRateHelper, LogLinear, PiecewiseYieldCurve, Position, RelinkableHandle, Settings, SimpleQuote, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import{ ActualActual, Compounding, DateExt, Discount, Euribor3M, ForwardRateAgreement, FraRateHelper, LogLinear, PiecewiseYieldCurve, Position, RelinkableHandle, Settings, SimpleQuote, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
-describe('FRA example', () => { 
+describe('FRA example', () => {
 
   const euriborTermStructure = new RelinkableHandle();
   const euribor3m = new Euribor3M(euriborTermStructure);
-  const todaysDate = new Date('23-May-2006');
+  const todaysDate = DateExt.UTC('23,May,2006');
   Settings.evaluationDate.set(todaysDate);
   const calendar = euribor3m.fixingCalendar();
   const fixingDays = euribor3m.fixingDays();
@@ -12,6 +12,7 @@ describe('FRA example', () => {
       calendar.advance1(todaysDate, fixingDays, TimeUnit.Days);
   print(`Today : ${ todaysDate }`);
   print(`Settlement date : ${ settlementDate }`);
+  print('   ');
   const threeMonthFraQuote = new Array(10);
   threeMonthFraQuote[1] = 0.030;
   threeMonthFraQuote[2] = 0.031;
@@ -65,6 +66,7 @@ describe('FRA example', () => {
   const monthsToStart = [ 1, 2, 3, 6, 9 ];
   euriborTermStructure.linkTo(fraTermStructure);
   print('Test FRA construction, NPV calculation, and FRA purchase');
+  print('   ');
   let i;
   for (i = 0; i < monthsToStart.length; i++) {
     const fraValueDate =
@@ -90,9 +92,12 @@ describe('FRA example', () => {
       discountingTermStructure.currentLink().zeroRate1(
         fraMaturityDate, fraDayCounter, Compounding.Simple)}`);
     print(`FRA NPV [should be zero]: ${myFRA.NPV()}`);
+    print('   ');
   }
+  print('   ');
   print('Now take a 100 basis-point upward shift' +
               ' in FRA quotes and examine NPV');
+  print('   ');
   const bpsShift = 0.01;
   threeMonthFraQuote[1] = 0.030 + bpsShift;
   threeMonthFraQuote[2] = 0.031 + bpsShift;
@@ -128,6 +133,7 @@ describe('FRA example', () => {
       discountingTermStructure.currentLink().zeroRate1(
         fraMaturityDate, fraDayCounter, Compounding.Simple)}`);
     print(`FRA NPV [should be positive]: ${myFRA.NPV()}`);
+    print('   ');
   }
 
 });

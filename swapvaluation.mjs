@@ -3,7 +3,7 @@ import { Actual360, ActualActual, BusinessDayConvention, DateExt, DateGeneration
 describe('swap valuation example', () => { 
 
     const calendar = new TARGET();
-    let settlementDate = new Date('22-September-2004');
+    let settlementDate = DateExt.UTC('22,September,2004');
     settlementDate = calendar.adjust(settlementDate);
     const fixingDays = 2;
     const todaysDate = calendar.advance1(settlementDate, -fixingDays, TimeUnit.Days);

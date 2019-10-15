@@ -34,7 +34,7 @@ class ReplicationError {
         const myPathPricer = new ReplicationPathPricer(this._payoff.optionType(), this._payoff.strike(), this._r, this._maturity, this._sigma);
         const statisticsAccumulator = new RiskStatistics();
         const MCSimulation = new MonteCarloModel(MC.SingleVariate, new PseudoRandom())
-            .mcmInprint(myPathGenerator, myPathPricer, statisticsAccumulator, false);
+            .mcmInit(myPathGenerator, myPathPricer, statisticsAccumulator, false);
         MCSimulation.addSamples(nSamples);
         const PLMean = MCSimulation.sampleAccumulator().mean();
         const PLStDev = MCSimulation.sampleAccumulator().standardDeviation();
@@ -111,7 +111,7 @@ class ReplicationPathPricer extends PathPricer {
     }
 }
 
-describe('discrete hedging example', () => { 
+describe('discrete hedging example', () => {
 
     const maturity = 1.0 / 12.0;
     const strike = 100;
