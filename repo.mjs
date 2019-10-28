@@ -1,8 +1,6 @@
 import { Actual360, BusinessDayConvention, Compounding, DateGeneration, DiscountingBondEngine, FixedRateBond, FixedRateBondForward, FlatForward, Frequency, NullCalendar, Period, Position, RelinkableHandle, Schedule, Settings, Thirty360, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
-describe('repo example', () => { 
-      print(`${version}`);
-      print('  ');
+describe(`repo example ${version}`, () => { 
 
     const repoSettlementDate = new Date('14-February-2000');
     const repoDeliveryDate = new Date('15-August-2000');

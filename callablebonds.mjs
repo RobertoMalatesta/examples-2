@@ -8,9 +8,7 @@ function flatRate2(today, forward, dc, compounding, frequency) {
     return flatRate1(today, new SimpleQuote(forward), dc, compounding, frequency);
 }
 
-describe('callable bonds example', () => { 
-    print(`${version}`);
-    print('  ');
+describe(`callable bonds example ${version}`, () => { 
     
     const today = new Date('16-October-2007');
     Settings.evaluationDate.set(today);

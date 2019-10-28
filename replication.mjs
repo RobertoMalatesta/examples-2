@@ -1,8 +1,6 @@
 import { Actual365Fixed, AnalyticBarrierEngine, AnalyticEuropeanEngine, Barrier, BarrierOption, BlackConstantVol, BlackScholesProcess, CashOrNothingPayoff, CompositeInstrument, DateExt, EuropeanExercise, EuropeanOption, FlatForward, Handle, NullCalendar, Option, PlainVanillaPayoff, Settings, SimpleQuote, TimeUnit, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
-describe('replication example', () => { 
-    print(`${version}`);
-    print('  ');
+describe(`replication example ${version}`, () => { 
     
     const today = new Date('29-May-2006');
     Settings.evaluationDate.set(today);

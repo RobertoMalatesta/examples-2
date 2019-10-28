@@ -1,8 +1,6 @@
 import{ ActualActual, Compounding, DateExt, Discount, Euribor3M, ForwardRateAgreement, FraRateHelper, LogLinear, PiecewiseYieldCurve, Position, RelinkableHandle, Settings, SimpleQuote, TimeUnit, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
-describe('FRA example', () => {
-    print(`${version}`);
-    print('  ');
+describe(`FRA example ${version}`, () => {
     
   const euriborTermStructure = new RelinkableHandle();
   const euribor3m = new Euribor3M(euriborTermStructure);

@@ -111,9 +111,7 @@ class ReplicationPathPricer extends PathPricer {
     }
 }
 
-describe('discrete hedging example', () => {
-    print(`${version}`);
-    print('  ');
+describe(`discrete hedging example ${version}`, () => {
     
     const maturity = 1.0 / 12.0;
     const strike = 100;

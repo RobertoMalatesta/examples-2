@@ -106,9 +106,7 @@ function example01() {
 function example02() { }
 function example03() { }
 
-describe('cds example', () => { 
-    print(`${version}`);
-    print('  ');
+describe(`cds example ${version}`, () => { 
     
     example01();
     example02();

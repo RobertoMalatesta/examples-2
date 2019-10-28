@@ -1,8 +1,6 @@
 import { Actual360, Actual365Fixed, ActualActual, BlackIborCouponPricer, BusinessDayConvention, Compounding, ConstantOptionletVolatility, DateGeneration, DepositRateHelper, Discount, DiscountingBondEngine, Euribor6M, FixedRateBond, FixedRateBondHelper, FloatingRateBond, Frequency, Handle, LogLinear, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, setCouponPricer, Settings, SimpleQuote, SwapRateHelper, TARGET, Thirty360, TimeUnit, UnitedStates, USDLibor, ZeroCouponBond, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
-describe('bonds example', () => { 
-    print(`${version}`);
-    print('  ');
+describe(`bonds example ${version}`, () => { 
     
     const calendar = new TARGET();
     let settlementDate = new Date('18-September-2008');

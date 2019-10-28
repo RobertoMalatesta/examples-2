@@ -10,9 +10,7 @@ class integrand {
     }
 }
 
-describe('multi-dim integral example', () => { 
-    print(`${version}`);
-    print('  ');
+describe(`multi-dim integral example ${version}`, () => { 
     
     const dimension = 3;
     const exactSol = Math.pow(Math.exp(-.25) * Math.sqrt(M_PI), dimension);

@@ -23,9 +23,7 @@ function calibrateModel(model, helpers) {
     }
 }
 
-describe('bermudan swaption example', () => { 
-    print(`${version}`);
-    print('  ');
+describe(`bermudan swaption example ${version}`, () => { 
     
     const todaysDate = new Date('15-February-2002');
     const calendar = new TARGET();

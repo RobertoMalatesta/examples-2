@@ -233,9 +233,7 @@ function testDifferentialEvolution(n, agents) {
     print('================================================================');
 }
 
-describe('global optimizer example', () => {
-    print(`${version}`);
-    print('  ');
+describe(`global optimizer example ${version}`, () => {
     
     print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     print('Firefly Algorithm Test');

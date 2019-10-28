@@ -32,9 +32,7 @@ function printModelCalibration(basket, volatility) {
     }
 }
 
-describe('gaussian 1d models example', () => { 
-    print(`${version}`);
-    print('  ');
+describe(`gaussian 1d models example ${version}`, () => { 
     
     const refDate = new Date('30-April-2014');
     Settings.evaluationDate.set(refDate);

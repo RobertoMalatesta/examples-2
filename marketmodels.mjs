@@ -300,9 +300,7 @@ function InverseFloater(rateLevel) {
     return 0;
 }
 
-describe('market model example', () => {
-    print(`${version}`);
-    print('  ');
+describe(`market model example ${version}`, () => {
     
     Bermudan();
     for (let i = 5; i < 10; ++i) {

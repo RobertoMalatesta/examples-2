@@ -24,9 +24,7 @@ function printOutput(tag, curve) {
         `${curve.fitResults().numberOfIterations()}`);
 }
 
-describe('fitted bound curve example', () => { 
-    print(`${version}`);
-    print('  ');
+describe(`fitted bound curve example ${version}`, () => { 
     
     const numberOfBonds = 15;
     const cleanPrice = new Array(numberOfBonds);
