@@ -1,4 +1,4 @@
-import { Array1D, Default, GaussianQuadMultidimIntegrator, M_PI, MultidimIntegral, TrapezoidIntegral } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Array1D, Default, GaussianQuadMultidimIntegrator, M_PI, MultidimIntegral, TrapezoidIntegral, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 class integrand {
     f(arg) {
@@ -11,7 +11,9 @@ class integrand {
 }
 
 describe('multi-dim integral example', () => { 
-
+    print(`${version}`);
+    print('  ');
+    
     const dimension = 3;
     const exactSol = Math.pow(Math.exp(-.25) * Math.sqrt(M_PI), dimension);
     const f = new integrand();

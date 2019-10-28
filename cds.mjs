@@ -1,4 +1,4 @@
-import { Actual365Fixed, BackwardFlat, BusinessDayConvention, CreditDefaultSwap, DateExt, DateGeneration, FlatForward, Frequency, Handle, HazardRate, MakeSchedule, MidPointCdsEngine, Period, PiecewiseDefaultCurve, Protection, Settings, SimpleQuote, SpreadCdsHelper, TARGET, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Actual365Fixed, BackwardFlat, BusinessDayConvention, CreditDefaultSwap, DateExt, DateGeneration, FlatForward, Frequency, Handle, HazardRate, MakeSchedule, MidPointCdsEngine, Period, PiecewiseDefaultCurve, Protection, Settings, SimpleQuote, SpreadCdsHelper, TARGET, TimeUnit, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 const first = 0, second = 1;
     
@@ -107,7 +107,9 @@ function example02() { }
 function example03() { }
 
 describe('cds example', () => { 
-
+    print(`${version}`);
+    print('  ');
+    
     example01();
     example02();
     example03();

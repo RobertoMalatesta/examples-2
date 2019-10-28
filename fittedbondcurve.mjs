@@ -1,4 +1,4 @@
-import { Array1D, BondFunctions, BusinessDayConvention, Compounding, CubicBSplinesFitting, DateGeneration, Discount, Duration, ExponentialSplinesFitting, FittedBondDiscountCurve, FixedRateBondHelper, FlatForward, Frequency, Handle, LogLinear, NelsonSiegelFitting, Period, PiecewiseYieldCurve, Schedule, Settings, SimpleDayCounter, SimplePolynomialFitting, SimpleQuote, SpreadFittingMethod, SvenssonFitting, TARGET, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Array1D, BondFunctions, BusinessDayConvention, Compounding, CubicBSplinesFitting, DateGeneration, Discount, Duration, ExponentialSplinesFitting, FittedBondDiscountCurve, FixedRateBondHelper, FlatForward, Frequency, Handle, LogLinear, NelsonSiegelFitting, Period, PiecewiseYieldCurve, Schedule, Settings, SimpleDayCounter, SimplePolynomialFitting, SimpleQuote, SpreadFittingMethod, SvenssonFitting, TARGET, TimeUnit, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 function parRate(yts, dates, resultDayCounter) {
     if (dates.length < 2) {
@@ -25,7 +25,9 @@ function printOutput(tag, curve) {
 }
 
 describe('fitted bound curve example', () => { 
-
+    print(`${version}`);
+    print('  ');
+    
     const numberOfBonds = 15;
     const cleanPrice = new Array(numberOfBonds);
     for (let i = 0; i < numberOfBonds; i++) {

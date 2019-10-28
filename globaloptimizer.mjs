@@ -1,4 +1,4 @@
-import { Array1D, Constraint, CostFunction, DifferentialEvolution, EndCriteria, ExponentialIntensity, FireflyAlgorithm, GaussianSimulatedAnnealing, HybridSimulatedAnnealing, KNeighbors, LevenbergMarquardt, LevyFlightInertia, LevyFlightWalk, M_E, M_TWOPI, MersenneTwisterUniformRng, NonhomogeneousBoundaryConstraint, ParticleSwarmOptimization, ProbabilityBoltzmannDownhill, Problem, ReannealingTrivial, SamplerGaussian, SimulatedAnnealing, TemperatureExponential } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Array1D, Constraint, CostFunction, DifferentialEvolution, EndCriteria, ExponentialIntensity, FireflyAlgorithm, GaussianSimulatedAnnealing, HybridSimulatedAnnealing, KNeighbors, LevenbergMarquardt, LevyFlightInertia, LevyFlightWalk, M_E, M_TWOPI, MersenneTwisterUniformRng, NonhomogeneousBoundaryConstraint, ParticleSwarmOptimization, ProbabilityBoltzmannDownhill, Problem, ReannealingTrivial, SamplerGaussian, SimulatedAnnealing, TemperatureExponential, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 const seed = 127;
 
 function ackley(x) {
@@ -234,7 +234,9 @@ function testDifferentialEvolution(n, agents) {
 }
 
 describe('global optimizer example', () => {
-
+    print(`${version}`);
+    print('  ');
+    
     print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     print('Firefly Algorithm Test');
     print('----------------------------------------------------------------');

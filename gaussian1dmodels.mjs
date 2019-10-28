@@ -1,4 +1,4 @@
-import { Actual360, Actual365Fixed, Array1D, BasketGeneratingEngine, BermudanExercise, BlackIborCouponPricer, BusinessDayConvention, ConstantSwaptionVolatility, DateGeneration, DiscountingSwapEngine, EndCriteria, Euribor, EuriborSwapIsdaFixA, FlatForward, FloatFloatSwap, FloatFloatSwaption, Gaussian1dFloatFloatSwaptionEngine, Gaussian1dNonstandardSwaptionEngine, Gaussian1dSwaptionEngine, Gsr, Handle, LevenbergMarquardt, LinearTsrPricer, MarkovFunctional, NonstandardSwap, NonstandardSwaption, Period, QL_NULL_REAL, RebatedExercise, RelinkableHandle, Schedule, setCouponPricer, Settings, SimpleQuote, TARGET, Thirty360, TimeUnit, VanillaSwap } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Actual360, Actual365Fixed, Array1D, BasketGeneratingEngine, BermudanExercise, BlackIborCouponPricer, BusinessDayConvention, ConstantSwaptionVolatility, DateGeneration, DiscountingSwapEngine, EndCriteria, Euribor, EuriborSwapIsdaFixA, FlatForward, FloatFloatSwap, FloatFloatSwaption, Gaussian1dFloatFloatSwaptionEngine, Gaussian1dNonstandardSwaptionEngine, Gaussian1dSwaptionEngine, Gsr, Handle, LevenbergMarquardt, LinearTsrPricer, MarkovFunctional, NonstandardSwap, NonstandardSwaption, Period, QL_NULL_REAL, RebatedExercise, RelinkableHandle, Schedule, setCouponPricer, Settings, SimpleQuote, TARGET, Thirty360, TimeUnit, VanillaSwap, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 function printBasket(basket) {
     for (let j = 0; j < basket.length; ++j) {
@@ -33,7 +33,9 @@ function printModelCalibration(basket, volatility) {
 }
 
 describe('gaussian 1d models example', () => { 
-
+    print(`${version}`);
+    print('  ');
+    
     const refDate = new Date('30-April-2014');
     Settings.evaluationDate.set(refDate);
     print('The evaluation date for this example is set to ' +

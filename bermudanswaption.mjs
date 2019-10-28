@@ -1,4 +1,4 @@
-import { Actual365Fixed, Array1D, BermudanExercise, BlackKarasinski, BusinessDayConvention, DateGeneration, DiscountingSwapEngine, EndCriteria, Euribor6M, FdG2SwaptionEngine, FdHullWhiteSwaptionEngine, FlatForward, Frequency, G2, G2SwaptionEngine, Handle, HullWhite, JamshidianSwaptionEngine, LevenbergMarquardt, Period, Schedule, Settings, SimpleQuote, Swaption, SwaptionHelper, TARGET, Thirty360, TimeGrid, TimeUnit, TreeSwaptionEngine, VanillaSwap } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Actual365Fixed, Array1D, BermudanExercise, BlackKarasinski, BusinessDayConvention, DateGeneration, DiscountingSwapEngine, EndCriteria, Euribor6M, FdG2SwaptionEngine, FdHullWhiteSwaptionEngine, FlatForward, Frequency, G2, G2SwaptionEngine, Handle, HullWhite, JamshidianSwaptionEngine, LevenbergMarquardt, Period, Schedule, Settings, SimpleQuote, Swaption, SwaptionHelper, TARGET, Thirty360, TimeGrid, TimeUnit, TreeSwaptionEngine, VanillaSwap, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 const numRows = 5;
 const numCols = 5;
@@ -24,7 +24,9 @@ function calibrateModel(model, helpers) {
 }
 
 describe('bermudan swaption example', () => { 
-
+    print(`${version}`);
+    print('  ');
+    
     const todaysDate = new Date('15-February-2002');
     const calendar = new TARGET();
     const settlementDate = new Date('19-February-2002');

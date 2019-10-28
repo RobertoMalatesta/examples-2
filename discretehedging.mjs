@@ -1,4 +1,4 @@
-import { Actual365Fixed, BlackCalculator, BlackConstantVol, BlackScholesMertonProcess, FlatForward, Handle, M_PI, MC, MonteCarloModel, Option, PathGenerator, PathPricer, PlainVanillaPayoff, PseudoRandom, RiskStatistics, SimpleQuote, TARGET } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Actual365Fixed, BlackCalculator, BlackConstantVol, BlackScholesMertonProcess, FlatForward, Handle, M_PI, MC, MonteCarloModel, Option, PathGenerator, PathPricer, PlainVanillaPayoff, PseudoRandom, RiskStatistics, SimpleQuote, TARGET, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 class ReplicationError {
     constructor(type, maturity, strike, s0, sigma, r) {
@@ -112,7 +112,9 @@ class ReplicationPathPricer extends PathPricer {
 }
 
 describe('discrete hedging example', () => {
-
+    print(`${version}`);
+    print('  ');
+    
     const maturity = 1.0 / 12.0;
     const strike = 100;
     const underlying = 100;

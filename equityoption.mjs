@@ -1,7 +1,9 @@
-import { Actual365Fixed, AdditiveEQPBinomialTree, AmericanExercise, AnalyticEuropeanEngine, AnalyticHestonEngine, BaroneAdesiWhaleyApproximationEngine, BatesEngine, BatesModel, BatesProcess, BermudanExercise, BinomialVanillaEngine, BjerksundStenslandApproximationEngine, BlackConstantVol, BlackScholesMertonProcess, CoxRossRubinstein, CrankNicolson, DateExt, EuropeanExercise, FDAmericanEngine, FDBermudanEngine, FDEuropeanEngine, FlatForward, Handle, HestonModel, HestonProcess, IntegralEngine, JarrowRudd, Joshi4, LeisenReimer, LowDiscrepancy, MakeMCAmericanEngine, MakeMCEuropeanEngine, Option, PlainVanillaPayoff, PseudoRandom, Settings, SimpleQuote, TARGET, Tian, TimeUnit, Trigeorgis, VanillaOption } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Actual365Fixed, AdditiveEQPBinomialTree, AmericanExercise, AnalyticEuropeanEngine, AnalyticHestonEngine, BaroneAdesiWhaleyApproximationEngine, BatesEngine, BatesModel, BatesProcess, BermudanExercise, BinomialVanillaEngine, BjerksundStenslandApproximationEngine, BlackConstantVol, BlackScholesMertonProcess, CoxRossRubinstein, CrankNicolson, DateExt, EuropeanExercise, FDAmericanEngine, FDBermudanEngine, FDEuropeanEngine, FlatForward, Handle, HestonModel, HestonProcess, IntegralEngine, JarrowRudd, Joshi4, LeisenReimer, LowDiscrepancy, MakeMCAmericanEngine, MakeMCEuropeanEngine, Option, PlainVanillaPayoff, PseudoRandom, Settings, SimpleQuote, TARGET, Tian, TimeUnit, Trigeorgis, VanillaOption, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe('equity option example', () => { 
-
+    print(`${version}`);
+    print('  ');
+    
     const calendar = new TARGET();
     const todaysDate = new Date('15-May-1998');
     const settlementDate = new Date('17-May-1998');

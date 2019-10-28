@@ -1,7 +1,9 @@
-import { Actual365Fixed, Array1D, Basket, ConstantRecoveryModel, EURCurrency, FlatHazardRate, GaussianCopulaPolicy, GaussianDefProbLM, Handle, Issuer, LatentModelIntegrationType, NorthAmericaCorpDefaultKey, Period, Pool, RandomDefaultLM, Seniority, Settings, TARGET, TCopulaPolicy, TDefProbLM, TimeUnit } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Actual365Fixed, Array1D, Basket, ConstantRecoveryModel, EURCurrency, FlatHazardRate, GaussianCopulaPolicy, GaussianDefProbLM, Handle, Issuer, LatentModelIntegrationType, NorthAmericaCorpDefaultKey, Period, Pool, RandomDefaultLM, Seniority, Settings, TARGET, TCopulaPolicy, TDefProbLM, TimeUnit, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe('latent model example', () => {
-
+    print(`${version}`);
+    print('  ');
+    
     const calendar = new TARGET();
     let todaysDate = new Date('19-March-2014');
     todaysDate = calendar.adjust(todaysDate);

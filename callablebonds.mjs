@@ -1,4 +1,4 @@
-import { ActualActual, BusinessDayConvention, Callability, CallableFixedRateBond, Compounding, DateGeneration, FlatForward, Frequency, Handle, HullWhite, InterestRate, NullCalendar, Period, QL_EPSILON, Schedule, Settings, SimpleQuote, TimeUnit, TreeCallableFixedRateBondEngine, UnitedStates } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { ActualActual, BusinessDayConvention, Callability, CallableFixedRateBond, Compounding, DateGeneration, FlatForward, Frequency, Handle, HullWhite, InterestRate, NullCalendar, Period, QL_EPSILON, Schedule, Settings, SimpleQuote, TimeUnit, TreeCallableFixedRateBondEngine, UnitedStates, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 function flatRate1(today, forward, dc, compounding, frequency) {
     return new FlatForward().ffInit1(today, new Handle(forward), dc, compounding, frequency);
@@ -9,7 +9,9 @@ function flatRate2(today, forward, dc, compounding, frequency) {
 }
 
 describe('callable bonds example', () => { 
-
+    print(`${version}`);
+    print('  ');
+    
     const today = new Date('16-October-2007');
     Settings.evaluationDate.set(today);
     print('Pricing a callable fixed rate bond using\n' +

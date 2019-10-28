@@ -1,4 +1,4 @@
-import { AccountingEngine, Array1D, CallSpecifiedMultiProduct, CallSpecifiedPathwiseMultiProduct, collectNodeData, ExerciseAdapter, ExponentialForwardCorrelation, FlatVol, genericLongstaffSchwartzRegression, isInSubset, LogNormalFwdRateEuler, LogNormalFwdRatePc, LongstaffSchwartzExerciseStrategy, MarketModelPathwiseInverseFloater, MarketModelPathwiseSwap, moneyMarketMeasure, MTBrownianGeneratorFactory, MultiProductComposite, MultiStepInverseFloater, MultiStepNothing, MultiStepSwap, NothingExerciseValue, OrthogonalizedBumpFinder, PathwiseVegasOuterAccountingEngine, RiskStatistics, SequenceStatisticsInc, SobolBrownianGenerator, SobolBrownianGeneratorFactory, SwapBasisSystem, SwapForwardBasisSystem, SwapRateTrigger, UpperBoundEngine, VegaBumpCollection, VolatilityBumpInstrumentJacobian } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { AccountingEngine, Array1D, CallSpecifiedMultiProduct, CallSpecifiedPathwiseMultiProduct, collectNodeData, ExerciseAdapter, ExponentialForwardCorrelation, FlatVol, genericLongstaffSchwartzRegression, isInSubset, LogNormalFwdRateEuler, LogNormalFwdRatePc, LongstaffSchwartzExerciseStrategy, MarketModelPathwiseInverseFloater, MarketModelPathwiseSwap, moneyMarketMeasure, MTBrownianGeneratorFactory, MultiProductComposite, MultiStepInverseFloater, MultiStepNothing, MultiStepSwap, NothingExerciseValue, OrthogonalizedBumpFinder, PathwiseVegasOuterAccountingEngine, RiskStatistics, SequenceStatisticsInc, SobolBrownianGenerator, SobolBrownianGeneratorFactory, SwapBasisSystem, SwapForwardBasisSystem, SwapRateTrigger, UpperBoundEngine, VegaBumpCollection, VolatilityBumpInstrumentJacobian, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 function theVegaBumps(factorwiseBumping, marketModel, doCaps) {
     const multiplierCutOff = 50.0;
@@ -301,7 +301,9 @@ function InverseFloater(rateLevel) {
 }
 
 describe('market model example', () => {
-
+    print(`${version}`);
+    print('  ');
+    
     Bermudan();
     for (let i = 5; i < 10; ++i) {
         InverseFloater(i / 100.0);
