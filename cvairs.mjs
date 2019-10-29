@@ -1,9 +1,9 @@
-import { Actual360, ActualActual, BackwardFlat, BusinessDayConvention, CounterpartyAdjSwapEngine, Discount, DiscountingSwapEngine, Euribor3M, Frequency, Handle, InterpolatedHazardRateCurve, LogLinear, MakeVanillaSwap, Period, PiecewiseYieldCurve, Settings, SimpleQuote, SwapRateHelper, TARGET, TimeUnit, VanillaSwap, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Actual360, ActualActual, BackwardFlat, BusinessDayConvention, CounterpartyAdjSwapEngine, DateExt, Discount, DiscountingSwapEngine, Euribor3M, Frequency, Handle, InterpolatedHazardRateCurve, LogLinear, MakeVanillaSwap, Period, PiecewiseYieldCurve, Settings, SimpleQuote, SwapRateHelper, TARGET, TimeUnit, VanillaSwap, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe(`cvairs example ${version}`, () => { 
     
     const calendar = new TARGET();
-    let todaysDate = new Date('10-March-2004');
+    let todaysDate = DateExt.UTC('10,March,2004');
     todaysDate = calendar.adjust(todaysDate);
     Settings.evaluationDate.set(todaysDate);
     const yieldIndx = new Euribor3M();
@@ -77,13 +77,19 @@ describe(`cvairs example ${version}`, () => {
     for (let i = 0; i < riskySwaps.length; i++) {
         riskySwaps[i].setPricingEngine(riskFreeEngine);
         const nonRiskyFair = riskySwaps[i].fairRate();
-        print(`${tenorsSwapMkt[i]} | ${nonRiskyFair} | `);
+
         riskySwaps[i].setPricingEngine(ctptySwapCvaLow);
-        print(`${10000. * (riskySwaps[i].fairRate() - nonRiskyFair)} | `);
+        const v1 = 10000. * (riskySwaps[i].fairRate() - nonRiskyFair);
         riskySwaps[i].setPricingEngine(ctptySwapCvaMedium);
-        print(`${10000. * (riskySwaps[i].fairRate() - nonRiskyFair)} | `);
+        const v2 = 10000. * (riskySwaps[i].fairRate() - nonRiskyFair);
         riskySwaps[i].setPricingEngine(ctptySwapCvaHigh);
-        print(`${10000. * (riskySwaps[i].fairRate() - nonRiskyFair)}\n`);
+        const v3 = 10000. * (riskySwaps[i].fairRate() - nonRiskyFair);
+
+        print(`${tenorsSwapMkt[i].toString().padStart(4, ' ')}   | `+
+        `${(nonRiskyFair*100).toFixed(3).toString()} %   | `+
+        `${v1.toFixed(2).padStart(6, ' ')} | `+
+        `${v2.toFixed(2).padStart(6, ' ')} | `+
+        `${v3.toFixed(2).padStart(6, ' ')}`);
     }
 
 });

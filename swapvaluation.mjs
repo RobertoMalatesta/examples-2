@@ -243,6 +243,7 @@ describe(`swap valuation example ${version}`, () => {
     print('--------------------------------------------------------------------');
     print(`        5-years, 1-year forward swap paying ${(fixedRate*100).toFixed(2)}%`);
     print('term structure | net present value | fair spread | fair fixed rate |');
+    print('--------------------------------------------------------------------');
     forecastingTermStructure.linkTo(depoSwapTermStructure);
     discountingTermStructure.linkTo(depoSwapTermStructure);
     NPV = oneYearForward5YearSwap.NPV();

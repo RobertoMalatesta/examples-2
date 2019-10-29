@@ -1,4 +1,4 @@
-import { Actual365Fixed, BlackCalculator, BlackConstantVol, BlackScholesMertonProcess, FlatForward, Handle, M_PI, MC, MonteCarloModel, Option, PathGenerator, PathPricer, PlainVanillaPayoff, PseudoRandom, RiskStatistics, SimpleQuote, TARGET, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Actual365Fixed, BlackCalculator, BlackConstantVol, BlackScholesMertonProcess, DateExt, FlatForward, Handle, M_PI, MC, MonteCarloModel, Option, PathGenerator, PathPricer, PlainVanillaPayoff, PseudoRandom, RiskStatistics, SimpleQuote, TARGET, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 class ReplicationError {
     constructor(type, maturity, strike, s0, sigma, r) {
@@ -15,13 +15,18 @@ class ReplicationError {
         const black = new BlackCalculator().init1(payoff, forward, stdDev, rDiscount);
         print(`Option value: ${black.value()}`);
         this._vega = black.vega(this._maturity);
+
+        print('         |          |      P&L |      P&L | Derman&Kamal |      P&L |      P&L');
+        print(' samples |   trades |     mean | std.dev. |      formula | skewness | kurtosis');
+        print('------------------------------------------------------------------------------');
     }
+
     compute(nTimeSteps, nSamples) {
         if (nTimeSteps <= 0) {
             throw new Error('the number of steps must be > 0');
         }
         const calendar = new TARGET();
-        const today = new Date();
+        const today = DateExt.UTC();
         const dayCount = new Actual365Fixed();
         const stateVariable = new Handle(new SimpleQuote(this._s0));
         const riskFreeRate = new Handle(new FlatForward().ffInit2(today, this._r, dayCount));
@@ -41,10 +46,13 @@ class ReplicationError {
         const PLSkew = MCSimulation.sampleAccumulator().skewness();
         const PLKurt = MCSimulation.sampleAccumulator().kurtosis();
         const theorStD = Math.sqrt(M_PI / 4 / nTimeSteps) * this._vega * this._sigma;
-        print(`samples: ${nSamples}, trades: ${nTimeSteps},\n` +
-            `P&L mean: ${PLMean}, P&L std. dev.: ${PLStDev}\n` +
-            `Derman&Kamal formula: ${theorStD}\n` +
-            `P&L shewness: ${PLSkew}, P&L kurtosis: ${PLKurt}`);
+        print(`${nSamples.toString().padStart(8, ' ')} |`+
+             ` ${nTimeSteps.toString().padStart(8, ' ')} |` +
+             ` ${PLMean.toFixed(3).padStart(8, ' ')} |`+
+             ` ${PLStDev.toFixed(2).padStart(8, ' ')} |` +
+             ` ${theorStD.toFixed(2).padStart(12, ' ')} |` +
+             ` ${PLSkew.toFixed(2).padStart(8, ' ')} |`+
+             ` ${PLKurt.toFixed(2).padStart(8, ' ')}`);
     }
 }
 
@@ -69,6 +77,7 @@ class ReplicationPathPricer extends PathPricer {
             throw new Error('volatility (sigma) must be positive or zero');
         }
     }
+
     f(path) {
         const n = path.length() - 1;
         if (n <= 0) {
