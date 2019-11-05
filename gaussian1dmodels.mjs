@@ -1,3 +1,18 @@
+/**
+ * Copyright 2019 Jin Yang. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * =============================================================================
+ */
 import { Actual360, Actual365Fixed, Array1D, BasketGeneratingEngine, BermudanExercise, BlackIborCouponPricer, BusinessDayConvention, ConstantSwaptionVolatility, DateGeneration, DiscountingSwapEngine, EndCriteria, Euribor, EuriborSwapIsdaFixA, FlatForward, FloatFloatSwap, FloatFloatSwaption, Gaussian1dFloatFloatSwaptionEngine, Gaussian1dNonstandardSwaptionEngine, Gaussian1dSwaptionEngine, Gsr, Handle, LevenbergMarquardt, LinearTsrPricer, MarkovFunctional, NonstandardSwap, NonstandardSwaption, Period, QL_NULL_REAL, RebatedExercise, RelinkableHandle, Schedule, setCouponPricer, Settings, SimpleQuote, TARGET, Thirty360, TimeUnit, VanillaSwap, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 function printBasket(basket) {
