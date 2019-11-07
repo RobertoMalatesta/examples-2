@@ -1,0 +1,8 @@
+theme: jekyll-theme-cayman
+title: quantlib.js - quantitative finance in javascript © 2019 Jin Yang
+description: quantlib examples output
+url: https://quantlib.js.org/examples/
+author: Jin Yang
+plugins:
+  - jekyll-seo-tag
+google_analytics: UA-87290595-5
