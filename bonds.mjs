@@ -13,12 +13,12 @@
  * limitations under the License.
  * =============================================================================
  */
-import { Actual360, Actual365Fixed, ActualActual, BlackIborCouponPricer, BusinessDayConvention, Compounding, ConstantOptionletVolatility, DateGeneration, DepositRateHelper, Discount, DiscountingBondEngine, Euribor6M, FixedRateBond, FixedRateBondHelper, FloatingRateBond, Frequency, Handle, LogLinear, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, setCouponPricer, Settings, SimpleQuote, SwapRateHelper, TARGET, Thirty360, TimeUnit, UnitedStates, USDLibor, ZeroCouponBond, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Actual360, Actual365Fixed, ActualActual, BlackIborCouponPricer, BusinessDayConvention, Compounding, ConstantOptionletVolatility, DateExt, DateGeneration, DepositRateHelper, Discount, DiscountingBondEngine, Euribor6M, FixedRateBond, FixedRateBondHelper, FloatingRateBond, Frequency, Handle, LogLinear, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, setCouponPricer, Settings, SimpleQuote, SwapRateHelper, TARGET, Thirty360, TimeUnit, UnitedStates, USDLibor, ZeroCouponBond, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe(`bonds example ${version}`, () => { 
     
     const calendar = new TARGET();
-    let settlementDate = new Date('18-September-2008');
+    let settlementDate = DateExt.UTC('18,September,2008');
     settlementDate = calendar.adjust(settlementDate);
     const fixingDays = 3;
     const settlementDays = 3;
@@ -39,14 +39,14 @@ describe(`bonds example ${version}`, () => {
     const redemption = 100.0;
     const numberOfBonds = 5;
     const issueDates = [
-        new Date('15-March-2005'), new Date('15-June-2005'),
-        new Date('30-June-2006'), new Date('15-November-2002'),
-        new Date('15-May-1987')
+        DateExt.UTC('15,March,2005'), DateExt.UTC('15,June,2005'),
+        DateExt.UTC('30,June,2006'), DateExt.UTC('15,November,2002'),
+        DateExt.UTC('15,May,1987')
     ];
     const maturities = [
-        new Date('31-August-2010'), new Date('31-August-2011'),
-        new Date('31-August-2013'), new Date('15-August-2018'),
-        new Date('15-May-2038')
+        DateExt.UTC('31,August,2010'), DateExt.UTC('31,August,2011'),
+        DateExt.UTC('31,August,2013'), DateExt.UTC('15,August,2018'),
+        DateExt.UTC('15,May,2038')
     ];
     const couponRates = [0.02375, 0.04625, 0.03125, 0.04000, 0.04500];
     const marketQuotes = [100.390625, 106.21875, 100.59375, 101.6875, 102.140625];
@@ -134,16 +134,16 @@ describe(`bonds example ${version}`, () => {
     const forecastingTermStructure = new RelinkableHandle();
     const faceAmount = 100;
     const bondEngine = new DiscountingBondEngine(discountingTermStructure);
-    const zeroCouponBond = new ZeroCouponBond(settlementDays, new UnitedStates(UnitedStates.Market.GovernmentBond), faceAmount, new Date('15-August-2013'), BusinessDayConvention.Following, 116.92, new Date('15-August-2013'));
+    const zeroCouponBond = new ZeroCouponBond(settlementDays, new UnitedStates(UnitedStates.Market.GovernmentBond), faceAmount, DateExt.UTC('15,August,2013'), BusinessDayConvention.Following, 116.92, DateExt.UTC('15,August,2013'));
     zeroCouponBond.setPricingEngine(bondEngine);
-    const fixedBondSchedule = new Schedule().init2(new Date('15-May-2007'), new Date('15-May-2017'), new Period().init2(Frequency.Semiannual), new UnitedStates(UnitedStates.Market.GovernmentBond), BusinessDayConvention.Unadjusted, BusinessDayConvention.Unadjusted, DateGeneration.Rule.Backward, false);
-    const fixedRateBond = new FixedRateBond().frbInit1(settlementDays, faceAmount, fixedBondSchedule, [0.045], new ActualActual(ActualActual.Convention.Bond), BusinessDayConvention.ModifiedFollowing, 100.0, new Date('15-May-2007'));
+    const fixedBondSchedule = new Schedule().init2(DateExt.UTC('15,May,2007'), DateExt.UTC('15,May,2017'), new Period().init2(Frequency.Semiannual), new UnitedStates(UnitedStates.Market.GovernmentBond), BusinessDayConvention.Unadjusted, BusinessDayConvention.Unadjusted, DateGeneration.Rule.Backward, false);
+    const fixedRateBond = new FixedRateBond().frbInit1(settlementDays, faceAmount, fixedBondSchedule, [0.045], new ActualActual(ActualActual.Convention.Bond), BusinessDayConvention.ModifiedFollowing, 100.0, DateExt.UTC('15,May,2007'));
     fixedRateBond.setPricingEngine(bondEngine);
     const liborTermStructure = new RelinkableHandle();
     const libor3m = new USDLibor(new Period().init1(3, TimeUnit.Months), liborTermStructure);
-    libor3m.addFixing(new Date('17-July-2008'), 0.0278625);
-    const floatingBondSchedule = new Schedule().init2(new Date('21-October-2005'), new Date('21-October-2010'), new Period().init2(Frequency.Quarterly), new UnitedStates(UnitedStates.Market.NYSE), BusinessDayConvention.Unadjusted, BusinessDayConvention.Unadjusted, DateGeneration.Rule.Backward, true);
-    const floatingRateBond = new FloatingRateBond().frbInit1(settlementDays, faceAmount, floatingBondSchedule, libor3m, new Actual360(), BusinessDayConvention.ModifiedFollowing, 2, [1.0], [0.001], [], [], true, 100.0, new Date('21-October-2005'));
+    libor3m.addFixing(DateExt.UTC('17,July,2008'), 0.0278625);
+    const floatingBondSchedule = new Schedule().init2(DateExt.UTC('21,October,2005'), DateExt.UTC('21,October,2010'), new Period().init2(Frequency.Quarterly), new UnitedStates(UnitedStates.Market.NYSE), BusinessDayConvention.Unadjusted, BusinessDayConvention.Unadjusted, DateGeneration.Rule.Backward, true);
+    const floatingRateBond = new FloatingRateBond().frbInit1(settlementDays, faceAmount, floatingBondSchedule, libor3m, new Actual360(), BusinessDayConvention.ModifiedFollowing, 2, [1.0], [0.001], [], [], true, 100.0, DateExt.UTC('21,October,2005'));
     floatingRateBond.setPricingEngine(bondEngine);
     const pricer = new BlackIborCouponPricer();
     const volatility = 0.0;

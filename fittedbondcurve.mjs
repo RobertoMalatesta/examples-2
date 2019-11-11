@@ -13,7 +13,7 @@
  * limitations under the License.
  * =============================================================================
  */
-import { Array1D, BondFunctions, BusinessDayConvention, Compounding, CubicBSplinesFitting, DateGeneration, Discount, Duration, ExponentialSplinesFitting, FittedBondDiscountCurve, FixedRateBondHelper, FlatForward, Frequency, Handle, LogLinear, NelsonSiegelFitting, Period, PiecewiseYieldCurve, Schedule, Settings, SimpleDayCounter, SimplePolynomialFitting, SimpleQuote, SpreadFittingMethod, SvenssonFitting, TARGET, TimeUnit, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Array1D, BondFunctions, BusinessDayConvention, Compounding, CubicBSplinesFitting, DateGeneration, Discount, Duration, ExponentialSplinesFitting, FittedBondDiscountCurve, FixedRateBondHelper, FlatForward, Frequency, Handle, LogLinear, NelsonSiegelFitting, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, Settings, SimpleDayCounter, SimplePolynomialFitting, SimpleQuote, SpreadFittingMethod, SvenssonFitting, TARGET, TimeUnit, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 function parRate(yts, dates, resultDayCounter) {
     if (dates.length < 2) {
@@ -53,6 +53,7 @@ describe(`fitted bound curve example ${version}`, () => {
     }
     const quoteHandle = new Array(numberOfBonds);
     for (let i = 0; i < numberOfBonds; i++) {
+        quoteHandle[i] = new RelinkableHandle();
         quoteHandle[i].linkTo(quote[i]);
     }
     const lengths = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30];
