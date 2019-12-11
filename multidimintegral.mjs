@@ -26,12 +26,12 @@ class integrand {
 }
 
 describe(`multi-dim integral example ${version}`, () => { 
-    
+
     const dimension = 3;
     const exactSol = Math.pow(Math.exp(-.25) * Math.sqrt(M_PI), dimension);
     const f = new integrand();
     const intg = new GaussianQuadMultidimIntegrator(dimension, 15);
-    const valueQuad = intg.f(f);
+    const valueQuad = intg.f1(f);
     const integrals = [];
     for (let i = 0; i < dimension; i++) {
         integrals.push(new TrapezoidIntegral(new Default(), 1.e-4, 20));
@@ -40,8 +40,8 @@ describe(`multi-dim integral example ${version}`, () => {
     const b_limits = Array1D.fromSizeValue(integrals.length, 4.);
     const testIntg = new MultidimIntegral(integrals);
     const valueGrid = testIntg.f(f, a_limits, b_limits);
-    print(`Exact: ${exactSol}\n` +
-        `Quad: ${valueQuad}\n` +
-        `Grid: ${valueGrid}`);
+    print(`Exact: ${exactSol}`);
+    print(`Quad: ${valueQuad}`);
+    print(`Grid: ${valueGrid}`);
 
 });
