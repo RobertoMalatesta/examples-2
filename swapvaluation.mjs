@@ -16,15 +16,15 @@
 import { Actual360, ActualActual, BusinessDayConvention, DateExt, DateGeneration, DepositRateHelper, Discount, DiscountingSwapEngine, Euribor6M, FraRateHelper, Frequency, FuturesRateHelper, Handle, IMM, LogLinear, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, Settings, SimpleQuote, SwapRateHelper, TARGET, Thirty360, TimeUnit, VanillaSwap, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe(`swap valuation example ${version}`, () => {
-    
+
     const calendar = new TARGET();
     let settlementDate = DateExt.UTC('22,September,2004');
     settlementDate = calendar.adjust(settlementDate);
     const fixingDays = 2;
     const todaysDate = calendar.advance1(settlementDate, -fixingDays, TimeUnit.Days);
     Settings.evaluationDate.set(todaysDate);
-    print(`Today: ${todaysDate}`);
-    print(`Settlement date: ${settlementDate}`);
+    print(`Today: ${todaysDate.toDateString()}`);
+    print(`Settlement date: ${settlementDate.toDateString()}`);
     const d1wQuote = 0.0382;
     const d1mQuote = 0.0372;
     const d3mQuote = 0.0363;

@@ -42,7 +42,7 @@ function example01() {
     const hr_curve_data = hazardRateStructure.nodes();
     print('Calibrated hazard rate values: ');
     for (let i = 0; i < hr_curve_data.length; i++) {
-        print(`hazard rate on ${hr_curve_data[i][first]} is ${hr_curve_data[i][second]}`);
+        print(`hazard rate on ${hr_curve_data[i][first].toDateString()} is ${hr_curve_data[i][second].toFixed(6)}`);
     }
     print('  ');
     print('Some survival probability values: ');
@@ -135,7 +135,7 @@ function example02() {
       .withRule(DateGeneration.Rule.CDS)
       .f();
   for (let i = 0; i < cdsSchedule.size(); ++i) {
-      print(`${cdsSchedule.date(i)}`);
+      print(`${cdsSchedule.date(i).toDateString()}`);
   }
   const evaluationDate = DateExt.UTC('21,October,2014');
   Settings.evaluationDate.set(evaluationDate);
@@ -189,19 +189,19 @@ function example02() {
   print('ISDA rate curve: ');
   for (let i = 0; i < isdaRateHelper.length; i++) {
       const d = isdaRateHelper[i].latestDate();
-      print(`${d} ` +
+      print(`${d.toDateString()} ` +
           `${rateTs.currentLink()
               .zeroRate1(d, new Actual365Fixed(), Compounding.Continuous)
-              .rate()} ` +
-          `${rateTs.currentLink().discount1(d)}`);
+              .rate().toFixed(6)} ` +
+          `${rateTs.currentLink().discount1(d).toFixed(6)}`);
   }
   const defaultTs0 = new FlatHazardRate().fhrInit4(0, new WeekendsOnly(), 0.016739207493630, new Actual365Fixed());
   const sched = new Schedule().init2(DateExt.UTC('22,September,2014'), DateExt.UTC('20,December,2019'), new Period().init1(3, TimeUnit.Months), new WeekendsOnly(), BusinessDayConvention.Following, BusinessDayConvention.Unadjusted, DateGeneration.Rule.CDS, false, null, null);
   const trade = new CreditDefaultSwap().init1(Protection.Side.Buyer, 100000000.0, 0.01, sched, BusinessDayConvention.Following, new Actual360(), true, true, DateExt.UTC('22,October,2014'), null, new Actual360(true), true);
   const cp = trade.coupons()[0];
-  print(`first period = ${cp.accrualStartDate()} to ` +
-      `${cp.accrualEndDate()} accrued amount = ` +
-      `${cp.accruedAmount(DateExt.UTC('24,October,2014'))}`);
+  print(`first period = ${cp.accrualStartDate().toDateString()} to ` +
+      `${cp.accrualEndDate().toDateString()} accrued amount = ` +
+      `${cp.accruedAmount(DateExt.UTC('24,October,2014')).toFixed(6)}`);
   const engine = new IsdaCdsEngine(new Handle(defaultTs0), 0.4, rateTs, false, IsdaCdsEngine.NumericalFix.Taylor, IsdaCdsEngine.AccrualBias.NoBias, IsdaCdsEngine.ForwardsInCouponPeriod.Piecewise);
   trade.setPricingEngine(engine);
   print(`reference trade NPV = ${trade.NPV()}`);
@@ -215,7 +215,7 @@ function example02() {
       const d = isdaCdsHelper[i].latestDate();
       const pd = defaultTs.currentLink().defaultProbability1(d);
       const t = defaultTs.currentLink().timeFromReference(d);
-      print(`${d};${pd};${1.0 - pd};${-Math.log(1.0 - pd) / t}`);
+      print(`${d.toDateString()};${pd.toFixed(6)};${(1.0 - pd).toFixed(6)};${(-Math.log(1.0 - pd) / t).toFixed(6)}`);
   }
 }
 
@@ -290,18 +290,18 @@ function example03() {
   for (let i = 0; i < isdaYieldHelpers.length; i++) {
       const d = isdaYieldHelpers[i].latestDate();
       const t = isdaYts.currentLink().timeFromReference(d);
-      print(`${d};${t};` +
+      print(`${d.toDateString()};${t.toFixed(6)};` +
           `${isdaYts.currentLink()
               .zeroRate1(d, new Actual365Fixed(), Compounding.Continuous)
-              .rate()}`);
+              .rate().toFixed(6)}`);
   }
   print('ISDA credit curve:');
   print('date;time;survivalprob');
   for (let i = 0; i < isdaCdsHelpers.length; i++) {
       const d = isdaCdsHelpers[i].latestDate();
       const t = isdaCts.currentLink().timeFromReference(d);
-      print(`${d};${t};` +
-          `${isdaCts.currentLink().survivalProbability1(d)}`);
+      print(`${d.toDateString()};${t.toFixed(6)};` +
+          `${isdaCts.currentLink().survivalProbability1(d).toFixed(6)}`);
   }
 }
 

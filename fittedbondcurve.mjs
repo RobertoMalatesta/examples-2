@@ -13,7 +13,7 @@
  * limitations under the License.
  * =============================================================================
  */
-import { Array1D, BondFunctions, BusinessDayConvention, Compounding, CubicBSplinesFitting, DateGeneration, Discount, Duration, ExponentialSplinesFitting, FittedBondDiscountCurve, FixedRateBondHelper, FlatForward, Frequency, Handle, LogLinear, NelsonSiegelFitting, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, Settings, SimpleDayCounter, SimplePolynomialFitting, SimpleQuote, SpreadFittingMethod, SvenssonFitting, TARGET, TimeUnit, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Array1D, BondFunctions, BusinessDayConvention, Compounding, CubicBSplinesFitting, DateGeneration, Discount, Duration, ExponentialSplinesFitting, FittedBondDiscountCurve, FixedRateBondHelper, FlatForward, Frequency, Handle, LogLinear, NelsonSiegelFitting, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, Settings, SimpleDayCounter, SimplePolynomialFitting, SimpleQuote, SpreadFittingMethod, SvenssonFitting, TARGET, TimeUnit, std, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 function parRate(yts, dates, resultDayCounter) {
     if (dates.length < 2) {
@@ -33,14 +33,14 @@ function parRate(yts, dates, resultDayCounter) {
 }
 
 function printOutput(tag, curve) {
-    print('reference date : \n' +
-        `${curve.referenceDate()} \n` +
-        'number of iterations : ' +
-        `${curve.fitResults().numberOfIterations()}`);
+    print(tag);
+    print(`reference date : ${curve.referenceDate().toDateString()}`);
+    print(`number of iterations : ${curve.fitResults().numberOfIterations()}`);
+    print('  ');
 }
 
 describe(`fitted bound curve example ${version}`, () => { 
-    
+
     const numberOfBonds = 15;
     const cleanPrice = new Array(numberOfBonds);
     for (let i = 0; i < numberOfBonds; i++) {
@@ -73,9 +73,10 @@ describe(`fitted bound curve example ${version}`, () => {
     const bondSettlementDays = 0;
     const curveSettlementDays = 0;
     let bondSettlementDate = calendar.advance1(today, bondSettlementDays, TimeUnit.Days);
-    print(`Today's date: ${today} \n` +
-        `Bonds' settlement date: ${bondSettlementDate} \n` +
-        'Calculating fit for 15 bonds.....');
+    print(`Today's date: ${today.toDateString()}`);
+    print(`Bonds' settlement date: ${bondSettlementDate.toDateString()}`);
+    print('Calculating fit for 15 bonds.....');
+    print('  ');
     const instrumentsA = [];
     const instrumentsB = [];
     for (let j = 0; j < lengths.length; j++) {
@@ -97,7 +98,7 @@ describe(`fitted bound curve example ${version}`, () => {
     const simplePolynomial = new SimplePolynomialFitting().spfInit1(3, constrainAtZero);
     const ts2 = new FittedBondDiscountCurve().fbdcInit1(curveSettlementDays, calendar, instrumentsA, dc, simplePolynomial, tolerance, max);
     printOutput('(b) simple polynomial', ts2);
-    const nelsonSiegel = new NelsonSiegelFitting();
+    const nelsonSiegel = new NelsonSiegelFitting().nsfInit1();
     const ts3 = new FittedBondDiscountCurve().fbdcInit1(curveSettlementDays, calendar, instrumentsA, dc, nelsonSiegel, tolerance, max);
     printOutput('(c) Nelson-Siegel', ts3);
     const knots = [-30.0, -20.0, 0.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 40.0, 50.0];
@@ -108,15 +109,17 @@ describe(`fitted bound curve example ${version}`, () => {
     const cubicBSplines = new CubicBSplinesFitting().cbsfInit1(knotVector, constrainAtZero);
     const ts4 = new FittedBondDiscountCurve().fbdcInit1(curveSettlementDays, calendar, instrumentsA, dc, cubicBSplines, tolerance, max);
     printOutput('(d) cubic B-splines', ts4);
-    const svensson = new SvenssonFitting();
+    const svensson = new SvenssonFitting().sfInit1();
     const ts5 = new FittedBondDiscountCurve().fbdcInit1(curveSettlementDays, calendar, instrumentsA, dc, svensson, tolerance, max);
     printOutput('(e) Svensson', ts5);
     const discountCurve = new Handle(new FlatForward().ffInit4(curveSettlementDays, calendar, 0.01, dc));
     const nelsonSiegelSpread = new SpreadFittingMethod(new NelsonSiegelFitting(), discountCurve);
     const ts6 = new FittedBondDiscountCurve().fbdcInit1(curveSettlementDays, calendar, instrumentsA, dc, nelsonSiegelSpread, tolerance, max);
     printOutput('(f) Nelson-Siegel spreaded', ts6);
-    print('Output par rates for each curve. In this case, ' +
-        'par rates should equal coupons for these par bonds.');
+    print('Output par rates for each curve. In this case, ');
+    print('par rates should equal coupons for these par bonds.');
+    print('  ');
+    print(' tenor | coupon | bstrap |    (a) |    (b) |    (c) |    (d) |    (e) |    (f)');
     for (let i = 0; i < instrumentsA.length; i++) {
         const cfs = instrumentsA[i].bond().cashflows();
         const cfSize = instrumentsA[i].bond().cashflows().length;
@@ -129,21 +132,24 @@ describe(`fitted bound curve example ${version}`, () => {
             }
         }
         const tenor = dc.yearFraction(today, cfs[cfSize - 1].date());
-        print(`${tenor} | ${100. * coupons[i]} | ` +
-            `${100. * parRate(ts0, keyDates, dc)} | ` +
-            `${100. * parRate(ts1, keyDates, dc)} | ` +
-            `${100. * parRate(ts2, keyDates, dc)} | ` +
-            `${100. * parRate(ts3, keyDates, dc)} | ` +
-            `${100. * parRate(ts4, keyDates, dc)} | ` +
-            `${100. * parRate(ts5, keyDates, dc)} | ` +
-            `${100. * parRate(ts6, keyDates, dc)}`);
+        print(`${tenor.toFixed(3).toString().padStart(6, ' ')} | `+
+            `${(100. * coupons[i]).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts0, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts1, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts2, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts3, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts4, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts5, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts6, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')}`);
     }
-    print('Now add 23 months to today. Par rates should be ' +
-        'automatically recalculated because today\'s date ' +
-        'changes.  Par rates will NOT equal coupons (YTM ' +
-        'will, with the correct compounding), but the ' +
-        'piecewise yield curve par rates can be used as ' +
-        'a benchmark for correct par rates.');
+    print('  ');
+    print('Now add 23 months to today. Par rates should be ');
+    print('automatically recalculated because today\'s date ');
+    print('changes.  Par rates will NOT equal coupons (YTM ');
+    print('will, with the correct compounding), but the ');
+    print('piecewise yield curve par rates can be used as ');
+    print('a benchmark for correct par rates.');
+    print('  ');
     today = calendar.advance1(origToday, 23, TimeUnit.Months, convention);
     Settings.evaluationDate.set(today);
     bondSettlementDate =
@@ -154,6 +160,7 @@ describe(`fitted bound curve example ${version}`, () => {
     printOutput('(d) cubic B-splines', ts4);
     printOutput('(e) Svensson', ts5);
     printOutput('(f) Nelson-Siegel spreaded', ts6);
+    print(' tenor | coupon | bstrap |    (a) |    (b) |    (c) |    (d) |    (e) |    (f)');
     for (let i = 0; i < instrumentsA.length; i++) {
         const cfs = instrumentsA[i].bond().cashflows();
         const cfSize = instrumentsA[i].bond().cashflows().length;
@@ -166,19 +173,22 @@ describe(`fitted bound curve example ${version}`, () => {
             }
         }
         const tenor = dc.yearFraction(today, cfs[cfSize - 1].date());
-        print(`${tenor} | ${100. * coupons[i]} | ` +
-            `${100. * parRate(ts0, keyDates, dc)} | ` +
-            `${100. * parRate(ts1, keyDates, dc)} | ` +
-            `${100. * parRate(ts2, keyDates, dc)} | ` +
-            `${100. * parRate(ts3, keyDates, dc)} | ` +
-            `${100. * parRate(ts4, keyDates, dc)} | ` +
-            `${100. * parRate(ts5, keyDates, dc)} | ` +
-            `${100. * parRate(ts6, keyDates, dc)}`);
+        print(`${tenor.toFixed(3).toString().padStart(6, ' ')} | `+
+            `${(100. * coupons[i]).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts0, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts1, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts2, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts3, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts4, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts5, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts6, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')}`);
     }
-    print('Now add one more month, for a total of two years ' +
-        'from the original date. The first instrument is ' +
-        'now expired and par rates should again equal ' +
-        'coupon values, since clean prices did not change.');
+    print('  ');
+    print('Now add one more month, for a total of two years ');
+    print('from the original date. The first instrument is ');
+    print('now expired and par rates should again equal ');
+    print('coupon values, since clean prices did not change.');
+    print('  ');
     std.erase(instrumentsA, 0, 1);
     std.erase(instrumentsB, 0, 1);
     today = calendar.advance1(origToday, 24, TimeUnit.Months, convention);
@@ -199,6 +209,7 @@ describe(`fitted bound curve example ${version}`, () => {
     printOutput('(e) Svensson', ts55);
     const ts66 = new FittedBondDiscountCurve().fbdcInit1(curveSettlementDays, calendar, instrumentsA, dc, nelsonSiegelSpread, tolerance, max);
     printOutput('(f) Nelson-Siegel spreaded', ts66);
+    print(' tenor | coupon | bstrap |    (a) |    (b) |    (c) |    (d) |    (e) |    (f)');
     for (let i = 0; i < instrumentsA.length; i++) {
         const cfs = instrumentsA[i].bond().cashflows();
         const cfSize = instrumentsA[i].bond().cashflows().length;
@@ -211,19 +222,23 @@ describe(`fitted bound curve example ${version}`, () => {
             }
         }
         const tenor = dc.yearFraction(today, cfs[cfSize - 1].date());
-        print(`${tenor} | ${100. * coupons[i]} | ` +
-            `${100. * parRate(ts00, keyDates, dc)} | ` +
-            `${100. * parRate(ts11, keyDates, dc)} | ` +
-            `${100. * parRate(ts22, keyDates, dc)} | ` +
-            `${100. * parRate(ts33, keyDates, dc)} | ` +
-            `${100. * parRate(ts44, keyDates, dc)} | ` +
-            `${100. * parRate(ts55, keyDates, dc)} | ` +
-            `${100. * parRate(ts66, keyDates, dc)}`);
+        print(`${tenor.toFixed(3).toString().padStart(6, ' ')} | `+
+            `${(100. * coupons[i+1]).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts00, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts11, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts22, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts33, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts44, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts55, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts66, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')}`);
     }
-    print('Now decrease prices by a small amount, corresponding' +
-        'to a theoretical five basis point parallel + shift of' +
-        'the yield curve. Because bond quotes change, the new ' +
-        'par rates should be recalculated automatically.');
+    print('  ');
+    print('Now decrease prices by a small amount, corresponding');
+    print('to a theoretical five basis point parallel + shift of');
+    print('the yield curve. Because bond quotes change, the new ');
+    print('par rates should be recalculated automatically.');
+    print('  ');
+    print(' tenor | coupon | bstrap |    (a) |    (b) |    (c) |    (d) |    (e) |    (f)');
     for (let k = 0; k < lengths.length - 1; k++) {
         const P = instrumentsA[k].quote().currentLink().value();
         const b = instrumentsA[k].bond();
@@ -245,14 +260,15 @@ describe(`fitted bound curve example ${version}`, () => {
             }
         }
         const tenor = dc.yearFraction(today, cfs[cfSize - 1].date());
-        print(`${tenor} | ${100. * coupons[i]} | ` +
-            `${100. * parRate(ts00, keyDates, dc)} | ` +
-            `${100. * parRate(ts11, keyDates, dc)} | ` +
-            `${100. * parRate(ts22, keyDates, dc)} | ` +
-            `${100. * parRate(ts33, keyDates, dc)} | ` +
-            `${100. * parRate(ts44, keyDates, dc)} | ` +
-            `${100. * parRate(ts55, keyDates, dc)} | ` +
-            `${100. * parRate(ts66, keyDates, dc)}`);
+        print(`${tenor.toFixed(3).toString().padStart(6, ' ')} | `+
+            `${(100. * coupons[i+1]).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts00, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts11, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts22, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts33, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts44, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts55, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')} | ` +
+            `${(100. * parRate(ts66, keyDates, dc)).toFixed(3).toString().padStart(6, ' ')}`);
     }
 
 });

@@ -16,7 +16,7 @@
 import { Actual360, Actual365Fixed, ActualActual, BlackIborCouponPricer, BusinessDayConvention, Compounding, ConstantOptionletVolatility, DateExt, DateGeneration, DepositRateHelper, Discount, DiscountingBondEngine, Euribor6M, FixedRateBond, FixedRateBondHelper, FloatingRateBond, Frequency, Handle, LogLinear, Period, PiecewiseYieldCurve, RelinkableHandle, Schedule, setCouponPricer, Settings, SimpleQuote, SwapRateHelper, TARGET, Thirty360, TimeUnit, UnitedStates, USDLibor, ZeroCouponBond, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe(`bonds example ${version}`, () => { 
-    
+
     const calendar = new TARGET();
     let settlementDate = DateExt.UTC('18,September,2008');
     settlementDate = calendar.adjust(settlementDate);
@@ -24,8 +24,9 @@ describe(`bonds example ${version}`, () => {
     const settlementDays = 3;
     const todaysDate = calendar.advance1(settlementDate, -fixingDays, TimeUnit.Days);
     Settings.evaluationDate.set(todaysDate);
-    print(`Today: ${todaysDate}`);
-    print(`Settlement date: ${settlementDate}`);
+    print(`Today: ${todaysDate.toDateString()}`);
+    print(`Settlement date: ${settlementDate.toDateString()}`);
+    print('  ');
     const zc3mQuote = 0.0096;
     const zc6mQuote = 0.0145;
     const zc1yQuote = 0.0194;
@@ -134,7 +135,7 @@ describe(`bonds example ${version}`, () => {
     const forecastingTermStructure = new RelinkableHandle();
     const faceAmount = 100;
     const bondEngine = new DiscountingBondEngine(discountingTermStructure);
-    const zeroCouponBond = new ZeroCouponBond(settlementDays, new UnitedStates(UnitedStates.Market.GovernmentBond), faceAmount, DateExt.UTC('15,August,2013'), BusinessDayConvention.Following, 116.92, DateExt.UTC('15,August,2013'));
+    const zeroCouponBond = new ZeroCouponBond(settlementDays, new UnitedStates(UnitedStates.Market.GovernmentBond), faceAmount, DateExt.UTC('15,August,2013'), BusinessDayConvention.Following, 116.92, DateExt.UTC('15,August,2003'));
     zeroCouponBond.setPricingEngine(bondEngine);
     const fixedBondSchedule = new Schedule().init2(DateExt.UTC('15,May,2007'), DateExt.UTC('15,May,2017'), new Period().init2(Frequency.Semiannual), new UnitedStates(UnitedStates.Market.GovernmentBond), BusinessDayConvention.Unadjusted, BusinessDayConvention.Unadjusted, DateGeneration.Rule.Backward, false);
     const fixedRateBond = new FixedRateBond().frbInit1(settlementDays, faceAmount, fixedBondSchedule, [0.045], new ActualActual(ActualActual.Convention.Bond), BusinessDayConvention.ModifiedFollowing, 100.0, DateExt.UTC('15,May,2007'));
@@ -154,38 +155,40 @@ describe(`bonds example ${version}`, () => {
     forecastingTermStructure.linkTo(depoSwapTermStructure);
     discountingTermStructure.linkTo(bondDiscountingTermStructure);
     liborTermStructure.linkTo(depoSwapTermStructure);
-    print('Net present value:\n' +
-        `${zeroCouponBond.NPV()}\n` +
-        `${fixedRateBond.NPV()}\n` +
-        `${floatingRateBond.NPV()}`);
-    print('Clean price:\n' +
-        `${zeroCouponBond.cleanPrice1()}\n` +
-        `${fixedRateBond.cleanPrice1()}\n` +
-        `${floatingRateBond.cleanPrice1()}`);
-    print('Dirty price:\n' +
-        `${zeroCouponBond.dirtyPrice1()}\n` +
-        `${fixedRateBond.dirtyPrice1()}\n` +
-        `${floatingRateBond.dirtyPrice1()}`);
-    print('Accrued coupon:\n' +
-        `${zeroCouponBond.accruedAmount()}\n` +
-        `${fixedRateBond.accruedAmount()}\n` +
-        `${floatingRateBond.accruedAmount()}`);
-    print('Previous coupon:\n' +
-        'N/A\n' +
-        `${fixedRateBond.previousCouponRate()}\n` +
-        `${floatingRateBond.previousCouponRate()}`);
-    print('Next coupon:\n' +
-        'N/A\n' +
-        `${fixedRateBond.nextCouponRate()}\n` +
-        `${floatingRateBond.nextCouponRate()}`);
-    print('Yield:\n' +
-        `${zeroCouponBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual)}\n` +
-        `${fixedRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual)}\n` +
-        `${floatingRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual)}`);
+    print('                          ZC     Fixed  Floating');
+    print('------------------------------------------------');
+    print(' Net present value' +
+        `${zeroCouponBond.NPV().toFixed(2).toString().padStart(10, ' ')}` +
+        `${fixedRateBond.NPV().toFixed(2).toString().padStart(10, ' ')}` +
+        `${floatingRateBond.NPV().toFixed(2).toString().padStart(10, ' ')}`);
+    print('       Clean price' +
+        `${zeroCouponBond.cleanPrice1().toFixed(2).toString().padStart(10, ' ')}` +
+        `${fixedRateBond.cleanPrice1().toFixed(2).toString().padStart(10, ' ')}` +
+        `${floatingRateBond.cleanPrice1().toFixed(2).toString().padStart(10, ' ')}`);
+    print('       Dirty price' +
+        `${zeroCouponBond.dirtyPrice1().toFixed(2).toString().padStart(10, ' ')}` +
+        `${fixedRateBond.dirtyPrice1().toFixed(2).toString().padStart(10, ' ')}` +
+        `${floatingRateBond.dirtyPrice1().toFixed(2).toString().padStart(10, ' ')}`);
+    print('    Accrued coupon' +
+        `${zeroCouponBond.accruedAmount().toFixed(2).toString().padStart(10, ' ')}` +
+        `${fixedRateBond.accruedAmount().toFixed(2).toString().padStart(10, ' ')}` +
+        `${floatingRateBond.accruedAmount().toFixed(2).toString().padStart(10, ' ')}`);
+    print('   Previous coupon       N/A' +
+        `${(fixedRateBond.previousCouponRate()*100).toFixed(2).toString().padStart(9, ' ')}%` +
+        `${(floatingRateBond.previousCouponRate()*100).toFixed(2).toString().padStart(9, ' ')}%`);
+    print('       Next coupon       N/A' +
+        `${(fixedRateBond.nextCouponRate()*100).toFixed(2).toString().padStart(9, ' ')}%` +
+        `${(floatingRateBond.nextCouponRate()*100).toFixed(2).toString().padStart(9, ' ')}%`);
+    print('             Yield' +
+        `${(zeroCouponBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual)*100).toFixed(2).toString().padStart(9, ' ')}%` +
+        `${(fixedRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual)*100).toFixed(2).toString().padStart(9, ' ')}%` +
+        `${(floatingRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual)*100).toFixed(2).toString().padStart(9, ' ')}%`);
+    print('  ');
     print('Sample indirect computations (for the floating rate bond): ');
-    print('Yield to Clean Price: \n' +
-        `${floatingRateBond.cleanPrice2(floatingRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual), new Actual360(), Compounding.Compounded, Frequency.Annual, settlementDate)}`);
-    print('Clean Price to Yield: \n' +
-        `${floatingRateBond.yield2(floatingRateBond.cleanPrice1(), new Actual360(), Compounding.Compounded, Frequency.Annual, settlementDate)}`);
+    print('------------------------------------------------');
+    print('Yield to Clean Price: ' +
+        `${floatingRateBond.cleanPrice2(floatingRateBond.yield1(new Actual360(), Compounding.Compounded, Frequency.Annual), new Actual360(), Compounding.Compounded, Frequency.Annual, settlementDate).toFixed(2)}`);
+    print('Clean Price to Yield: ' +
+        `${(floatingRateBond.yield2(floatingRateBond.cleanPrice1(), new Actual360(), Compounding.Compounded, Frequency.Annual, settlementDate)*100).toFixed(2)}%`);
 
 });

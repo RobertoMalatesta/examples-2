@@ -60,12 +60,13 @@ function eggholder(x) {
 }
 
 function printFunction(p, x) {
-    print(` f(' ${x[0]}`);
+    let str = ` f(${x[0].toFixed(0)}`;
     for (let i = 1; i < x.length; i++) {
-        print(`, ${x[i]}`);
+        str += `, ${x[i].toFixed(0)}`;
     }
     const val = p.value(x);
-    print(`) = ${val}`);
+    str += `) = ${val.toFixed(0)}`;
+    print(str);
     return val;
 }
 
@@ -250,6 +251,7 @@ function testDifferentialEvolution(n, agents) {
 
 describe(`global optimizer example ${version}`, () => {
     
+    /*
     print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     print('Firefly Algorithm Test');
     print('----------------------------------------------------------------');
@@ -284,14 +286,15 @@ describe(`global optimizer example ${version}`, () => {
     testSimulatedAnnealing(30, 10000, 4000);
     t2 = Date.now();
     print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
-    print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    print('Differential Evolution Test');
-    print('----------------------------------------------------------------');
-    t1 = Date.now();
-    testDifferentialEvolution(3, 50);
-    testDifferentialEvolution(10, 150);
-    testDifferentialEvolution(30, 450);
-    t2 = Date.now();
-    print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
+    */
+   print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+   print('Differential Evolution Test');
+   print('----------------------------------------------------------------');
+   const t1 = Date.now();
+   testDifferentialEvolution(3, 50);
+   testDifferentialEvolution(10, 150);
+   testDifferentialEvolution(30, 450);
+   const t2 = Date.now();
+   print(`\nthis step took ${(t2 - t1) / 1000} seconds\n`);
 
 });

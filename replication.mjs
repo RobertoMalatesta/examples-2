@@ -16,8 +16,8 @@
 import { Actual365Fixed, AnalyticBarrierEngine, AnalyticEuropeanEngine, Barrier, BarrierOption, BlackConstantVol, BlackScholesProcess, CashOrNothingPayoff, CompositeInstrument, DateExt, EuropeanExercise, EuropeanOption, FlatForward, Handle, NullCalendar, Option, PlainVanillaPayoff, Settings, SimpleQuote, TimeUnit, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 describe(`replication example ${version}`, () => { 
-    
-    const today = new Date('29-May-2006');
+
+    const today = DateExt.UTC('29,May,2006');
     Settings.evaluationDate.set(today);
     const barrierType = Barrier.Type.DownOut;
     const barrier = 70.0;
@@ -37,12 +37,17 @@ describe(`replication example ${version}`, () => {
     const exercise = new EuropeanExercise(maturity);
     const payoff = new PlainVanillaPayoff(type, strike);
     const bsProcess = new BlackScholesProcess(new Handle(underlying), flatRate, flatVol);
-    const barrierEngine = new AnalyticBarrierEngine(bsProcess);
+    const barrierEngine = new AnalyticBarrierEngine().init1(bsProcess);
     const europeanEngine = new AnalyticEuropeanEngine().init1(bsProcess);
     const referenceOption = new BarrierOption(barrierType, barrier, rebate, payoff, exercise);
     referenceOption.setPricingEngine(barrierEngine);
     let referenceValue = referenceOption.NPV();
-    print(`Original barrier option ${referenceValue}`);
+    print('===========================================================================');
+    print('Initial market conditions');
+    print('===========================================================================');
+    print('Option                                       NPV            Error');
+    print('---------------------------------------------------------------------------');
+    print(`Original barrier option                      ${referenceValue.toFixed(6)}       N/A`);
     const portfolio1 = new CompositeInstrument(), portfolio2 = new CompositeInstrument(), portfolio3 = new CompositeInstrument();
     const put1 = new EuropeanOption(payoff, exercise);
     put1.setPricingEngine(europeanEngine);
@@ -80,7 +85,7 @@ describe(`replication example ${version}`, () => {
     underlying.setValue(underlyingValue);
     let portfolioValue = portfolio1.NPV();
     let error = portfolioValue - referenceValue;
-    print(`Replicating portfolio (12 dates) ${portfolioValue}, ${error}`);
+    print(`Replicating portfolio (12 dates)             ${portfolioValue.toFixed(6)}       ${error.toFixed(6)}`);
     for (i = 52; i >= 2; i -= 2) {
         const innerMaturity = DateExt.advance(today, i, TimeUnit.Weeks);
         const innerExercise = new EuropeanExercise(innerMaturity);
@@ -99,7 +104,7 @@ describe(`replication example ${version}`, () => {
     underlying.setValue(underlyingValue);
     portfolioValue = portfolio2.NPV();
     error = portfolioValue - referenceValue;
-    print(`Replicating portfolio (26 dates) ${portfolioValue}, ${error}`);
+    print(`Replicating portfolio (26 dates)             ${portfolioValue.toFixed(6)}       ${error.toFixed(6)}`);
     for (i = 52; i >= 1; i--) {
         const innerMaturity = DateExt.advance(today, i, TimeUnit.Weeks);
         const innerExercise = new EuropeanExercise(innerMaturity);
@@ -118,33 +123,42 @@ describe(`replication example ${version}`, () => {
     underlying.setValue(underlyingValue);
     portfolioValue = portfolio3.NPV();
     error = portfolioValue - referenceValue;
-    print(`Replicating portfolio (52 dates) ${portfolioValue}, ${error}`);
+    print(`Replicating portfolio (52 dates)             ${portfolioValue.toFixed(6)}       ${error.toFixed(6)}`);
+    print('===========================================================================');
     print('Modified market conditions: out of the money');
+    print('===========================================================================');
+    print('Option                                       NPV            Error');
+    print('---------------------------------------------------------------------------');
     underlying.setValue(110.0);
     referenceValue = referenceOption.NPV();
-    print(`Original barrier option ${referenceValue}`);
+    print(`Original barrier option                      ${referenceValue.toFixed(6)}       N/A`);
     portfolioValue = portfolio1.NPV();
     error = portfolioValue - referenceValue;
-    print(`Replicating portfolio (12 dates) ${portfolioValue}, ${error}`);
+    print(`Replicating portfolio (12 dates)             ${portfolioValue.toFixed(6)}       ${error.toFixed(6)}`);
     portfolioValue = portfolio2.NPV();
     error = portfolioValue - referenceValue;
-    print(`Replicating portfolio (26 dates) ${portfolioValue}, ${error}`);
+    print(`Replicating portfolio (26 dates)             ${portfolioValue.toFixed(6)}       ${error.toFixed(6)}`);
     portfolioValue = portfolio3.NPV();
     error = portfolioValue - referenceValue;
-    print(`Replicating portfolio (52 dates) ${portfolioValue}, ${error}`);
+    print(`Replicating portfolio (52 dates)             ${portfolioValue.toFixed(6)}       ${error.toFixed(6)}`);
+    print('===========================================================================');
+    print('Option                                       NPV            Error');
+    print('---------------------------------------------------------------------------');
     print('Modified market conditions: in the money');
     underlying.setValue(90.0);
     referenceValue = referenceOption.NPV();
-    print(`Original barrier option ${referenceValue}`);
+    print(`Original barrier option                      ${referenceValue.toFixed(6)}       N/A`);
     portfolioValue = portfolio1.NPV();
     error = portfolioValue - referenceValue;
-    print(`Replicating portfolio (12 dates) ${portfolioValue}, ${error}`);
+    print(`Replicating portfolio (12 dates)             ${portfolioValue.toFixed(6)}       ${error.toFixed(6)}`);
     portfolioValue = portfolio2.NPV();
     error = portfolioValue - referenceValue;
-    print(`Replicating portfolio (26 dates) ${portfolioValue}, ${error}`);
+    print(`Replicating portfolio (26 dates)             ${portfolioValue.toFixed(6)}       ${error.toFixed(6)}`);
     portfolioValue = portfolio3.NPV();
     error = portfolioValue - referenceValue;
-    print(`Replicating portfolio (52 dates) ${portfolioValue}, ${error}`);
+    print(`Replicating portfolio (52 dates)             ${portfolioValue.toFixed(6)}       ${error.toFixed(6)}`);
+    print('===========================================================================');
+    print('  ');
     print('The replication seems to be less robust when volatility and');
     print('risk-free rate are changed. Feel free to experiment with');
     print('the example and contribute a patch if you spot any errors.');
