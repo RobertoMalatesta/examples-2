@@ -356,53 +356,53 @@ Run completed in 2 m 4 s
 ### Fitted bond curve
 
 ```
-Today's date: April 18th, 2018
-Bonds' settlement date: April 18th, 2018
+Today's date: December 10th, 2019
+Bonds' settlement date: December 10th, 2019
 Calculating fit for 15 bonds.....
 
 (a) exponential splines
-reference date : April 18th, 2018
-number of iterations : 6877
+reference date : December 10th, 2019
+number of iterations : 7114
 
 (b) simple polynomial
-reference date : April 18th, 2018
-number of iterations : 284
+reference date : December 10th, 2019
+number of iterations : 278
 
 (c) Nelson-Siegel
-reference date : April 18th, 2018
-number of iterations : 1200
+reference date : December 10th, 2019
+number of iterations : 1224
 
 (d) cubic B-splines
-reference date : April 18th, 2018
-number of iterations : 733
+reference date : December 10th, 2019
+number of iterations : 778
 
 (e) Svensson
-reference date : April 18th, 2018
-number of iterations : 5000
+reference date : December 10th, 2019
+number of iterations : 2892
 
 (f) Nelson-Siegel spreaded
-reference date : April 18th, 2018
-number of iterations : 1501
+reference date : December 10th, 2019
+number of iterations : 1689
 
 Output par rates for each curve. In this case,
 par rates should equal coupons for these par bonds.
 
  tenor | coupon | bstrap |    (a) |    (b) |    (c) |    (d) |    (e) |    (f)
- 2.006 |  2.000 |  2.000 |  1.995 |  2.010 |  2.060 |  1.772 |  2.008 |  2.060
- 4.003 |  2.250 |  2.250 |  2.251 |  2.256 |  2.266 |  2.397 |  2.225 |  2.266
+ 2.000 |  2.000 |  2.000 |  1.995 |  2.010 |  2.060 |  1.771 |  2.008 |  2.060
+ 4.003 |  2.250 |  2.250 |  2.252 |  2.256 |  2.266 |  2.398 |  2.225 |  2.266
  6.000 |  2.500 |  2.500 |  2.504 |  2.501 |  2.484 |  2.657 |  2.511 |  2.484
- 8.006 |  2.750 |  2.750 |  2.754 |  2.747 |  2.716 |  2.749 |  2.772 |  2.716
+ 8.000 |  2.750 |  2.750 |  2.754 |  2.746 |  2.716 |  2.748 |  2.771 |  2.716
 10.000 |  3.000 |  3.000 |  3.002 |  2.993 |  2.959 |  2.905 |  3.012 |  2.959
 12.000 |  3.250 |  3.250 |  3.250 |  3.241 |  3.214 |  3.195 |  3.247 |  3.214
-14.003 |  3.500 |  3.500 |  3.498 |  3.491 |  3.477 |  3.522 |  3.486 |  3.477
+14.006 |  3.500 |  3.500 |  3.498 |  3.491 |  3.477 |  3.522 |  3.486 |  3.477
 16.000 |  3.750 |  3.750 |  3.747 |  3.742 |  3.745 |  3.796 |  3.731 |  3.745
-18.000 |  4.000 |  4.000 |  3.997 |  3.996 |  4.017 |  4.016 |  3.985 |  4.017
-20.003 |  4.250 |  4.250 |  4.248 |  4.252 |  4.286 |  4.232 |  4.246 |  4.286
+18.000 |  4.000 |  4.000 |  3.996 |  3.996 |  4.016 |  4.016 |  3.984 |  4.016
+20.006 |  4.250 |  4.250 |  4.248 |  4.252 |  4.286 |  4.232 |  4.246 |  4.286
 22.000 |  4.500 |  4.500 |  4.500 |  4.507 |  4.548 |  4.478 |  4.510 |  4.548
 24.000 |  4.750 |  4.750 |  4.752 |  4.761 |  4.797 |  4.745 |  4.772 |  4.797
 26.003 |  5.000 |  5.000 |  5.004 |  5.012 |  5.029 |  5.014 |  5.025 |  5.029
 28.000 |  5.250 |  5.250 |  5.252 |  5.254 |  5.236 |  5.267 |  5.258 |  5.236
-30.006 |  5.500 |  5.500 |  5.497 |  5.485 |  5.416 |  5.485 |  5.464 |  5.416
+30.000 |  5.500 |  5.500 |  5.496 |  5.485 |  5.416 |  5.485 |  5.464 |  5.416
 
 
 
@@ -414,47 +414,47 @@ piecewise yield curve par rates can be used as
 a benchmark for correct par rates.
 
 (a) exponential splines
-reference date : March 18th, 2020
-number of iterations : 923
+reference date : November 10th, 2021
+number of iterations : 908
 
 (b) simple polynomial
-reference date : March 18th, 2020
-number of iterations : 275
+reference date : November 10th, 2021
+number of iterations : 265
 
 (c) Nelson-Siegel
-reference date : March 18th, 2020
-number of iterations : 1009
+reference date : November 10th, 2021
+number of iterations : 898
 
 (d) cubic B-splines
-reference date : March 18th, 2020
-number of iterations : 615
+reference date : November 10th, 2021
+number of iterations : 649
 
 (e) Svensson
-reference date : March 18th, 2020
-number of iterations : 3054
+reference date : November 10th, 2021
+number of iterations : 3254
 
 (f) Nelson-Siegel spreaded
-reference date : March 18th, 2020
-number of iterations : 1017
+reference date : November 10th, 2021
+number of iterations : 908
 
 
 
  tenor | coupon | bstrap |    (a) |    (b) |    (c) |    (d) |    (e) |    (f)
- 0.089 |  2.000 |  1.965 |  1.968 |  1.984 |  2.026 |  1.313 |  1.965 |  2.026
- 2.086 |  2.250 |  2.248 |  2.244 |  2.249 |  2.256 |  2.333 |  2.235 |  2.256
- 4.083 |  2.500 |  2.499 |  2.499 |  2.496 |  2.481 |  2.908 |  2.529 |  2.481
- 6.089 |  2.750 |  2.749 |  2.751 |  2.744 |  2.717 |  3.012 |  2.766 |  2.717
+ 0.083 |  2.000 |  1.964 |  1.968 |  1.983 |  2.025 |  1.310 |  1.964 |  2.025
+ 2.086 |  2.250 |  2.248 |  2.244 |  2.249 |  2.256 |  2.334 |  2.235 |  2.256
+ 4.083 |  2.500 |  2.499 |  2.499 |  2.496 |  2.481 |  2.908 |  2.530 |  2.481
+ 6.083 |  2.750 |  2.749 |  2.751 |  2.743 |  2.717 |  3.013 |  2.765 |  2.717
  8.083 |  3.000 |  2.999 |  3.000 |  2.991 |  2.962 |  2.949 |  2.996 |  2.962
 10.083 |  3.250 |  3.249 |  3.249 |  3.239 |  3.217 |  3.053 |  3.232 |  3.217
-12.086 |  3.500 |  3.499 |  3.498 |  3.490 |  3.480 |  3.404 |  3.477 |  3.480
+12.089 |  3.500 |  3.499 |  3.498 |  3.491 |  3.480 |  3.404 |  3.478 |  3.480
 14.083 |  3.750 |  3.749 |  3.747 |  3.742 |  3.746 |  3.804 |  3.730 |  3.746
-16.083 |  4.000 |  3.999 |  3.997 |  3.997 |  4.014 |  4.089 |  3.990 |  4.014
-18.086 |  4.250 |  4.249 |  4.249 |  4.252 |  4.281 |  4.268 |  4.254 |  4.281
-20.083 |  4.500 |  4.499 |  4.500 |  4.507 |  4.541 |  4.454 |  4.517 |  4.541
-22.083 |  4.750 |  4.749 |  4.752 |  4.761 |  4.790 |  4.718 |  4.776 |  4.790
-24.086 |  5.000 |  4.999 |  5.003 |  5.011 |  5.025 |  5.014 |  5.023 |  5.025
-26.083 |  5.250 |  5.249 |  5.251 |  5.253 |  5.239 |  5.277 |  5.253 |  5.239
-28.089 |  5.500 |  5.499 |  5.495 |  5.484 |  5.430 |  5.485 |  5.460 |  5.430
+16.083 |  4.000 |  4.000 |  3.997 |  3.997 |  4.014 |  4.089 |  3.990 |  4.014
+18.089 |  4.250 |  4.249 |  4.249 |  4.253 |  4.281 |  4.268 |  4.254 |  4.281
+20.083 |  4.500 |  4.500 |  4.500 |  4.507 |  4.541 |  4.454 |  4.517 |  4.541
+22.083 |  4.750 |  4.750 |  4.752 |  4.761 |  4.790 |  4.718 |  4.776 |  4.790
+24.086 |  5.000 |  4.999 |  5.004 |  5.011 |  5.025 |  5.014 |  5.023 |  5.025
+26.083 |  5.250 |  5.249 |  5.252 |  5.254 |  5.239 |  5.277 |  5.253 |  5.239
+28.083 |  5.500 |  5.499 |  5.495 |  5.484 |  5.430 |  5.485 |  5.460 |  5.430
 
 
 
@@ -464,44 +464,44 @@ now expired and par rates should again equal
 coupon values, since clean prices did not change.
 
 (a) exponential splines
-reference date : April 20th, 2020
-number of iterations : 6896
+reference date : December 10th, 2021
+number of iterations : 1871
 
 (b) simple polynomial
-reference date : April 20th, 2020
-number of iterations : 270
+reference date : December 10th, 2021
+number of iterations : 271
 
 (c) Nelson-Siegel
-reference date : April 20th, 2020
-number of iterations : 1075
+reference date : December 10th, 2021
+number of iterations : 1010
 
 (d) cubic B-splines
-reference date : April 20th, 2020
-number of iterations : 716
+reference date : December 10th, 2021
+number of iterations : 725
 
 (e) Svensson
-reference date : April 20th, 2020
-number of iterations : 3581
+reference date : December 10th, 2021
+number of iterations : 3380
 
 (f) Nelson-Siegel spreaded
-reference date : April 20th, 2020
-number of iterations : 1751
+reference date : December 10th, 2021
+number of iterations : 1561
 
  tenor | coupon | bstrap |    (a) |    (b) |    (c) |    (d) |    (e) |    (f)
- 1.997 |  2.250 |  2.250 |  2.246 |  2.260 |  2.295 |  2.008 |  2.255 |  2.295
- 3.994 |  2.500 |  2.500 |  2.501 |  2.504 |  2.508 |  2.655 |  2.483 |  2.508
- 6.000 |  2.750 |  2.750 |  2.754 |  2.750 |  2.735 |  2.917 |  2.760 |  2.735
- 7.994 |  3.000 |  3.000 |  3.002 |  2.995 |  2.971 |  2.998 |  3.014 |  2.971
- 9.994 |  3.250 |  3.250 |  3.251 |  3.242 |  3.219 |  3.149 |  3.255 |  3.219
-11.997 |  3.500 |  3.500 |  3.499 |  3.492 |  3.476 |  3.444 |  3.495 |  3.476
-13.994 |  3.750 |  3.750 |  3.748 |  3.742 |  3.738 |  3.775 |  3.738 |  3.738
-15.994 |  4.000 |  4.000 |  3.997 |  3.996 |  4.005 |  4.049 |  3.987 |  4.005
-17.997 |  4.250 |  4.250 |  4.248 |  4.251 |  4.271 |  4.262 |  4.243 |  4.271
-19.994 |  4.500 |  4.500 |  4.499 |  4.505 |  4.533 |  4.476 |  4.503 |  4.533
-21.994 |  4.750 |  4.750 |  4.751 |  4.759 |  4.786 |  4.732 |  4.763 |  4.786
-23.997 |  5.000 |  5.000 |  5.003 |  5.011 |  5.025 |  5.007 |  5.017 |  5.025
-25.994 |  5.250 |  5.250 |  5.252 |  5.254 |  5.245 |  5.266 |  5.258 |  5.245
-28.000 |  5.500 |  5.500 |  5.498 |  5.487 |  5.442 |  5.492 |  5.478 |  5.442
+ 2.003 |  2.250 |  2.250 |  2.251 |  2.260 |  2.294 |  2.013 |  2.254 |  2.294
+ 4.000 |  2.500 |  2.500 |  2.499 |  2.505 |  2.508 |  2.659 |  2.483 |  2.508
+ 6.000 |  2.750 |  2.750 |  2.749 |  2.749 |  2.734 |  2.918 |  2.760 |  2.734
+ 8.000 |  3.000 |  3.000 |  3.000 |  2.995 |  2.971 |  2.998 |  3.014 |  2.971
+10.000 |  3.250 |  3.250 |  3.250 |  3.242 |  3.219 |  3.149 |  3.256 |  3.219
+12.006 |  3.500 |  3.500 |  3.501 |  3.492 |  3.476 |  3.445 |  3.495 |  3.476
+14.000 |  3.750 |  3.750 |  3.750 |  3.742 |  3.738 |  3.776 |  3.738 |  3.738
+16.000 |  4.000 |  4.000 |  4.000 |  3.995 |  4.005 |  4.049 |  3.987 |  4.005
+18.006 |  4.250 |  4.250 |  4.250 |  4.251 |  4.272 |  4.262 |  4.244 |  4.272
+20.000 |  4.500 |  4.500 |  4.499 |  4.505 |  4.533 |  4.475 |  4.503 |  4.533
+22.000 |  4.750 |  4.750 |  4.750 |  4.759 |  4.786 |  4.731 |  4.763 |  4.786
+24.003 |  5.000 |  5.000 |  5.000 |  5.010 |  5.025 |  5.007 |  5.017 |  5.025
+26.000 |  5.250 |  5.250 |  5.250 |  5.254 |  5.244 |  5.266 |  5.258 |  5.244
+28.000 |  5.500 |  5.500 |  5.500 |  5.487 |  5.441 |  5.492 |  5.477 |  5.441
 
 
 
@@ -511,22 +511,22 @@ the yield curve. Because bond quotes change, the new
 par rates should be recalculated automatically.
 
  tenor | coupon | bstrap |    (a) |    (b) |    (c) |    (d) |    (e) |    (f)
- 1.997 |  2.250 |  2.300 |  2.298 |  2.311 |  2.345 |  2.055 |  2.305 |  2.345
- 3.994 |  2.500 |  2.550 |  2.551 |  2.555 |  2.558 |  2.706 |  2.533 |  2.558
- 6.000 |  2.750 |  2.800 |  2.803 |  2.799 |  2.784 |  2.968 |  2.810 |  2.784
- 7.994 |  3.000 |  3.050 |  3.051 |  3.044 |  3.021 |  3.048 |  3.064 |  3.021
- 9.994 |  3.250 |  3.299 |  3.299 |  3.291 |  3.268 |  3.197 |  3.305 |  3.268
-11.997 |  3.500 |  3.549 |  3.548 |  3.540 |  3.525 |  3.492 |  3.544 |  3.525
-13.994 |  3.750 |  3.798 |  3.796 |  3.790 |  3.787 |  3.824 |  3.786 |  3.787
-15.994 |  4.000 |  4.048 |  4.045 |  4.043 |  4.053 |  4.097 |  4.035 |  4.053
-17.997 |  4.250 |  4.298 |  4.296 |  4.298 |  4.319 |  4.310 |  4.291 |  4.319
-19.994 |  4.500 |  4.547 |  4.547 |  4.553 |  4.580 |  4.523 |  4.550 |  4.580
-21.994 |  4.750 |  4.797 |  4.798 |  4.807 |  4.833 |  4.778 |  4.810 |  4.833
-23.997 |  5.000 |  5.046 |  5.049 |  5.057 |  5.072 |  5.053 |  5.063 |  5.072
-25.994 |  5.250 |  5.296 |  5.297 |  5.300 |  5.290 |  5.311 |  5.303 |  5.290
-28.000 |  5.500 |  5.545 |  5.542 |  5.532 |  5.486 |  5.537 |  5.523 |  5.486
+ 2.003 |  2.250 |  2.299 |  2.299 |  2.311 |  2.344 |  2.060 |  2.303 |  2.344
+ 4.000 |  2.500 |  2.550 |  2.549 |  2.554 |  2.557 |  2.710 |  2.533 |  2.557
+ 6.000 |  2.750 |  2.800 |  2.799 |  2.798 |  2.783 |  2.970 |  2.810 |  2.783
+ 8.000 |  3.000 |  3.050 |  3.049 |  3.043 |  3.020 |  3.047 |  3.064 |  3.020
+10.000 |  3.250 |  3.299 |  3.299 |  3.290 |  3.267 |  3.197 |  3.305 |  3.267
+12.006 |  3.500 |  3.547 |  3.549 |  3.539 |  3.524 |  3.492 |  3.543 |  3.524
+14.000 |  3.750 |  3.798 |  3.798 |  3.790 |  3.786 |  3.824 |  3.785 |  3.786
+16.000 |  4.000 |  4.048 |  4.047 |  4.043 |  4.052 |  4.097 |  4.034 |  4.052
+18.006 |  4.250 |  4.296 |  4.297 |  4.298 |  4.319 |  4.309 |  4.290 |  4.319
+20.000 |  4.500 |  4.547 |  4.546 |  4.552 |  4.580 |  4.522 |  4.549 |  4.580
+22.000 |  4.750 |  4.797 |  4.795 |  4.806 |  4.832 |  4.777 |  4.809 |  4.832
+24.003 |  5.000 |  5.044 |  5.046 |  5.056 |  5.070 |  5.052 |  5.063 |  5.070
+26.000 |  5.250 |  5.296 |  5.295 |  5.299 |  5.289 |  5.311 |  5.303 |  5.289
+28.000 |  5.500 |  5.545 |  5.545 |  5.531 |  5.485 |  5.537 |  5.522 |  5.485
 
-Run completed in 8 m 44 s
+Run completed in 14 s
 ```
 
 ### FRA
@@ -681,28 +681,17 @@ the exercise dates of the swaption and its maturity date
 
 The resulting basket looks as follows:
 
-Expiry              Maturity            Nominal             Rate          Pay/Re
-c     Market ivol
-================================================================================
-==================
-April 30th, 2015    May 6th, 2024       1.000000            0.025307      Receiv
-er    0.200000
-May 3rd, 2016       May 6th, 2024       1.000000            0.025300      Receiv
-er    0.200000
-May 3rd, 2017       May 6th, 2024       1.000000            0.025303      Receiv
-er    0.200000
-May 3rd, 2018       May 6th, 2024       1.000000            0.025306      Receiv
-er    0.200000
-May 2nd, 2019       May 6th, 2024       1.000000            0.025311      Receiv
-er    0.200000
-April 30th, 2020    May 6th, 2024       1.000000            0.025300      Receiv
-er    0.200000
-May 3rd, 2021       May 6th, 2024       1.000000            0.025306      Receiv
-er    0.200000
-May 3rd, 2022       May 6th, 2024       1.000000            0.025318      Receiv
-er    0.200000
-May 3rd, 2023       May 6th, 2024       1.000000            0.025353      Receiv
-er    0.200000
+Expiry              Maturity            Nominal             Rate          Pay/Rec     Market ivol
+==================================================================================================
+April 30th, 2015    May 6th, 2024       1.000000            0.025307      Receiver    0.200000
+May 3rd, 2016       May 6th, 2024       1.000000            0.025300      Receiver    0.200000
+May 3rd, 2017       May 6th, 2024       1.000000            0.025303      Receiver    0.200000
+May 3rd, 2018       May 6th, 2024       1.000000            0.025306      Receiver    0.200000
+May 2nd, 2019       May 6th, 2024       1.000000            0.025311      Receiver    0.200000
+April 30th, 2020    May 6th, 2024       1.000000            0.025300      Receiver    0.200000
+May 3rd, 2021       May 6th, 2024       1.000000            0.025306      Receiver    0.200000
+May 3rd, 2022       May 6th, 2024       1.000000            0.025318      Receiver    0.200000
+May 3rd, 2023       May 6th, 2024       1.000000            0.025353      Receiver    0.200000
 
 (this step took 0.0s)
 
@@ -710,36 +699,25 @@ Let's calibrate our model to this basket. We use a specialized
 calibration method calibrating the sigma function one by one to
 the calibrating vanilla swaptions. The result of this is as follows:
 
-Expiry              Model sigma   Model price         market price        Model
-ivol    Market ivol
-================================================================================
-====================
-April 30th, 2015    0.005178      0.016111            0.016111            0.1999
-99      0.200000
-May 3rd, 2016       0.005156      0.020062            0.020062            0.2000
-00      0.200000
-May 3rd, 2017       0.005149      0.021229            0.021229            0.2000
-00      0.200000
-May 3rd, 2018       0.005129      0.020738            0.020738            0.2000
-00      0.200000
-May 2nd, 2019       0.005132      0.019096            0.019096            0.2000
-00      0.200000
-April 30th, 2020    0.005074      0.016537            0.016537            0.2000
-00      0.200000
-May 3rd, 2021       0.005091      0.013253            0.013253            0.2000
-00      0.200000
-May 3rd, 2022       0.005097      0.009342            0.009342            0.2000
-00      0.200000
-May 3rd, 2023       0.005001      0.004910            0.004910            0.2000
-00      0.200000
+Expiry              Model sigma   Model price         market price        Model ivol    Market ivol
+====================================================================================================
+April 30th, 2015    0.005178      0.016111            0.016111            0.199999      0.200000
+May 3rd, 2016       0.005156      0.020062            0.020062            0.200000      0.200000
+May 3rd, 2017       0.005149      0.021229            0.021229            0.200000      0.200000
+May 3rd, 2018       0.005129      0.020738            0.020738            0.200000      0.200000
+May 2nd, 2019       0.005132      0.019096            0.019096            0.200000      0.200000
+April 30th, 2020    0.005074      0.016537            0.016537            0.200000      0.200000
+May 3rd, 2021       0.005091      0.013253            0.013253            0.200000      0.200000
+May 3rd, 2022       0.005097      0.009342            0.009342            0.200000      0.200000
+May 3rd, 2023       0.005001      0.004910            0.004910            0.200000      0.200000
 
-(this step took 75.4s)
+(this step took 1.1s)
 
 Finally we price our bermudan swaption in the calibrated model:
 
 Bermudan swaption NPV (ATM calibrated GSR) = 0.003808
 
-(this step took 19.4s)
+(this step took 0.2s)
 
 There is another mode to generate a calibration basket called
 MaturityStrikeByDeltaGamma. This means that the maturity,
@@ -749,30 +727,19 @@ derivative with respect to the model's state variable) of
 the exotics underlying match with the calibrating swaption's
 underlying. Let's try this in our case.
 
-Expiry              Maturity            Nominal             Rate          Pay/Re
-c     Market ivol
-================================================================================
-==================
-April 30th, 2015    May 6th, 2024       1.000010            0.040000      Payer
-      0.200000
-May 3rd, 2016       May 6th, 2024       0.999995            0.040000      Payer
-      0.200000
-May 3rd, 2017       May 6th, 2024       1.000002            0.040000      Payer
-      0.200000
-May 3rd, 2018       May 7th, 2024       0.999935            0.040000      Payer
-      0.200000
-May 2nd, 2019       May 6th, 2024       0.999917            0.040000      Payer
-      0.200000
-April 30th, 2020    May 6th, 2024       1.000000            0.040000      Payer
-      0.200000
-May 3rd, 2021       May 6th, 2024       1.000001            0.040000      Payer
-      0.200000
-May 3rd, 2022       May 6th, 2024       0.999995            0.040000      Payer
-      0.200000
-May 3rd, 2023       May 6th, 2024       0.999996            0.040000      Payer
-      0.200000
+Expiry              Maturity            Nominal             Rate          Pay/Rec     Market ivol
+==================================================================================================
+April 30th, 2015    May 6th, 2024       1.000016            0.040000      Payer       0.200000
+May 3rd, 2016       May 6th, 2024       1.000000            0.040000      Payer       0.200000
+May 3rd, 2017       May 6th, 2024       1.000002            0.040000      Payer       0.200000
+May 3rd, 2018       May 7th, 2024       0.999948            0.040000      Payer       0.200000
+May 2nd, 2019       May 6th, 2024       0.999916            0.040000      Payer       0.200000
+April 30th, 2020    May 6th, 2024       0.999992            0.040000      Payer       0.200000
+May 3rd, 2021       May 6th, 2024       0.999997            0.040000      Payer       0.200000
+May 3rd, 2022       May 6th, 2024       1.000003            0.040000      Payer       0.200000
+May 3rd, 2023       May 6th, 2024       1.000002            0.040000      Payer       0.200000
 
-(this step took 10.1s)
+(this step took 0.2s)
 
 The calibrated nominal is close to the exotics nominal.
 The expiries and maturity dates of the vanillas are the same
@@ -782,65 +749,43 @@ is now equal to the exotics strike.
 Let's see how this affects the exotics npv. The
 recalibrated model is:
 
-Expiry              Model sigma   Model price         market price        Model
-ivol    Market ivol
-================================================================================
-====================
-April 30th, 2015    0.006508      0.000191            0.000191            0.2000
-00      0.200000
-May 3rd, 2016       0.006502      0.001412            0.001412            0.2000
-00      0.200000
-May 3rd, 2017       0.006480      0.002905            0.002905            0.2000
-00      0.200000
-May 3rd, 2018       0.006464      0.004091            0.004091            0.2000
-00      0.200000
-May 2nd, 2019       0.006422      0.004766            0.004766            0.2000
-00      0.200000
-April 30th, 2020    0.006445      0.004869            0.004869            0.2000
-00      0.200000
-May 3rd, 2021       0.006433      0.004433            0.004433            0.2000
-00      0.200000
-May 3rd, 2022       0.006332      0.003454            0.003454            0.2000
-00      0.200000
-May 3rd, 2023       0.006295      0.001973            0.001973            0.2000
-00      0.200000
+Expiry              Model sigma   Model price         market price        Model ivol    Market ivol
+====================================================================================================
+April 30th, 2015    0.006508      0.000191            0.000191            0.200000      0.200000
+May 3rd, 2016       0.006502      0.001412            0.001412            0.200000      0.200000
+May 3rd, 2017       0.006480      0.002905            0.002905            0.200000      0.200000
+May 3rd, 2018       0.006464      0.004091            0.004091            0.200000      0.200000
+May 2nd, 2019       0.006422      0.004766            0.004766            0.200000      0.200000
+April 30th, 2020    0.006445      0.004869            0.004869            0.200000      0.200000
+May 3rd, 2021       0.006433      0.004433            0.004433            0.200000      0.200000
+May 3rd, 2022       0.006332      0.003454            0.003454            0.200000      0.200000
+May 3rd, 2023       0.006295      0.001973            0.001973            0.200000      0.200000
 
-(this step took 72.7s)
+(this step took 1.1s)
 
 And the bermudan's price becomes:
 
 Bermudan swaption NPV (deal strike calibrated GSR) = 0.007627
 
-(this step took 16.8s)
+(this step took 0.3s)
 
 We can do more complicated things, let's e.g. modify the
 nominal schedule to be linear amortizing and see what
 the effect on the generated calibration basket is:
 
-Expiry              Maturity            Nominal             Rate          Pay/Re
-c     Market ivol
-================================================================================
-==================
-April 30th, 2015    August 5th, 2021    0.719229            0.039997      Payer
-      0.200000
-May 3rd, 2016       December 6th, 2021  0.641951            0.040003      Payer
-      0.200000
-May 3rd, 2017       May 5th, 2022       0.564391            0.040005      Payer
-      0.200000
-May 3rd, 2018       September 7th, 2022 0.486528            0.040004      Payer
-      0.200000
-May 2nd, 2019       January 6th, 2023   0.409771            0.040008      Payer
-      0.200000
-April 30th, 2020    May 5th, 2023       0.334095            0.039994      Payer
-      0.200000
-May 3rd, 2021       September 5th, 2023 0.255749            0.039995      Payer
-      0.200000
-May 3rd, 2022       January 5th, 2024   0.177039            0.040031      Payer
-      0.200000
-May 3rd, 2023       May 6th, 2024       0.100000            0.040000      Payer
-      0.200000
+Expiry              Maturity            Nominal             Rate          Pay/Rec     Market ivol
+==================================================================================================
+April 30th, 2015    August 5th, 2021    0.719224            0.039997      Payer       0.200000
+May 3rd, 2016       December 6th, 2021  0.641976            0.040003      Payer       0.200000
+May 3rd, 2017       May 5th, 2022       0.564398            0.040005      Payer       0.200000
+May 3rd, 2018       September 7th, 2022 0.486535            0.040004      Payer       0.200000
+May 2nd, 2019       January 6th, 2023   0.409769            0.040008      Payer       0.200000
+April 30th, 2020    May 5th, 2023       0.334095            0.039994      Payer       0.200000
+May 3rd, 2021       September 5th, 2023 0.255760            0.039995      Payer       0.200000
+May 3rd, 2022       January 5th, 2024   0.177038            0.040031      Payer       0.200000
+May 3rd, 2023       May 6th, 2024       0.100001            0.040000      Payer       0.200000
 
-(this step took 13.4s)
+(this step took 0.2s)
 
 The notional is weighted over the underlying exercised
 into and the maturity is adjusted downwards. The rate
@@ -855,30 +800,19 @@ paying the notional in case of exercise.
 
 The calibration basket looks like this:
 
-Expiry              Maturity            Nominal             Rate          Pay/Re
-c     Market ivol
-================================================================================
-==================
-April 30th, 2015    April 5th, 2024     0.984114            0.039952      Payer
-      0.200000
-May 3rd, 2016       April 5th, 2024     0.985541            0.039952      Payer
-      0.200000
-May 3rd, 2017       May 6th, 2024       0.987057            0.039952      Payer
-      0.200000
-May 3rd, 2018       May 7th, 2024       0.988446            0.039952      Payer
-      0.200000
-May 2nd, 2019       May 6th, 2024       0.990029            0.039952      Payer
-      0.200000
-April 30th, 2020    May 6th, 2024       0.991636            0.039951      Payer
-      0.200000
-May 3rd, 2021       May 6th, 2024       0.993124            0.039951      Payer
-      0.200000
-May 3rd, 2022       May 6th, 2024       0.994196            0.039952      Payer
-      0.200000
-May 3rd, 2023       May 6th, 2024       0.996664            0.039949      Payer
-      0.200000
+Expiry              Maturity            Nominal             Rate          Pay/Rec     Market ivol
+==================================================================================================
+April 30th, 2015    April 5th, 2024     0.984098            0.039952      Payer       0.200000
+May 3rd, 2016       April 5th, 2024     0.985543            0.039952      Payer       0.200000
+May 3rd, 2017       May 6th, 2024       0.987059            0.039952      Payer       0.200000
+May 3rd, 2018       May 7th, 2024       0.988461            0.039952      Payer       0.200000
+May 2nd, 2019       May 6th, 2024       0.990032            0.039952      Payer       0.200000
+April 30th, 2020    May 6th, 2024       0.991642            0.039951      Payer       0.200000
+May 3rd, 2021       May 6th, 2024       0.993098            0.039951      Payer       0.200000
+May 3rd, 2022       May 6th, 2024       0.994219            0.039952      Payer       0.200000
+May 3rd, 2023       May 6th, 2024       0.996639            0.039950      Payer       0.200000
 
-(this step took 10.3s)
+(this step took 0.2s)
 
 Note that nominals are not exactly 1.0 here. This is
 because we do our bond discounting on 6m level while
@@ -889,37 +823,26 @@ The npv of the call right is (after recalibrating the model)
 
 Bond's bermudan call right npv = 0.115409
 
-(this step took 66.0s)
+(this step took 1.1s)
 
 Up to now, no credit spread is included in the pricing.
 We can do so by specifying an oas in the pricing engine.
 Let's set the spread level to 100bp and regenerate
 the calibration basket.
 
-Expiry              Maturity            Nominal             Rate          Pay/Re
-c     Market ivol
-================================================================================
-==================
-April 30th, 2015    February 5th, 2024  0.961299            0.029608      Payer
-      0.200000
-May 3rd, 2016       March 5th, 2024     0.965343            0.029605      Payer
-      0.200000
-May 3rd, 2017       April 5th, 2024     0.969516            0.029608      Payer
-      0.200000
-May 3rd, 2018       April 8th, 2024     0.973622            0.029610      Payer
-      0.200000
-May 2nd, 2019       April 8th, 2024     0.978116            0.029608      Payer
-      0.200000
-April 30th, 2020    May 6th, 2024       0.982678            0.029612      Payer
-      0.200000
-May 3rd, 2021       May 6th, 2024       0.987283            0.029609      Payer
-      0.200000
-May 3rd, 2022       May 6th, 2024       0.991382            0.029603      Payer
-      0.200000
-May 3rd, 2023       May 6th, 2024       0.996618            0.029586      Payer
-      0.200000
+Expiry              Maturity            Nominal             Rate          Pay/Rec     Market ivol
+==================================================================================================
+April 30th, 2015    February 5th, 2024  0.961281            0.029608      Payer       0.200000
+May 3rd, 2016       March 5th, 2024     0.965325            0.029605      Payer       0.200000
+May 3rd, 2017       April 5th, 2024     0.969536            0.029608      Payer       0.200000
+May 3rd, 2018       April 8th, 2024     0.973640            0.029610      Payer       0.200000
+May 2nd, 2019       April 8th, 2024     0.978106            0.029608      Payer       0.200000
+April 30th, 2020    May 6th, 2024       0.982683            0.029612      Payer       0.200000
+May 3rd, 2021       May 6th, 2024       0.987289            0.029609      Payer       0.200000
+May 3rd, 2022       May 6th, 2024       0.991374            0.029603      Payer       0.200000
+May 3rd, 2023       May 6th, 2024       0.996570            0.029586      Payer       0.200000
 
-(this step took 13.5s)
+(this step took 0.2s)
 
 The adjusted basket takes the credit spread into account.
 This is consistent to a hedge where you would have a
@@ -929,7 +852,7 @@ The npv becomes:
 
 Bond's bermudan call right npv (oas = 100bp) = 0.044980
 
-(this step took 78.4s)
+(this step took 1.2s)
 
 The next instrument we look at is a CMS 10Y vs Euribor
 6M swaption. The maturity is again 10 years and the option
@@ -941,64 +864,42 @@ Underlying CMS Swap NPV = 0.004447
        CMS     Leg  NPV = -0.231736
        Euribor Leg  NPV = 0.236183
 
-(this step took 0.2s)
+(this step took 0.0s)
 
 We generate a naive calibration basket and calibrate
 the GSR model to it:
 
-Expiry              Maturity            Nominal             Rate          Pay/Re
-c     Market ivol
-================================================================================
-==================
-April 30th, 2015    May 6th, 2024       1.000000            0.025307      Receiv
-er    0.200000
-May 3rd, 2016       May 6th, 2024       1.000000            0.025300      Receiv
-er    0.200000
-May 3rd, 2017       May 6th, 2024       1.000000            0.025303      Receiv
-er    0.200000
-May 3rd, 2018       May 6th, 2024       1.000000            0.025306      Receiv
-er    0.200000
-May 2nd, 2019       May 6th, 2024       1.000000            0.025311      Receiv
-er    0.200000
-April 30th, 2020    May 6th, 2024       1.000000            0.025300      Receiv
-er    0.200000
-May 3rd, 2021       May 6th, 2024       1.000000            0.025306      Receiv
-er    0.200000
-May 3rd, 2022       May 6th, 2024       1.000000            0.025318      Receiv
-er    0.200000
-May 3rd, 2023       May 6th, 2024       1.000000            0.025353      Receiv
-er    0.200000
+Expiry              Maturity            Nominal             Rate          Pay/Rec     Market ivol
+==================================================================================================
+April 30th, 2015    May 6th, 2024       1.000000            0.025307      Receiver    0.200000
+May 3rd, 2016       May 6th, 2024       1.000000            0.025300      Receiver    0.200000
+May 3rd, 2017       May 6th, 2024       1.000000            0.025303      Receiver    0.200000
+May 3rd, 2018       May 6th, 2024       1.000000            0.025306      Receiver    0.200000
+May 2nd, 2019       May 6th, 2024       1.000000            0.025311      Receiver    0.200000
+April 30th, 2020    May 6th, 2024       1.000000            0.025300      Receiver    0.200000
+May 3rd, 2021       May 6th, 2024       1.000000            0.025306      Receiver    0.200000
+May 3rd, 2022       May 6th, 2024       1.000000            0.025318      Receiver    0.200000
+May 3rd, 2023       May 6th, 2024       1.000000            0.025353      Receiver    0.200000
 
-Expiry              Model sigma   Model price         market price        Model
-ivol    Market ivol
-================================================================================
-====================
-April 30th, 2015    0.005178      0.016111            0.016111            0.2000
-00      0.200000
-May 3rd, 2016       0.005156      0.020062            0.020062            0.2000
-00      0.200000
-May 3rd, 2017       0.005149      0.021229            0.021229            0.2000
-00      0.200000
-May 3rd, 2018       0.005129      0.020738            0.020738            0.2000
-00      0.200000
-May 2nd, 2019       0.005132      0.019096            0.019096            0.2000
-00      0.200000
-April 30th, 2020    0.005074      0.016537            0.016537            0.2000
-00      0.200000
-May 3rd, 2021       0.005091      0.013253            0.013253            0.2000
-00      0.200000
-May 3rd, 2022       0.005097      0.009342            0.009342            0.2000
-00      0.200000
-May 3rd, 2023       0.005001      0.004910            0.004910            0.2000
-00      0.200000
+Expiry              Model sigma   Model price         market price        Model ivol    Market ivol
+====================================================================================================
+April 30th, 2015    0.005178      0.016111            0.016111            0.200000      0.200000
+May 3rd, 2016       0.005156      0.020062            0.020062            0.200000      0.200000
+May 3rd, 2017       0.005149      0.021229            0.021229            0.200000      0.200000
+May 3rd, 2018       0.005129      0.020738            0.020738            0.200000      0.200000
+May 2nd, 2019       0.005132      0.019096            0.019096            0.200000      0.200000
+April 30th, 2020    0.005074      0.016537            0.016537            0.200000      0.200000
+May 3rd, 2021       0.005091      0.013253            0.013253            0.200000      0.200000
+May 3rd, 2022       0.005097      0.009342            0.009342            0.200000      0.200000
+May 3rd, 2023       0.005001      0.004910            0.004910            0.200000      0.200000
 
-(this step took 58.3s)
+(this step took 0.9s)
 
 The npv of the bermudan swaption is
 
 Float swaption NPV (GSR) = 0.004291
 
-(this step took 58.6s)
+(this step took 1.0s)
 
 In this case it is also interesting to look at the
 underlying swap npv in the GSR model.
@@ -1020,7 +921,7 @@ The option npv is the markov model is:
 
 Float swaption NPV (Markov) = 0.003549
 
-(this step took 15.7s)
+(this step took 0.4s)
 
 This is not too far from the GSR price.
 
@@ -1047,31 +948,20 @@ This is a computationally demanding task, so
 depending on your machine, this may take a
 while now...
 
-Expiry              Model sigma   Model price         market price        Model
-ivol    Market ivol
-================================================================================
-====================
-April 30th, 2015    0.010000      0.016111            0.016111            0.1999
-96      0.200000
-May 3rd, 2016       0.012276      0.020062            0.020062            0.2000
-02      0.200000
-May 3rd, 2017       0.010535      0.021229            0.021229            0.2000
-00      0.200000
-May 3rd, 2018       0.010414      0.020738            0.020738            0.2000
-00      0.200000
-May 2nd, 2019       0.010360      0.019096            0.019096            0.1999
-99      0.200000
-April 30th, 2020    0.010340      0.016537            0.016537            0.2000
-01      0.200000
-May 3rd, 2021       0.010365      0.013253            0.013253            0.1999
-99      0.200000
-May 3rd, 2022       0.010382      0.009342            0.009342            0.2000
-01      0.200000
-May 3rd, 2023       0.010392      0.004910            0.004910            0.2000
-00      0.200000
+Expiry              Model sigma   Model price         market price        Model ivol    Market ivol
+====================================================================================================
+April 30th, 2015    0.010000      0.016111            0.016111            0.199996      0.200000
+May 3rd, 2016       0.012276      0.020062            0.020062            0.200002      0.200000
+May 3rd, 2017       0.010535      0.021229            0.021229            0.200000      0.200000
+May 3rd, 2018       0.010414      0.020738            0.020738            0.199999      0.200000
+May 2nd, 2019       0.010360      0.019096            0.019096            0.199999      0.200000
+April 30th, 2020    0.010340      0.016537            0.016537            0.200000      0.200000
+May 3rd, 2021       0.010365      0.013253            0.013253            0.199999      0.200000
+May 3rd, 2022       0.010382      0.009342            0.009342            0.200001      0.200000
+May 3rd, 2023       0.010392      0.004910            0.004910            0.200000      0.200000
                     0.009959
 
-(this step took 751.5s)
+(this step took 29.6s)
 
 Now let's have a look again at the underlying pricing.
 It shouldn't have changed much, because the underlying
@@ -1079,7 +969,7 @@ smile is still matched.
 
 Float swap NPV (Markov) = 0.004331
 
-(this step took 13.8s)
+(this step took 0.4s)
 
 This is close to the previous value as expected.
 
@@ -1096,6 +986,7 @@ by construction.
 That was it. Thank you for running this demo. Bye.
 
 ```
+
 ### Global Optimizer
 ```
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

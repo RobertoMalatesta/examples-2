@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Jin Yang. All Rights Reserved.
+ * Copyright 2019 - 2020 Jin Yang. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,7 +13,7 @@
  * limitations under the License.
  * =============================================================================
  */
-import { Actual365Fixed, Array1D, BermudanExercise, BlackKarasinski, BusinessDayConvention, DateGeneration, DiscountingSwapEngine, EndCriteria, Euribor6M, FdG2SwaptionEngine, FdHullWhiteSwaptionEngine, FlatForward, Frequency, G2, G2SwaptionEngine, Handle, HullWhite, JamshidianSwaptionEngine, LevenbergMarquardt, Period, Schedule, Settings, SimpleQuote, Swaption, SwaptionHelper, TARGET, Thirty360, TimeGrid, TimeUnit, TreeSwaptionEngine, VanillaSwap, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
+import { Actual365Fixed, Array1D, BermudanExercise, BlackKarasinski, BusinessDayConvention, DateExt, DateGeneration, DiscountingSwapEngine, EndCriteria, Euribor6M, FdG2SwaptionEngine, FdHullWhiteSwaptionEngine, FlatForward, Frequency, G2, G2SwaptionEngine, Handle, HullWhite, JamshidianSwaptionEngine, LevenbergMarquardt, Period, Schedule, Settings, SimpleQuote, Swaption, SwaptionHelper, TARGET, Thirty360, TimeGrid, TimeUnit, TreeSwaptionEngine, VanillaSwap, version } from 'https://cdn.jsdelivr.net/npm/@quantlib/ql@latest/ql.mjs';
 
 const numRows = 5;
 const numCols = 5;
@@ -26,23 +26,23 @@ const swaptionVols = [
 
 function calibrateModel(model, helpers) {
     const om = new LevenbergMarquardt();
-    model.calibrate(helpers, om, new EndCriteria(400, 100, 1.0e-8, 1.0e-8, 1.0e-8));
+    model.calibrate2(helpers, om, new EndCriteria(400, 100, 1.0e-8, 1.0e-8, 1.0e-8));
     for (let i = 0; i < numRows; i++) {
         const j = numCols - i - 1;
         const k = i * numCols + j;
         const npv = helpers[i].modelValue();
         const implied = helpers[i].impliedVolatility(npv, 1e-4, 1000, 0.05, 0.50);
         const diff = implied - swaptionVols[k];
-        print(`${i + 1} "x" ${swapLenghts[j]} : model " ${implied}` +
-            `, market ${swaptionVols[k]} ${diff}`);
+        print(`${i + 1}x${swapLenghts[j]} : model ${(implied*100).toFixed(5).toString().padStart(8, ' ')} %` +
+            `, market ${(swaptionVols[k]*100).toFixed(5).toString().padStart(8, ' ')} % (${(diff*100).toFixed(5).toString().padStart(8, ' ')} %)`);
     }
 }
 
-describe(`bermudan swaption example ${version}`, () => { 
-    
-    const todaysDate = new Date('15-February-2002');
+describe(`bermudan swaption example ${version}`, () => {
+
+    const todaysDate = DateExt.UTC('15,February,2002');
     const calendar = new TARGET();
-    const settlementDate = new Date('19-February-2002');
+    const settlementDate = DateExt.UTC('19,February,2002');
     Settings.evaluationDate.set(todaysDate);
     const flatRate = new SimpleQuote(0.04875825);
     const rhTermStructure = new Handle(new FlatForward().ffInit1(settlementDate, new Handle(flatRate), new Actual365Fixed()));
@@ -82,7 +82,7 @@ describe(`bermudan swaption example ${version}`, () => {
         swaptions.push(new SwaptionHelper().shInit1(swaptionMaturities[i], new Period().init1(swapLenghts[j], TimeUnit.Years), new Handle(vol), indexSixMonths, indexSixMonths.tenor(), indexSixMonths.dayCounter(), indexSixMonths.dayCounter(), rhTermStructure));
         Array1D.back(swaptions).addTimesTo(times);
     }
-    const grid = new TimeGrid().init2(times, 0, 30);
+    const grid = new TimeGrid().init3(times, 0, times.length, 30);
     const modelG2 = new G2(rhTermStructure);
     const modelHW = new HullWhite(rhTermStructure);
     const modelHW2 = new HullWhite(rhTermStructure);
@@ -93,35 +93,34 @@ describe(`bermudan swaption example ${version}`, () => {
     }
     calibrateModel(modelG2, swaptions);
     print('calibrated to:');
-    print(`a     = ${modelG2.params()[0]}`);
-    print(`sigma = ${modelG2.params()[1]}`);
-    print(`b     = ${modelG2.params()[2]}`);
-    print(`eta   = ${modelG2.params()[3]}`);
-    print(`rho   = ${modelG2.params()[4]}`);
+    print(`a     = ${modelG2.params()[0].toFixed(5).toString().padStart(8, ' ')}, sigma = ${modelG2.params()[1].toFixed(5).toString().padStart(8, ' ')}`);
+    print(`b     = ${modelG2.params()[2].toFixed(5).toString().padStart(8, ' ')}, eta   = ${modelG2.params()[3].toFixed(5).toString().padStart(8, ' ')}`);
+    print(`rho   = ${modelG2.params()[4].toFixed(5).toString().padStart(8, ' ')}`);
+    print('  ');
     print('Hull-White (analytic formulae) calibration');
     for (i = 0; i < swaptions.length; i++) {
         swaptions[i].setPricingEngine(new JamshidianSwaptionEngine(modelHW));
     }
     calibrateModel(modelHW, swaptions);
     print('calibrated to:');
-    print(`a = ${modelHW.params()[0]}`);
-    print(`sigma = ${modelHW.params()[1]}`);
+    print(`a     = ${modelHW.params()[0].toFixed(5).toString().padStart(8, ' ')}, sigma = ${modelHW.params()[1].toFixed(5).toString().padStart(8, ' ')}`);
+    print('  ');
     print('Hull-White (numerical) calibration');
     for (i = 0; i < swaptions.length; i++) {
         swaptions[i].setPricingEngine(new TreeSwaptionEngine().tseInit2(modelHW2, grid));
     }
     calibrateModel(modelHW2, swaptions);
     print('calibrated to:');
-    print(`a = ${modelHW2.params()[0]}`);
-    print(`sigma = ${modelHW2.params()[1]}`);
+    print(`a     = ${modelHW2.params()[0].toFixed(5).toString().padStart(8, ' ')}, sigma = ${modelHW2.params()[1].toFixed(5).toString().padStart(8, ' ')}`);
+    print('  ');
     print('Black-Karasinski (numerical) calibration');
     for (i = 0; i < swaptions.length; i++) {
         swaptions[i].setPricingEngine(new TreeSwaptionEngine().tseInit2(modelBK, grid));
     }
     calibrateModel(modelBK, swaptions);
     print('calibrated to:')
-    print(`a = ${modelBK.params()[0]}`);
-    print(`sigma = ${modelBK.params()[1]}`);
+    print(`a     = ${modelBK.params()[0].toFixed(5).toString().padStart(8, ' ')}, sigma = ${modelBK.params()[1].toFixed(5).toString().padStart(8, ' ')}`);
+    print('  ');
     print(`Payer bermudan swaption struck at ${fixedATMRate} (ATM)`);
     const bermudanDates = [];
     const leg = swap.fixedLeg();
@@ -129,53 +128,53 @@ describe(`bermudan swaption example ${version}`, () => {
         const coupon = leg[i];
         bermudanDates.push(coupon.accrualStartDate());
     }
-    const bermudanExercise = new BermudanExercise(bermudanDates);
+    const bermudanExercise = new BermudanExercise().beInit(bermudanDates);
     const bermudanSwaption = new Swaption(atmSwap, bermudanExercise);
     bermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelG2, 50));
-    print(`G2 (tree):      ${bermudanSwaption.NPV()}`);
+    print(`G2 (tree):      ${bermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     bermudanSwaption.setPricingEngine(new FdG2SwaptionEngine(modelG2));
-    print(`G2 (fdm) :      ${bermudanSwaption.NPV()}`);
+    print(`G2 (fdm) :      ${bermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     bermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW, 50));
-    print(`HW (tree):      ${bermudanSwaption.NPV()}`);
+    print(`HW (tree):      ${bermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     bermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW));
-    print(`HW (fdm) :      ${bermudanSwaption.NPV()}`);
+    print(`HW (fdm) :      ${bermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     bermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW2, 50));
-    print(`HW (num, tree): ${bermudanSwaption.NPV()}`);
+    print(`HW (num, tree): ${bermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     bermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW2));
-    print(`HW (num, fdm) : ${bermudanSwaption.NPV()}`);
+    print(`HW (num, fdm) : ${bermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     bermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelBK, 50));
-    print(`BK:             ${bermudanSwaption.NPV()}`);
+    print(`BK:             ${bermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     print(`Payer bermudan swaption struck at ${fixedOTMRate} (OTM)`);
     const otmBermudanSwaption = new Swaption(otmSwap, bermudanExercise);
     otmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelG2, 300));
-    print(`G2 (tree):       ${otmBermudanSwaption.NPV()}`);
+    print(`G2 (tree):       ${otmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     otmBermudanSwaption.setPricingEngine(new FdG2SwaptionEngine(modelG2));
-    print(`G2 (fdm) :       ${otmBermudanSwaption.NPV()}`);
+    print(`G2 (fdm) :       ${otmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     otmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW, 50));
-    print(`HW (tree):       ${otmBermudanSwaption.NPV()}`);
+    print(`HW (tree):       ${otmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     otmBermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW));
-    print(`HW (fdm) :       ${otmBermudanSwaption.NPV()}`);
+    print(`HW (fdm) :       ${otmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     otmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW2, 50));
-    print(`HW (num, tree):  ${otmBermudanSwaption.NPV()}`);
+    print(`HW (num, tree):  ${otmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     otmBermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW2));
-    print(`HW (num, fdm):   ${otmBermudanSwaption.NPV()}`);
+    print(`HW (num, fdm):   ${otmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     otmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelBK, 50));
-    print(`BK:              ${otmBermudanSwaption.NPV()}`);
+    print(`BK:              ${otmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     print(`Payer bermudan swaption struck at ${fixedITMRate} (ITM)`);
     const itmBermudanSwaption = new Swaption(itmSwap, bermudanExercise);
     itmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelG2, 50));
-    print(`G2 (tree):       ${itmBermudanSwaption.NPV()}`);
+    print(`G2 (tree):       ${itmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     itmBermudanSwaption.setPricingEngine(new FdG2SwaptionEngine(modelG2));
-    print(`G2 (fdm) :       ${itmBermudanSwaption.NPV()}`);
+    print(`G2 (fdm) :       ${itmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     itmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW, 50));
-    print(`HW (tree):       ${itmBermudanSwaption.NPV()}`);
+    print(`HW (tree):       ${itmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     itmBermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW));
-    print(`HW (fdm) :       ${itmBermudanSwaption.NPV()}`);
+    print(`HW (fdm) :       ${itmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     itmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelHW2, 50));
-    print(`HW (num, tree):  ${itmBermudanSwaption.NPV()}`);
+    print(`HW (num, tree):  ${itmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     itmBermudanSwaption.setPricingEngine(new FdHullWhiteSwaptionEngine(modelHW2));
-    print(`HW (num, fdm) :  ${itmBermudanSwaption.NPV()}`);
+    print(`HW (num, fdm) :  ${itmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
     itmBermudanSwaption.setPricingEngine(new TreeSwaptionEngine().tseInit1(modelBK, 50));
-    print(`BK:              ${itmBermudanSwaption.NPV()}`);
+    print(`BK:              ${itmBermudanSwaption.NPV().toFixed(3).toString().padStart(6, ' ')}`);
 
 });
